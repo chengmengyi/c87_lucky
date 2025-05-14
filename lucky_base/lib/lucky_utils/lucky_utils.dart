@@ -1,0 +1,38 @@
+import 'dart:convert';
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+extension String2Color on String{
+  Color toColor(){
+    var hexStr = replaceAll("#", "");
+    return Color(int.parse(hexStr, radix: 16)).withAlpha(255);
+  }
+}
+
+extension StringBase64 on String{
+  String base64()=>const Utf8Decoder().convert(base64Decode(this));
+}
+
+extension RandomList on List{
+  random()=> this[Random().nextInt(length)];
+}
+
+String getTodayTime(){
+  var dateTime = DateTime.now();
+  return "${dateTime.year}-${dateTime.month}-${dateTime.day}";
+}
+
+double getPro(currentPro,totalPro){
+  try{
+    var d = currentPro/totalPro;
+    if(d>=1.0){
+      return 1.0;
+    }else if(d<0.0){
+      return 0.0;
+    }else{
+      return d;
+    }
+  }catch(e){
+    return 0.0;
+  }
+}

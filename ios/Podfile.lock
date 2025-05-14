@@ -1,0 +1,101 @@
+PODS:
+  - applovin_max (4.4.0):
+    - AppLovinSDK (= 13.2.0)
+    - Flutter
+  - AppLovinMediationBidMachineAdapter (3.2.1.0.0):
+    - AppLovinSDK (>= 13.0.0)
+    - BidMachine (= 3.2.1)
+  - AppLovinSDK (13.2.0)
+  - BidMachine (3.2.1):
+    - BidMachine/Static (= 3.2.1)
+  - BidMachine/Static (3.2.1):
+    - StackModules/Static (~> 3.2.0)
+  - Flutter (1.0.0)
+  - flutter_ad_ios_plugins (0.0.1):
+    - Flutter
+  - lucky_base (0.0.1):
+    - Flutter
+  - lucky_p1 (0.0.1):
+    - Flutter
+  - OMSDK_Appodeal (1.5.4)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - sqflite (0.0.3):
+    - Flutter
+    - FlutterMacOS
+  - StackModules/Core-Static (3.2.0)
+  - StackModules/ProductPresentation-Static (3.2.0):
+    - StackModules/Core-Static
+  - StackModules/Rendering-Static (3.2.0):
+    - OMSDK_Appodeal (~> 1.5.4)
+    - StackModules/Core-Static
+    - StackModules/ProductPresentation-Static
+  - StackModules/Static (3.2.0):
+    - StackModules/Core-Static
+    - StackModules/ProductPresentation-Static
+    - StackModules/Rendering-Static
+  - url_launcher_ios (0.0.1):
+    - Flutter
+  - webview_flutter_wkwebview (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - applovin_max (from `.symlinks/plugins/applovin_max/ios`)
+  - AppLovinMediationBidMachineAdapter
+  - Flutter (from `Flutter`)
+  - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
+  - lucky_base (from `.symlinks/plugins/lucky_base/ios`)
+  - lucky_p1 (from `.symlinks/plugins/lucky_p1/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - sqflite (from `.symlinks/plugins/sqflite/darwin`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
+
+SPEC REPOS:
+  trunk:
+    - AppLovinMediationBidMachineAdapter
+    - AppLovinSDK
+    - BidMachine
+    - OMSDK_Appodeal
+    - StackModules
+
+EXTERNAL SOURCES:
+  applovin_max:
+    :path: ".symlinks/plugins/applovin_max/ios"
+  Flutter:
+    :path: Flutter
+  flutter_ad_ios_plugins:
+    :path: ".symlinks/plugins/flutter_ad_ios_plugins/ios"
+  lucky_base:
+    :path: ".symlinks/plugins/lucky_base/ios"
+  lucky_p1:
+    :path: ".symlinks/plugins/lucky_p1/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/darwin"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
+
+SPEC CHECKSUMS:
+  applovin_max: 43e10d753b44bd23c33c8ec04a8cf670d48f1a68
+  AppLovinMediationBidMachineAdapter: c460a322e8d71bf957264935871b98401f1b08d1
+  AppLovinSDK: 1eb88a82b4feea9f3696ce9cc1e3343c4997ee12
+  BidMachine: 48529ae35f438e48708882e08426b907434eeee9
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_ad_ios_plugins: 10eb400082d9056412466335199cf3cebf093d5d
+  lucky_base: a4571f31bd563eadc42f01a4a7555dba798a64fa
+  lucky_p1: 18cb7e8f16615a070cd29a10a96b032a102a3b43
+  OMSDK_Appodeal: 9ed58fc8cabfbe31637cd267b35c1f86d227c49d
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
+  StackModules: f31936ffa3a8f146b141624729e11488ceeef85d
+  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
+  webview_flutter_wkwebview: 2a23822e9039b7b1bc52e5add778e5d89ad488d1
+
+PODFILE CHECKSUM: b1911b11615517af03dcd4bb9a2edfbc86ad290d
+
+COCOAPODS: 1.15.2
