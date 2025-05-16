@@ -46,6 +46,9 @@ class UserInfoUtils{
     if(playType==PlayType.card8.name){
       routersName=LuckyP1RoutersName.play8;
     }
+    if(playType==PlayType.card9.name){
+      routersName=LuckyP1RoutersName.play9;
+    }
     if(routersName.isEmpty){
       return;
     }

@@ -89,14 +89,17 @@ class PlayUtils{
     }
     await Future.delayed(const Duration(milliseconds: 800));
     var allReward=0;
-    if(playType==PlayType.card7){
-      var indexWhere = yourList.indexWhere((element) => element.win);
-      if(indexWhere>=0){
-        var yourBean = yourList[indexWhere];
-        allReward=yourBean.reward*yourBean.play7Num;
-      }
-    }else{
-      allReward = yourList.where((element) => element.win).fold(0, (previousValue, element) => previousValue+element.reward);
+    switch(playType){
+      case PlayType.card7:
+        var indexWhere = yourList.indexWhere((element) => element.win);
+        if(indexWhere>=0){
+          var yourBean = yourList[indexWhere];
+          allReward=yourBean.reward*yourBean.play7Num;
+        }
+        break;
+      default:
+        allReward = yourList.where((element) => element.win).fold(0, (previousValue, element) => previousValue+element.reward);
+        break;
     }
     UserInfoUtils.instance.updateUserCoins(allReward);
     var showLevelDialog = UserInfoUtils.instance.updateUserPlayNum();

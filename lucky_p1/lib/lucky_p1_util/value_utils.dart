@@ -19,10 +19,18 @@ class ValueUtils{
 
   bool getPlay1Point()=>Random().nextInt(100)<(_valueBean?.cardNumber?.point??60);
   bool getPlay2Point()=>Random().nextInt(100)<(_valueBean?.cardFruit?.point??60);
+  bool getPlay4Point9()=>Random().nextInt(100)<(_valueBean?.card8rich?.point8bet??20);
+  bool getPlay4PointOther()=>Random().nextInt(100)<(_valueBean?.card8rich?.point3match??80);
+  bool getPlay8Point7()=>Random().nextInt(100)<(_valueBean?.card77hot?.point7??40);
+  bool getPlay8Point77()=>Random().nextInt(100)<(_valueBean?.card77hot?.point77??20);
+  bool getPlay9Point()=>Random().nextInt(100)<(_valueBean?.cardEmoji?.pointFace??40);
 
   int getPlay1Reward()=>_randomReward(_valueBean?.cardNumber?.prize??[5000,8000]);
   int getPlay2Reward()=>_randomReward(_valueBean?.cardFruit?.prize??[2000,5000]);
+  int getPlay4Reward()=>_randomReward(_valueBean?.card8rich?.prize??[5000,10000]);
   int getPlay7Reward()=>_randomReward(_valueBean?.cardTiger?.prize??[2000,3000]);
+  int getPlay8Reward()=>_randomReward(_valueBean?.card77hot?.prize??[6000,8000]);
+  int getPlay9Reward()=>_randomReward(_valueBean?.cardEmoji?.prize??[10000,20000]);
 
   int getPlay7Num(){
     var cardTiger = _valueBean?.cardTiger;

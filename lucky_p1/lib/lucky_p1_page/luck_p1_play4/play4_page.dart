@@ -33,7 +33,7 @@ class Play4Page extends LuckyBasePage<Play4Controller>{
 
   _playWidget()=>SizedBox(
     width: double.infinity,
-    height: 389.h,
+    height: 381.h,
     key: luckyController.playUtils.scratchGlobalKey,
     child: Scratcher(
       key: luckyController.playUtils.key,
@@ -57,11 +57,11 @@ class Play4Page extends LuckyBasePage<Play4Controller>{
           LuckyImageWidget(name: "play43",width: double.infinity,height: double.infinity,),
           GetBuilder<Play4Controller>(
             id: "your_widget",
-            builder: (_)=>Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-
-              ],
+            builder: (_)=>Container(
+              width: double.infinity,
+              height: 208.h,
+              margin: EdgeInsets.only(left: 49.w,right: 49.w,bottom: 62.h),
+              // child: ,
             ),
           )
         ],

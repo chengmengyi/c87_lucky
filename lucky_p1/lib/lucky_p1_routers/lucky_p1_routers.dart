@@ -6,6 +6,7 @@ import 'package:lucky_p1/lucky_p1_page/luck_p1_play4/play4_page.dart';
 import 'package:lucky_p1/lucky_p1_page/luck_p1_play5/play5_page.dart';
 import 'package:lucky_p1/lucky_p1_page/luck_p1_play7/play7_page.dart';
 import 'package:lucky_p1/lucky_p1_page/luck_p1_play8/play8_page.dart';
+import 'package:lucky_p1/lucky_p1_page/luck_p1_play9/play9_page.dart';
 import 'package:lucky_p1/lucky_p1_page/lucky_p1_home/home_page.dart';
 
 class LuckyP1RoutersName{
@@ -17,6 +18,7 @@ class LuckyP1RoutersName{
   static const play5="/luckyP1/play5";
   static const play7="/luckyP1/play7";
   static const play8="/luckyP1/play8";
+  static const play9="/luckyP1/play9";
 }
 
 class LuckyP1RouterList{
@@ -59,6 +61,11 @@ class LuckyP1RouterList{
     GetPage(
       name: LuckyP1RoutersName.play8,
       page: ()=> Play8Page(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: LuckyP1RoutersName.play9,
+      page: ()=> Play9Page(),
       transition: Transition.fadeIn,
     ),
   ];

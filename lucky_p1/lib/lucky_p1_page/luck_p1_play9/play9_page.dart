@@ -3,17 +3,17 @@ import 'package:lucky_base/lucky_base/lucky_base_page.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
-import 'package:lucky_p1/lucky_p1_page/luck_p1_play8/play8_controller.dart';
+import 'package:lucky_p1/lucky_p1_page/luck_p1_play9/play9_controller.dart';
 import 'package:lucky_p1/lucky_p1_widget/bottom_widget.dart';
 import 'package:lucky_p1/lucky_p1_widget/play_top_widget.dart';
 import 'package:lucky_p1/lucky_p1_widget/up_level_widget.dart';
 
-class Play8Page extends LuckyBasePage<Play8Controller>{
+class Play9Page extends LuckyBasePage<Play9Controller>{
   @override
-  String bgName() => "play81";
+  String bgName() => "play91";
 
   @override
-  Play8Controller initController() => Play8Controller();
+  Play9Controller initController() => Play9Controller();
 
   @override
   Widget child() =>Column(
@@ -41,7 +41,7 @@ class Play8Page extends LuckyBasePage<Play8Controller>{
       brushSize: 40,
       threshold: 40,
       color: Colors.transparent,
-      image: Image.asset('lucky_images/play82.webp',fit: BoxFit.fill,),
+      image: Image.asset('lucky_images/play92.webp',fit: BoxFit.fill,),
       onThreshold: (){
         luckyController.onThreshold();
       },
@@ -54,18 +54,18 @@ class Play8Page extends LuckyBasePage<Play8Controller>{
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          LuckyImageWidget(name: "play83",width: double.infinity,height: double.infinity,),
-          GetBuilder<Play8Controller>(
+          LuckyImageWidget(name: "play93",width: double.infinity,height: double.infinity,),
+          GetBuilder<Play9Controller>(
             id: "your_widget",
             builder: (_)=>Container(
               width: double.infinity,
-              height: 223.h,
-              margin: EdgeInsets.only(left: 38.w,right: 38.w,bottom: 80.h),
+              height: 177.h,
+              margin: EdgeInsets.only(left: 61.w,right: 61.w,bottom: 102.h),
               child: StaggeredGridView.countBuilder(
                 padding: const EdgeInsets.all(0),
                 itemCount: luckyController.playUtils.yourList.length,
                 shrinkWrap: true,
-                crossAxisCount: 4,
+                crossAxisCount: 3,
                 mainAxisSpacing: 0,
                 crossAxisSpacing: 0,
                 physics: const NeverScrollableScrollPhysics(),
@@ -73,26 +73,15 @@ class Play8Page extends LuckyBasePage<Play8Controller>{
                   var yourBean = luckyController.playUtils.yourList[index];
                   var w = Container(
                     width: double.infinity,
-                    height: 74.h,
+                    height: 59.h,
                     alignment: Alignment.center,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        LuckyImageWidget(name: yourBean.content,width: 56.w,height: 44.h,),
-                        LuckyTextWidget(text: "${yourBean.reward}", size: 15.sp, color: "#450A00",fontWeight: FontWeight.bold,)
-                      ],
-                    ),
+                    child: LuckyImageWidget(name: yourBean.content,width: 52.w,height: 52.h,),
                   );
                   return yourBean.win?
                   ScaleTransition(
                     scale: luckyController.playUtils.scaleController,
                     child: w,
-                  ):Container(
-                    width: double.infinity,
-                    height: 74.h,
-                    alignment: Alignment.center,
-                    child: LuckyTextWidget(text: yourBean.content, size: 40.sp, color: "#691000",fontFamily: "one",),
-                  );
+                  ):w;
                 },
                 staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
               ),
