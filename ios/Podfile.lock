@@ -13,6 +13,9 @@ PODS:
   - Flutter (1.0.0)
   - flutter_ad_ios_plugins (0.0.1):
     - Flutter
+  - fluttertoast (0.0.2):
+    - Flutter
+    - Toast
   - lucky_base (0.0.1):
     - Flutter
   - lucky_p1 (0.0.1):
@@ -35,6 +38,7 @@ PODS:
     - StackModules/Core-Static
     - StackModules/ProductPresentation-Static
     - StackModules/Rendering-Static
+  - Toast (4.1.1)
   - url_launcher_ios (0.0.1):
     - Flutter
   - webview_flutter_wkwebview (0.0.1):
@@ -45,6 +49,7 @@ DEPENDENCIES:
   - AppLovinMediationBidMachineAdapter
   - Flutter (from `Flutter`)
   - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - lucky_base (from `.symlinks/plugins/lucky_base/ios`)
   - lucky_p1 (from `.symlinks/plugins/lucky_p1/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -59,6 +64,7 @@ SPEC REPOS:
     - BidMachine
     - OMSDK_Appodeal
     - StackModules
+    - Toast
 
 EXTERNAL SOURCES:
   applovin_max:
@@ -67,6 +73,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_ad_ios_plugins:
     :path: ".symlinks/plugins/flutter_ad_ios_plugins/ios"
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
   lucky_base:
     :path: ".symlinks/plugins/lucky_base/ios"
   lucky_p1:
@@ -87,12 +95,14 @@ SPEC CHECKSUMS:
   BidMachine: 48529ae35f438e48708882e08426b907434eeee9
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_ad_ios_plugins: 10eb400082d9056412466335199cf3cebf093d5d
+  fluttertoast: 16fbe6039d06a763f3533670197d01fc73459037
   lucky_base: a4571f31bd563eadc42f01a4a7555dba798a64fa
   lucky_p1: 18cb7e8f16615a070cd29a10a96b032a102a3b43
   OMSDK_Appodeal: 9ed58fc8cabfbe31637cd267b35c1f86d227c49d
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
   StackModules: f31936ffa3a8f146b141624729e11488ceeef85d
+  Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
   webview_flutter_wkwebview: 2a23822e9039b7b1bc52e5add778e5d89ad488d1
 

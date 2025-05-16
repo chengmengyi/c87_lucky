@@ -81,19 +81,29 @@ class PlayUtils{
   onThreshold({
     required Function() resetCallback,
 })async{
-    _stopAuto=false;
+    _stopAuto=true;
     key.currentState?.reveal();
     var hasWin = _checkHasWin();
     if(hasWin){
       scaleController..reset()..forward();
     }
     await Future.delayed(const Duration(milliseconds: 800));
-    var allReward = yourList.where((element) => element.win).fold(0, (previousValue, element) => previousValue+element.reward);
+    var allReward=0;
+    if(playType==PlayType.card7){
+      var indexWhere = yourList.indexWhere((element) => element.win);
+      if(indexWhere>=0){
+        var yourBean = yourList[indexWhere];
+        allReward=yourBean.reward*yourBean.play7Num;
+      }
+    }else{
+      allReward = yourList.where((element) => element.win).fold(0, (previousValue, element) => previousValue+element.reward);
+    }
+    UserInfoUtils.instance.updateUserCoins(allReward);
     var showLevelDialog = UserInfoUtils.instance.updateUserPlayNum();
     if(showLevelDialog){
       LuckyRouters.instance.showDialog(
         child: UpLevelDialog(
-          allReward: allReward,
+          playType: playType,
           dismiss: (){
             _resetPlay(allReward,resetCallback);
           },
@@ -127,15 +137,36 @@ class PlayUtils{
   }
 
   _resetPlay(int allReward, Function() resetCallback)async{
+    _stopAuto=false;
     key.currentState?.reset();
     canClick=true;
-    _stopAuto=false;
     UserInfoUtils.instance.updateUserCoins(allReward);
     var showTime = await PlayInfoUtils.instance.updatePlayInfo(playType);
     if(showTime){
-      LuckyRouters.instance.back();
+      _toNextUnlockPlay();
     }else{
       resetCallback.call();
+    }
+  }
+
+  _toNextUnlockPlay()async{
+    var nextPlayType = PlayInfoUtils.instance.getNextPlayType(playType);
+    if(null==nextPlayType){
+      LuckyRouters.instance.back();
+      return;
+    }
+    await PlayInfoUtils.instance.unlockPlayType(nextPlayType);
+    var list = await PlayInfoUtils.instance.queryPlayList();
+    var indexWhere = list.indexWhere((element) => element.type==playType.name);
+    if(indexWhere>=0){
+      for(int i = indexWhere+1;i<list.length;i++){
+        if(list[i].unlock==1){
+          UserInfoUtils.instance.openPlayPageByType(list[i].type??"");
+          break;
+        }
+      }
+    }else{
+      LuckyRouters.instance.back();
     }
   }
 

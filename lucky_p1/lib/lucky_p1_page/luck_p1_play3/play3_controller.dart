@@ -6,10 +6,10 @@ import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart';
 import 'package:lucky_p1/lucky_p1_util/play_utils.dart';
 import 'package:lucky_p1/lucky_p1_util/value_utils.dart';
 
-class Play1Controller extends LuckyBaseController with GetTickerProviderStateMixin{
-  PlayUtils playUtils=PlayUtils(PlayType.card1);
+class Play3Controller extends LuckyBaseController with GetTickerProviderStateMixin{
+  PlayUtils playUtils=PlayUtils(PlayType.card3);
   List<int> winList=[];
-  
+
   @override
   void onReady() {
     super.onReady();
@@ -19,17 +19,17 @@ class Play1Controller extends LuckyBaseController with GetTickerProviderStateMix
 
   clickRevealAll(){
     playUtils.startAutoScratch(
-      offsetCallback: (offset){
+        offsetCallback: (offset){
 
-      }
+        }
     );
   }
 
   onThreshold(){
     playUtils.onThreshold(
-      resetCallback: (){
-        _initYourList();
-      }
+        resetCallback: (){
+          _initYourList();
+        }
     );
   }
 

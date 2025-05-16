@@ -4,9 +4,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_p1/lucky_p1_routers/lucky_p1_routers.dart';
 import 'package:scratch_it_lucky/main/main_page.dart';
+import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart' as p1PlayUtils;
 
 void main() {
   _initBase();
+  _initP1();
   runApp(const MyApp());
 }
 
@@ -24,6 +26,10 @@ _initBase()async{
       )
   );
   await GetStorage.init();
+}
+
+_initP1()async{
+  p1PlayUtils.PlayInfoUtils.instance.resetPlayTime();
 }
 
 class MyApp extends StatelessWidget {

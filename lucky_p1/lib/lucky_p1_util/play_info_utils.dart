@@ -50,12 +50,13 @@ class PlayInfoUtils extends LuckyBaseSql{
     playInfoBean.playedNum=(playInfoBean.playedNum??0)+1;
     if((playInfoBean.playedNum??0)>=10){
       playInfoBean.time=DateTime.now().millisecondsSinceEpoch+10*60*60*1000;
-      var nextPlayType = _getNextPlayType(playType);
+      var nextPlayType = getNextPlayType(playType);
       if(null!=nextPlayType){
         unlockPlayType(nextPlayType);
       }
     }
     await sql.update(LuckySqlName.p1PlayTime, playInfoBean.toJson(),where: '"id" = ?',whereArgs: [map["id"]]);
+    LuckyEvent(luckyCode: P1LuckyEventCode.updateHomeList);
     return (playInfoBean.playedNum??0)>=10;
   }
 
@@ -72,7 +73,21 @@ class PlayInfoUtils extends LuckyBaseSql{
     LuckyEvent(luckyCode: P1LuckyEventCode.updateHomeList);
   }
 
-  PlayType? _getNextPlayType(PlayType currentPlayType){
+  resetPlayTime()async{
+    var sql = await initSql();
+    var list = await sql.query(LuckySqlName.p1PlayTime,where: '"time" > 0');
+    if(list.isEmpty){
+      return;
+    }
+    for (var value in list) {
+      var infoBean = PlayInfoBean.fromJson(value);
+      infoBean.playedNum=0;
+      infoBean.time=0;
+      await sql.update(LuckySqlName.p1PlayTime, infoBean.toJson(),where: '"id" = ?',whereArgs: [value["id"]]);
+    }
+  }
+
+  PlayType? getNextPlayType(PlayType currentPlayType){
     switch(currentPlayType){
       case PlayType.card1: return PlayType.card2;
       case PlayType.card2: return PlayType.card3;
