@@ -30,6 +30,7 @@ _initBase()async{
 }
 
 _initP1()async{
+  p1PlayUtils.PlayInfoUtils.instance.initPlayList();
   p1PlayUtils.PlayInfoUtils.instance.resetPlayTime();
   LuckyAdUtils.instance.initAd();
 }

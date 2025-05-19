@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
+import 'package:lucky_p1/lucky_p1_bean/play_info_bean.dart';
 import 'package:lucky_p1/lucky_p1_dialog/unlock_level/unlock_level_controller.dart';
 
 class UnlockLevelDialog extends LuckyBaseDialog<UnlockLevelController>{
-  String icon;
-  UnlockLevelDialog({required this.icon});
+  PlayInfoBean playInfoBean;
+  UnlockLevelDialog({required this.playInfoBean});
 
   @override
   UnlockLevelController initController() => UnlockLevelController();
@@ -26,7 +29,7 @@ class UnlockLevelDialog extends LuckyBaseDialog<UnlockLevelController>{
           Stack(
             alignment: Alignment.topRight,
             children: [
-              LuckyImageWidget(name: icon,width: 250.w,),
+              LuckyImageWidget(name: playInfoBean.type??"",width: 250.w,),
               LuckyImageWidget(name: "home3",width: 33.w,height: 41.h,),
             ],
           ),
@@ -34,6 +37,13 @@ class UnlockLevelDialog extends LuckyBaseDialog<UnlockLevelController>{
           _videoBtnWidget(),
           SizedBox(height: 10.h,),
           _coinsBtnWidget(),
+          SizedBox(height: 10.h,),
+          ClickWidget(
+            onTap: (){
+              LuckyRouters.instance.back();
+            },
+            child: LuckyImageWidget(name: "icon_close",width: 38.w,height: 38.h,),
+          )
         ],
       )
     ],
@@ -41,20 +51,43 @@ class UnlockLevelDialog extends LuckyBaseDialog<UnlockLevelController>{
 
   _videoBtnWidget()=>ClickWidget(
     onTap: (){
-      luckyController.clickVideo(icon);
+      luckyController.clickVideo(playInfoBean);
     },
     child: Stack(
       alignment: Alignment.topRight,
       children: [
         LuckyImageWidget(name: "unlock3",width: 185.w,height: 50.h,),
-        LuckyImageWidget(name: "unlock4",width: 24.w,height: 27.h,)
+        Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            LuckyImageWidget(name: "unlock4",width: 24.w,height: 27.h,),
+            Container(
+              margin: EdgeInsets.only(top: 22.h),
+              padding: EdgeInsets.only(left: 4.w,right: 4.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(31.w),
+                border: Border.all(
+                  width: 1.w,
+                  color: "#84165C".toColor(),
+                ),
+                gradient: LinearGradient(
+                  colors: ["#FF3333".toColor(),"#FB0CFF".toColor()]
+                ),
+              ),
+              child: GetBuilder<UnlockLevelController>(
+                id: "num",
+                builder: (_)=>LuckyTextWidget(text: "${playInfoBean.watchVideoNum??0}/3", size: 10.sp, color: "#FFFFFF",shadowsColor: "#000000",fontWeight: FontWeight.bold,),
+              ),
+            )
+          ],
+        )
       ],
     ),
   );
 
   _coinsBtnWidget()=>ClickWidget(
     onTap: (){
-      luckyController.clickCoins(icon);
+      luckyController.clickCoins(playInfoBean);
     },
     child: Stack(
       alignment: Alignment.centerRight,

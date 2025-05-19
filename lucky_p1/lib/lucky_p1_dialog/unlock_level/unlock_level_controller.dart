@@ -1,29 +1,45 @@
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_ad_utils.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_p1/lucky_p1_bean/play_info_bean.dart';
 import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart';
+import 'package:lucky_p1/lucky_p1_util/storage.dart';
 import 'package:lucky_p1/lucky_p1_util/user_info_utils.dart';
 
 class UnlockLevelController extends LuckyBaseController{
 
-  clickVideo(String icon){
+  clickVideo(PlayInfoBean playInfoBean){
     LuckyAdUtils.instance.showP1Ad(
       closeAd: (){
-        _unlockLevel(icon);
+        _unlockLevel(playInfoBean,UnlockType.video);
       },
     );
   }
 
-  clickCoins(String icon){
+  clickCoins(PlayInfoBean playInfoBean){
     UserInfoUtils.instance.updateUserCoins(-5000);
-    _unlockLevel(icon);
+    _unlockLevel(playInfoBean,UnlockType.coins);
   }
 
-  _unlockLevel(String type)async{
-    var indexWhere = PlayType.values.indexWhere((element) => element.name==type);
+  _unlockLevel(PlayInfoBean playInfoBean,UnlockType unlockType)async{
+    if(p1UserCoins.getData()<5000){
+      showToast("Insufficient gold coins");
+      return;
+    }
+    var indexWhere = PlayType.values.indexWhere((element) => element.name==playInfoBean.type);
     if(indexWhere>=0){
-      await PlayInfoUtils.instance.unlockPlayType(PlayType.values[indexWhere]);
-      LuckyRouters.instance.back();
+      var watchVideoNum = await PlayInfoUtils.instance.unlockPlayType(PlayType.values[indexWhere],unlockType);
+      if(unlockType==UnlockType.video){
+        if(watchVideoNum<3){
+          playInfoBean.watchVideoNum=watchVideoNum;
+          update(["num"]);
+        }else{
+          LuckyRouters.instance.back();
+        }
+      }else{
+        LuckyRouters.instance.back();
+      }
     }
   }
 }

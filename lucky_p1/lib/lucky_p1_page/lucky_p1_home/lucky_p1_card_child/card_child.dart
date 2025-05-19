@@ -5,8 +5,6 @@ import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_p1/lucky_p1_page/lucky_p1_home/lucky_p1_card_child/card_child_controller.dart';
-import 'package:lucky_p1/lucky_p1_widget/coins_widget.dart';
-import 'package:lucky_p1/lucky_p1_widget/star_widget.dart';
 
 class CardChild extends LuckyBaseChild<CardChildController>{
 
@@ -14,30 +12,23 @@ class CardChild extends LuckyBaseChild<CardChildController>{
   CardChildController initController() => CardChildController();
 
   @override
-  Widget child() => Column(
-    children: [
-      _titleWidget(),
-      Expanded(
-        child: SingleChildScrollView(
-          child: GetBuilder<CardChildController>(
-            id: "list",
-            builder: (_)=> luckyController.list.length==9?
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 12.h,),
-                _item1Widget(0),
-                SizedBox(height: 12.h,),
-                _item2Widget(3),
-                SizedBox(height: 12.h,),
-                _item1Widget(6),
-              ],
-            ):
-            Container(),
-          ),
-        ),
-      )
-    ],
+  Widget child() => SingleChildScrollView(
+    child: GetBuilder<CardChildController>(
+      id: "list",
+      builder: (_)=> luckyController.list.length==9?
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 12.h,),
+          _item1Widget(0),
+          SizedBox(height: 12.h,),
+          _item2Widget(3),
+          SizedBox(height: 12.h,),
+          _item1Widget(6),
+        ],
+      ):
+      Container(),
+    ),
   );
 
   _item1Widget(int startIndex) => Row(
@@ -102,23 +93,4 @@ class CardChild extends LuckyBaseChild<CardChildController>{
       ),
     );
   }
-
-  _titleWidget()=>Row(
-    children: [
-      SizedBox(width: 8.w,),
-      StarWidget(),
-      SizedBox(width: 8.w,),
-      ClickWidget(
-        onTap: (){
-          luckyController.test();
-        },
-        child: CoinsWidget(),
-      ),
-      const Spacer(),
-      ClickWidget(
-        child: LuckyImageWidget(name: "icon_set",width: 34.w,height: 34.w,),
-      ),
-      SizedBox(width: 12 .w,),
-    ],
-  );
 }

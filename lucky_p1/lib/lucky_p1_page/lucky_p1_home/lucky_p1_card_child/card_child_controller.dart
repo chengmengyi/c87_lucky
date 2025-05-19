@@ -27,7 +27,7 @@ class CardChildController extends LuckyBaseController{
     if(playInfoBean.unlock!=1){
       LuckyRouters.instance.showDialog(
         child: UnlockLevelDialog(
-          icon: playInfoBean.type??"",
+          playInfoBean: playInfoBean,
         ),
       );
       return;
@@ -44,13 +44,6 @@ class CardChildController extends LuckyBaseController{
     var result = await PlayInfoUtils.instance.queryPlayList();
     list.addAll(result);
     update(["list"]);
-  }
-
-  test()async{
-    if(!kDebugMode){
-      return;
-    }
-    // LuckyRouters.instance.showDialog(child: UnlockLevelDialog());
   }
 
   @override

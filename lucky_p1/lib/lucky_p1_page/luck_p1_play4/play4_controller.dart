@@ -9,7 +9,7 @@ import 'package:lucky_p1/lucky_p1_util/value_utils.dart';
 
 class Play4Controller extends LuckyBaseController with GetTickerProviderStateMixin{
   PlayUtils playUtils=PlayUtils(PlayType.card4);
-  var candidates = ["play44","play45","play46","play47","play48","play49","play410"];
+  var candidates = ["play44","play45","play46","play47","play48","play49","play410","play412"];
 
 
   @override

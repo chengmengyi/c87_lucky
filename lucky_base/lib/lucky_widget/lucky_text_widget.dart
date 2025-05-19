@@ -11,6 +11,8 @@ class LuckyTextWidget extends StatelessWidget{
   TextAlign? textAlign;
   TextOverflow? overflow;
   String? fontFamily;
+  TextDecoration? decoration;
+  Color? decorationColor;
 
   LuckyTextWidget({
     required this.text,
@@ -21,6 +23,8 @@ class LuckyTextWidget extends StatelessWidget{
     this.textAlign,
     this.overflow,
     this.fontFamily,
+    this.decoration,
+    this.decorationColor,
   });
 
   @override
@@ -42,6 +46,8 @@ class LuckyTextWidget extends StatelessWidget{
         ],
         fontFamily: fontFamily,
         overflow: overflow,
+        decoration: decoration,
+        decorationColor: decorationColor,
       ),
       textAlign: textAlign,
     );

@@ -163,32 +163,33 @@ class PlayUtils{
     UserInfoUtils.instance.updateUserCoins(allReward);
     var showTime = await PlayInfoUtils.instance.updatePlayInfo(playType);
     if(showTime){
-      _toNextUnlockPlay();
+      LuckyRouters.instance.back();
+      // _toNextUnlockPlay();
     }else{
       resetCallback.call();
     }
   }
 
-  _toNextUnlockPlay()async{
-    var nextPlayType = PlayInfoUtils.instance.getNextPlayType(playType);
-    if(null==nextPlayType){
-      LuckyRouters.instance.back();
-      return;
-    }
-    await PlayInfoUtils.instance.unlockPlayType(nextPlayType);
-    var list = await PlayInfoUtils.instance.queryPlayList();
-    var indexWhere = list.indexWhere((element) => element.type==playType.name);
-    if(indexWhere>=0){
-      for(int i = indexWhere+1;i<list.length;i++){
-        if(list[i].unlock==1){
-          UserInfoUtils.instance.openPlayPageByType(list[i].type??"");
-          break;
-        }
-      }
-    }else{
-      LuckyRouters.instance.back();
-    }
-  }
+  // _toNextUnlockPlay()async{
+  //   var nextPlayType = PlayInfoUtils.instance.getNextPlayType(playType);
+  //   if(null==nextPlayType){
+  //     LuckyRouters.instance.back();
+  //     return;
+  //   }
+  //   await PlayInfoUtils.instance.unlockPlayType(nextPlayType);
+  //   var list = await PlayInfoUtils.instance.queryPlayList();
+  //   var indexWhere = list.indexWhere((element) => element.type==playType.name);
+  //   if(indexWhere>=0){
+  //     for(int i = indexWhere+1;i<list.length;i++){
+  //       if(list[i].unlock==1){
+  //         UserInfoUtils.instance.openPlayPageByType(list[i].type??"");
+  //         break;
+  //       }
+  //     }
+  //   }else{
+  //     LuckyRouters.instance.back();
+  //   }
+  // }
 
   bool _checkHasWin()=> yourList.indexWhere((element) => element.win)>=0;
 

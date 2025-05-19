@@ -4,6 +4,9 @@ import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_p1/lucky_p1_page/lucky_p1_home/home_controller.dart';
+import 'package:lucky_p1/lucky_p1_widget/coins_widget.dart';
+import 'package:lucky_p1/lucky_p1_widget/set_widget.dart';
+import 'package:lucky_p1/lucky_p1_widget/star_widget.dart';
 
 class HomePage extends LuckyBasePage<HomeController>{
   @override
@@ -17,6 +20,7 @@ class HomePage extends LuckyBasePage<HomeController>{
     id: "page",
     builder: (_)=>Column(
       children: [
+        _titleWidget(),
         Expanded(
           child: IndexedStack(
             index: luckyController.tabIndex,
@@ -26,6 +30,23 @@ class HomePage extends LuckyBasePage<HomeController>{
         _bottomWidget(),
       ],
     ),
+  );
+
+  _titleWidget()=>Row(
+    children: [
+      SizedBox(width: 8.w,),
+      StarWidget(),
+      SizedBox(width: 8.w,),
+      ClickWidget(
+        onTap: (){
+          luckyController.test();
+        },
+        child: CoinsWidget(),
+      ),
+      const Spacer(),
+      SetWidget(),
+      SizedBox(width: 12 .w,),
+    ],
   );
 
   _bottomWidget()=>Stack(
