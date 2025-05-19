@@ -3,6 +3,7 @@ import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_p1/lucky_p1_bean/your_bean.dart';
 import 'package:lucky_p1/lucky_p1_dialog/big_win/big_win_dialog.dart';
+import 'package:lucky_p1/lucky_p1_dialog/no_win/no_win_dialog.dart';
 import 'package:lucky_p1/lucky_p1_dialog/normal_win/normal_win_dialog.dart';
 import 'package:lucky_p1/lucky_p1_dialog/up_level/up_level_dialog.dart';
 import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart';
@@ -97,6 +98,16 @@ class PlayUtils{
           allReward=yourBean.reward*yourBean.play7Num;
         }
         break;
+      case PlayType.card4:
+      case PlayType.card6:
+        for (var value in yourList) {
+          if(value.is9){
+            allReward+=value.reward*9;
+          }else if(value.win){
+            allReward+=value.reward;
+          }
+        }
+        break;
       default:
         allReward = yourList.where((element) => element.win).fold(0, (previousValue, element) => previousValue+element.reward);
         break;
@@ -115,7 +126,13 @@ class PlayUtils{
       return;
     }
     if(!hasWin){
-      _resetPlay(allReward,resetCallback);
+      LuckyRouters.instance.showDialog(
+        child: NoWinDialog(
+          dismiss: (){
+            _resetPlay(allReward,resetCallback);
+          },
+        ),
+      );
       return;
     }
     if(allReward>=3000){

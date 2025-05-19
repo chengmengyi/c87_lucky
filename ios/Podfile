@@ -31,7 +31,7 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  pod 'AppLovinMediationBidMachineAdapter'
+#   pod 'AppLovinMediationBidMachineAdapter'
 #   pod 'AppLovinMediationBigoAdsAdapter'
 #   pod 'AppLovinMediationChartboostAdapter'
 #   pod 'AppLovinMediationFyberAdapter'

@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
-
+import 'package:lucky_base/lucky_utils/local_config.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p1/lucky_p1_bean/value_bean.dart';
-import 'package:lucky_p1/lucky_p1_util/local_config.dart';
 
 class ValueUtils{
   static final ValueUtils _instance = ValueUtils();
@@ -13,7 +12,7 @@ class ValueUtils{
 
   initValue(){
     try{
-      _valueBean=ValueBean.fromJson(jsonDecode(valueStr.base64()));
+      _valueBean=ValueBean.fromJson(jsonDecode(localValueStrA.base64()));
     }catch(e){}
   }
 

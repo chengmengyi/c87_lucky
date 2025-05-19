@@ -4,19 +4,18 @@ import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/lucky_gra_text_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
-import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p1/lucky_p1_bean/your_bean.dart';
-import 'package:lucky_p1/lucky_p1_page/luck_p1_play4/play4_controller.dart';
+import 'package:lucky_p1/lucky_p1_page/luck_p1_play6/play6_controller.dart';
 import 'package:lucky_p1/lucky_p1_widget/bottom_widget.dart';
 import 'package:lucky_p1/lucky_p1_widget/play_top_widget.dart';
 import 'package:lucky_p1/lucky_p1_widget/up_level_widget.dart';
 
-class Play4Page extends LuckyBasePage<Play4Controller>{
+class Play6Page extends LuckyBasePage<Play6Controller>{
   @override
-  String bgName() => "play41";
+  String bgName() => "play61";
 
   @override
-  Play4Controller initController() => Play4Controller();
+  Play6Controller initController() => Play6Controller();
 
   @override
   Widget child() =>Column(
@@ -44,7 +43,7 @@ class Play4Page extends LuckyBasePage<Play4Controller>{
       brushSize: 40,
       threshold: 40,
       color: Colors.transparent,
-      image: Image.asset('lucky_images/play42.webp',fit: BoxFit.fill,),
+      image: Image.asset('lucky_images/play62.webp',fit: BoxFit.fill,),
       onThreshold: (){
         luckyController.onThreshold();
       },
@@ -57,8 +56,8 @@ class Play4Page extends LuckyBasePage<Play4Controller>{
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          LuckyImageWidget(name: "play43",width: double.infinity,height: double.infinity,),
-          GetBuilder<Play4Controller>(
+          LuckyImageWidget(name: "play63",width: double.infinity,height: double.infinity,),
+          GetBuilder<Play6Controller>(
             id: "your_widget",
             builder: (_)=>Container(
               width: double.infinity,
@@ -116,7 +115,7 @@ class Play4Page extends LuckyBasePage<Play4Controller>{
     var w = Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        LuckyImageWidget(name: yourBean.is9?"play411":yourBean.content,width: 46.w,height: 46.h,),
+        LuckyImageWidget(name: yourBean.is9?"play611":yourBean.content,width: 46.w,height: 46.h,),
         Visibility(
           visible: yourBean.win,
           child: LuckyGraTextWidget(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:lucky_base/lucky_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_p1/lucky_p1_routers/lucky_p1_routers.dart';
 import 'package:scratch_it_lucky/main/main_page.dart';
@@ -30,6 +31,7 @@ _initBase()async{
 
 _initP1()async{
   p1PlayUtils.PlayInfoUtils.instance.resetPlayTime();
+  LuckyAdUtils.instance.initAd();
 }
 
 class MyApp extends StatelessWidget {

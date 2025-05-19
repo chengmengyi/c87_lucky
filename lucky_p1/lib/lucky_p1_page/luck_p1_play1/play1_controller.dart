@@ -44,7 +44,8 @@ class Play1Controller extends LuckyBaseController with GetTickerProviderStateMix
     final List<YourBean> yourList = [];
     final List<int> remainingNumbersInA = List.from(winList);
     for (int i = 0; i < 12; i++) {
-      final bool condition = ValueUtils.instance.getPlay1Point();
+      // final bool condition = ValueUtils.instance.getPlay1Point();
+      final bool condition = false;
       if (condition && remainingNumbersInA.isNotEmpty) {
         final int numberFromA = remainingNumbersInA.first;
         yourList.add(YourBean(content: "$numberFromA", reward: ValueUtils.instance.getPlay1Reward(), win: true));

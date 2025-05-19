@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
@@ -7,9 +6,9 @@ import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart';
 import 'package:lucky_p1/lucky_p1_util/play_utils.dart';
 import 'package:lucky_p1/lucky_p1_util/value_utils.dart';
 
-class Play4Controller extends LuckyBaseController with GetTickerProviderStateMixin{
-  PlayUtils playUtils=PlayUtils(PlayType.card4);
-  var candidates = ["play44","play45","play46","play47","play48","play49","play410"];
+class Play6Controller extends LuckyBaseController with GetTickerProviderStateMixin{
+  PlayUtils playUtils=PlayUtils(PlayType.card6);
+  var candidates = ["play64","play65","play66","play67","play68","play69","play610"];
 
 
   @override
@@ -38,7 +37,7 @@ class Play4Controller extends LuckyBaseController with GetTickerProviderStateMix
   _initYourList(){
     List<YourBean> list = [];
     if(ValueUtils.instance.getPlay4Point9()){
-      list.add(YourBean(content: "play411", reward: ValueUtils.instance.getPlay4Reward(), win: true,is9: true));
+      list.add(YourBean(content: "play611", reward: ValueUtils.instance.getPlay4Reward(), win: true,is9: true));
     }
     var newCandidatesList = List<String>.from(candidates);
     if(ValueUtils.instance.getPlay4PointOther()){
