@@ -5,6 +5,7 @@ import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_p1/lucky_p1_bean/play_info_bean.dart';
 import 'package:lucky_p1/lucky_p1_dialog/normal_win/normal_win_dialog.dart';
+import 'package:lucky_p1/lucky_p1_dialog/unlock_level/unlock_level_dialog.dart';
 import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart';
 import 'package:lucky_p1/lucky_p1_util/user_info_utils.dart';
 
@@ -38,15 +39,10 @@ class RewardChildController extends LuckyBaseController{
 
   clickPlay(PlayInfoBean bean){
     if(bean.unlock!=1){
-      LuckyAdUtils.instance.showP1Ad(
-        closeAd: ()async{
-          var indexWhere = PlayType.values.indexWhere((element) => element.name==bean.type);
-          if(indexWhere>=0){
-            var watchVideoNum = await PlayInfoUtils.instance.unlockPlayType(PlayType.values[indexWhere],UnlockType.video);
-            bean.watchVideoNum=watchVideoNum;
-            update(["list"]);
-          }
-        },
+      LuckyRouters.instance.showDialog(
+        child: UnlockLevelDialog(
+          playInfoBean: bean,
+        ),
       );
     }else{
       UserInfoUtils.instance.openPlayPageByType(bean.type??"");

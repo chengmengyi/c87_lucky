@@ -115,9 +115,10 @@ class PlayUtils{
     }
     LuckyEvent(luckyCode: P1LuckyEventCode.updatePlayBottomReward,intValue: allReward);
 
-    await Future.delayed(const Duration(milliseconds: 800));
-    LuckyEvent(luckyCode: P1LuckyEventCode.flyOut);
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 1000));
+    Future.delayed(const Duration(milliseconds: 1000),(){
+      LuckyEvent(luckyCode: P1LuckyEventCode.flyOut);
+    });
     UserInfoUtils.instance.updateUserCoins(allReward);
     var showLevelDialog = UserInfoUtils.instance.updateUserPlayNum();
     if(showLevelDialog){
