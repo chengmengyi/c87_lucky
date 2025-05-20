@@ -3,8 +3,12 @@ PODS:
     - AppLovinSDK (= 13.2.0)
     - Flutter
   - AppLovinSDK (13.2.0)
+  - audioplayers_darwin (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - flutter_ad_ios_plugins (0.0.1):
+    - Flutter
+  - flutter_app_lifecycle (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
@@ -27,8 +31,10 @@ PODS:
 
 DEPENDENCIES:
   - applovin_max (from `.symlinks/plugins/applovin_max/ios`)
+  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - Flutter (from `Flutter`)
   - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
+  - flutter_app_lifecycle (from `.symlinks/plugins/flutter_app_lifecycle/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - lucky_base (from `.symlinks/plugins/lucky_base/ios`)
   - lucky_p1 (from `.symlinks/plugins/lucky_p1/ios`)
@@ -45,10 +51,14 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   applovin_max:
     :path: ".symlinks/plugins/applovin_max/ios"
+  audioplayers_darwin:
+    :path: ".symlinks/plugins/audioplayers_darwin/ios"
   Flutter:
     :path: Flutter
   flutter_ad_ios_plugins:
     :path: ".symlinks/plugins/flutter_ad_ios_plugins/ios"
+  flutter_app_lifecycle:
+    :path: ".symlinks/plugins/flutter_app_lifecycle/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   lucky_base:
@@ -67,8 +77,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   applovin_max: 43e10d753b44bd23c33c8ec04a8cf670d48f1a68
   AppLovinSDK: 1eb88a82b4feea9f3696ce9cc1e3343c4997ee12
+  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_ad_ios_plugins: 10eb400082d9056412466335199cf3cebf093d5d
+  flutter_app_lifecycle: 8dcf95e3e3db994b040426a60863db32d200094d
   fluttertoast: 16fbe6039d06a763f3533670197d01fc73459037
   lucky_base: a4571f31bd563eadc42f01a4a7555dba798a64fa
   lucky_p1: 18cb7e8f16615a070cd29a10a96b032a102a3b43

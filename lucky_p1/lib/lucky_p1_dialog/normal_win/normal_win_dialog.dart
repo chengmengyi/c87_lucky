@@ -4,6 +4,7 @@ import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/lucky_gra_text_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
+import 'package:lucky_base/lucky_widget/lucky_lottie_widget.dart';
 import 'package:lucky_p1/lucky_p1_dialog/normal_win/normal_win_controller.dart';
 
 class NormalWinDialog extends LuckyBaseDialog<NormalWinController>{
@@ -46,7 +47,7 @@ class NormalWinDialog extends LuckyBaseDialog<NormalWinController>{
         ),
         Align(
           alignment: Alignment.topCenter,
-          child: LuckyImageWidget(name: "win2",width: 214.w,height: 56.h,),
+          child: LuckyLottieWidget(name: "you_win",width: 214.w,height: 56.h,),
         )
       ],
     ),

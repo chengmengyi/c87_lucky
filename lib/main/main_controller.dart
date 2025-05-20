@@ -12,7 +12,7 @@ class MainController extends LuckyBaseController with GetSingleTickerProviderSta
     super.onInit();
     animationController=AnimationController(duration: const Duration(seconds: 3),vsync: this)
       ..addListener(() {
-
+        update(["progress","progress_text"]);
       })
       ..addStatusListener((status) {
         if(status==AnimationStatus.completed){

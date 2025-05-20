@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_stateful.dart';
+import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
+import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
@@ -16,6 +19,8 @@ class BottomWidget extends LuckyBaseStateful{
 }
 
 class BottomWidgetState extends LuckyBaseState<BottomWidget>{
+  var reward=0;
+
   @override
   Widget build(BuildContext context) => SizedBox(
     width: double.infinity,
@@ -25,7 +30,12 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
         LuckyImageWidget(name: "bottom1",width: double.infinity,height: double.infinity,),
         Align(
           alignment: Alignment.centerLeft,
-          child: LuckyImageWidget(name: "bottom2",width: 76.w,height: 89.h,),
+          child: ClickWidget(
+            onTap: (){
+              LuckyRouters.instance.back();
+            },
+            child: LuckyImageWidget(name: "bottom2",width: 76.w,height: 89.h,),
+          ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
@@ -39,7 +49,7 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
         Align(
           alignment: Alignment.topCenter,
           child: LuckyGraTextWidget(
-            text: "20,621,111",
+            text: "$reward",
             size: 23.sp,
             fontWeight: FontWeight.bold,
             colors: ["#FFFFFF".toColor(),"#E8FAFF".toColor(),],
@@ -49,4 +59,18 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
       ],
     ),
   );
+
+  @override
+  bool initLuckyEvent() => true;
+
+  @override
+  receivedLuckyEventMsg(LuckyEvent luckyEvent) {
+    switch(luckyEvent.luckyCode){
+      case P1LuckyEventCode.updatePlayBottomReward:
+        setState(() {
+          reward=luckyEvent.intValue??0;
+        });
+        break;
+    }
+  }
 }

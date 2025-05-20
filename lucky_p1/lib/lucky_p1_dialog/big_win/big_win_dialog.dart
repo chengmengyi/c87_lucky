@@ -3,10 +3,10 @@ import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/lucky_gra_text_widget.dart';
-import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
-import 'package:lucky_p1/lucky_p1_dialog/normal_win/normal_win_controller.dart';
+import 'package:lucky_base/lucky_widget/lucky_lottie_widget.dart';
+import 'package:lucky_p1/lucky_p1_dialog/big_win/big_win_controller.dart';
 
-class BigWinDialog extends LuckyBaseDialog<NormalWinController>{
+class BigWinDialog extends LuckyBaseDialog<BigWinController>{
   int allReward;
   Function() dismiss;
   BigWinDialog({
@@ -15,7 +15,7 @@ class BigWinDialog extends LuckyBaseDialog<NormalWinController>{
 });
 
   @override
-  NormalWinController initController() => NormalWinController();
+  BigWinController initController() => BigWinController();
 
   @override
   initView() {
@@ -23,13 +23,12 @@ class BigWinDialog extends LuckyBaseDialog<NormalWinController>{
   }
 
   @override
-  Widget child() => Container(
+  Widget child() => SizedBox(
     width: double.infinity,
-    height: 174.h,
-    margin: EdgeInsets.only(left: 12.w,right: 12.w),
+    height: 432.h,
     child: Stack(
       children: [
-        LuckyImageWidget(name: "win1",width: double.infinity,height: 174.h,),
+        LuckyLottieWidget(name: "big_win",height: 432.h,fit: BoxFit.fitHeight,),
         Align(
           alignment: Alignment.bottomCenter,
           child: LuckyGraTextWidget(
@@ -42,12 +41,8 @@ class BigWinDialog extends LuckyBaseDialog<NormalWinController>{
             ],
             fontWeight: FontWeight.bold,
             shadowsColor: "#170600",
-          ).marginOnly(bottom: 6.h),
+          ).marginOnly(bottom: 66.h),
         ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: LuckyImageWidget(name: "win2",width: 214.w,height: 56.h,),
-        )
       ],
     ),
   );

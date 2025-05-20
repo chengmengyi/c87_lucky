@@ -1,8 +1,10 @@
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
+import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_p1/lucky_p1_bean/play_info_bean.dart';
+import 'package:lucky_p1/lucky_p1_dialog/normal_win/normal_win_dialog.dart';
 import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart';
 import 'package:lucky_p1/lucky_p1_util/user_info_utils.dart';
 
@@ -18,8 +20,19 @@ class RewardChildController extends LuckyBaseController{
   clickVideo(int reward){
     LuckyAdUtils.instance.showP1Ad(
       closeAd: (){
-        UserInfoUtils.instance.updateUserCoins(reward);
+        _showGetCoinsDialog(reward);
       },
+    );
+  }
+
+  _showGetCoinsDialog(int reward){
+    LuckyRouters.instance.showDialog(
+      child: NormalWinDialog(
+        allReward: reward,
+        dismiss: (){
+          UserInfoUtils.instance.updateUserCoins(reward);
+        },
+      ),
     );
   }
 

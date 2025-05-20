@@ -3,6 +3,7 @@ import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
@@ -60,8 +61,14 @@ class SetDialog extends LuckyBaseDialog<SetController>{
         fontWeight: FontWeight.bold,
       ),
       const Spacer(),
-      ClickWidget(
-        child: LuckyImageWidget(name: "back_off",width: 66.w,height: 30.h,),
+      GetBuilder<SetController>(
+        id: "bg",
+        builder: (_)=>ClickWidget(
+          onTap: (){
+            luckyController.clickBg();
+          },
+          child: LuckyImageWidget(name: bgOpen.getData()?"back_on":"back_off",width: 66.w,height: 30.h,),
+        ),
       )
     ],
   );
@@ -76,8 +83,14 @@ class SetDialog extends LuckyBaseDialog<SetController>{
         fontWeight: FontWeight.bold,
       ),
       const Spacer(),
-      ClickWidget(
-        child: LuckyImageWidget(name: "sound_off",width: 66.w,height: 30.h,),
+      GetBuilder<SetController>(
+        id: "gua",
+        builder: (_)=>ClickWidget(
+          onTap: (){
+            luckyController.clickGua();
+          },
+          child: LuckyImageWidget(name: guaOpen.getData()?"sound_on":"sound_off",width: 66.w,height: 30.h,),
+        ),
       )
     ],
   );
@@ -94,7 +107,7 @@ class SetDialog extends LuckyBaseDialog<SetController>{
       const Spacer(),
       ClickWidget(
         onTap: (){
-
+          luckyController.clickContact();
         },
         child: LuckyImageWidget(name: "set2",width: 83.w,height: 30.h,),
       )
@@ -104,6 +117,9 @@ class SetDialog extends LuckyBaseDialog<SetController>{
   _privacyWidget()=>Align(
     alignment: Alignment.bottomCenter,
     child: ClickWidget(
+      onTap: (){
+        luckyController.clickWeb();
+      },
       child: LuckyTextWidget(
         text: "Privacy policy",
         size: 14.sp,

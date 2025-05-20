@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
+import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_p1/lucky_p1_bean/your_bean.dart';
 import 'package:lucky_p1/lucky_p1_dialog/big_win/big_win_dialog.dart';
@@ -88,7 +90,6 @@ class PlayUtils{
     if(hasWin){
       scaleController..reset()..forward();
     }
-    await Future.delayed(const Duration(milliseconds: 800));
     var allReward=0;
     switch(playType){
       case PlayType.card7:
@@ -112,6 +113,11 @@ class PlayUtils{
         allReward = yourList.where((element) => element.win).fold(0, (previousValue, element) => previousValue+element.reward);
         break;
     }
+    LuckyEvent(luckyCode: P1LuckyEventCode.updatePlayBottomReward,intValue: allReward);
+
+    await Future.delayed(const Duration(milliseconds: 800));
+    LuckyEvent(luckyCode: P1LuckyEventCode.flyOut);
+    await Future.delayed(const Duration(milliseconds: 300));
     UserInfoUtils.instance.updateUserCoins(allReward);
     var showLevelDialog = UserInfoUtils.instance.updateUserPlayNum();
     if(showLevelDialog){
@@ -166,7 +172,10 @@ class PlayUtils{
       LuckyRouters.instance.back();
       // _toNextUnlockPlay();
     }else{
+      LuckyEvent(luckyCode: P1LuckyEventCode.updatePlayBottomReward,intValue: 0);
       resetCallback.call();
+      await Future.delayed(const Duration(milliseconds: 200));
+      LuckyEvent(luckyCode: P1LuckyEventCode.flyIn);
     }
   }
 

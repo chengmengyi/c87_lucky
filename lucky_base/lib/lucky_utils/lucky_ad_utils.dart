@@ -5,6 +5,7 @@ import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
 import 'package:lucky_base/lucky_utils/local_config.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
 
 class LuckyAdUtils{
   static final LuckyAdUtils _instance = LuckyAdUtils();
@@ -35,11 +36,14 @@ class LuckyAdUtils{
     FlutterIosAdHep.instance.showAd(
       adType: AdType.reward, 
       iosAdCallback: IosAdCallback(
-        showSuccess: (ad,info){}, 
+        showSuccess: (ad,info){
+          VoicePlayUtils.instance.pauseBg();
+        },
         showFail: (ad){
           showToast("Advertisement display failed, please try again later");
         }, 
         closeAd: (){
+          VoicePlayUtils.instance.playBg();
           closeAd.call();
         }, 
         onAdRevenuePaidCallback: (ad,info){

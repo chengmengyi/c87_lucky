@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:lucky_base/lucky_utils/app_lifecycle_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_p1/lucky_p1_routers/lucky_p1_routers.dart';
@@ -27,6 +28,7 @@ _initBase()async{
       )
   );
   await GetStorage.init();
+  AppLifecycleUtils.instance.init();
 }
 
 _initP1()async{
