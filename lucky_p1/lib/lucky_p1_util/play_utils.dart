@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
@@ -116,9 +117,8 @@ class PlayUtils{
     LuckyEvent(luckyCode: P1LuckyEventCode.updatePlayBottomReward,intValue: allReward);
 
     await Future.delayed(const Duration(milliseconds: 1000));
-    Future.delayed(const Duration(milliseconds: 1000),(){
-      LuckyEvent(luckyCode: P1LuckyEventCode.flyOut);
-    });
+    LuckyEvent(luckyCode: P1LuckyEventCode.flyOut);
+    await Future.delayed(const Duration(milliseconds: 300));
     UserInfoUtils.instance.updateUserCoins(allReward);
     var showLevelDialog = UserInfoUtils.instance.updateUserPlayNum();
     if(showLevelDialog){

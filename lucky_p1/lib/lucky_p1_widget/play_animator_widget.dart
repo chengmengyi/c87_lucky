@@ -70,8 +70,7 @@ class PlayAnimatorWidgetState extends LuckyBaseState<PlayAnimatorWidget> with Ti
       // _endOffset = Offset(-screenWidth, -200);
       _endOffset = Offset(-screenWidth, 0);
     });
-    _controller.forward();
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    _controller.forward().then((value) {
       setState(() {
         _isVisible = false;
         _controller.reset();

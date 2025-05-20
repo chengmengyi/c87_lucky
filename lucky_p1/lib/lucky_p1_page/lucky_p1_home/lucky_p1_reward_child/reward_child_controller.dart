@@ -3,6 +3,7 @@ import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p1/lucky_p1_bean/play_info_bean.dart';
 import 'package:lucky_p1/lucky_p1_dialog/normal_win/normal_win_dialog.dart';
 import 'package:lucky_p1/lucky_p1_dialog/unlock_level/unlock_level_dialog.dart';
@@ -44,9 +45,13 @@ class RewardChildController extends LuckyBaseController{
           playInfoBean: bean,
         ),
       );
-    }else{
-      UserInfoUtils.instance.openPlayPageByType(bean.type??"");
+      return;
     }
+    if((bean.time??0)>DateTime.now().millisecondsSinceEpoch){
+      showToast("No scratch card, please go to the next level！");
+      return;
+    }
+    UserInfoUtils.instance.openPlayPageByType(bean.type??"");
   }
 
   _initList()async{

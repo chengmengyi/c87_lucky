@@ -170,7 +170,10 @@ class RewardChild extends LuckyBaseChild<RewardChildController>{
               child: Stack(
                 children: [
                   LuckyImageWidget(name: "reward6",width: 99.w,height: 38.h,).marginOnly(top: 9.h),
-                  LuckyImageWidget(name: "unlock4",width: 19.w,height: 21.h,),
+                  Visibility(
+                    visible: bean.unlock!=1,
+                    child: LuckyImageWidget(name: "unlock4",width: 19.w,height: 21.h,),
+                  ),
                 ],
               ),
             ),
