@@ -4,6 +4,7 @@ import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
+import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p1/lucky_p1_page/lucky_p1_home/lucky_p1_card_child/card_child_controller.dart';
 
 class CardChild extends LuckyBaseChild<CardChildController>{
@@ -76,6 +77,23 @@ class CardChild extends LuckyBaseChild<CardChildController>{
       child: Stack(
         children: [
           LuckyImageWidget(name: infoBean.type??"",height: height,),
+          Align(
+            alignment: Alignment.topRight,
+            child: Visibility(
+              visible: infoBean.unlock==1,
+              child: SizedBox(
+                width: 80.w,
+                height: 36.h,
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    LuckyImageWidget(name: "home4",width: 80.w,height: 36.h,),
+                    LuckyTextWidget(text: "${infoBean.playedNum}/10", size: 14.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,).marginOnly(top: 5.h)
+                  ],
+                ),
+              ),
+            ),
+          ),
           Visibility(
             visible: infoBean.unlock!=1,
             child: Container(

@@ -117,8 +117,8 @@ class PlayUtils{
     LuckyEvent(luckyCode: P1LuckyEventCode.updatePlayBottomReward,intValue: allReward);
 
     await Future.delayed(const Duration(milliseconds: 1000));
-    LuckyEvent(luckyCode: P1LuckyEventCode.flyOut);
-    await Future.delayed(const Duration(milliseconds: 300));
+    // LuckyEvent(luckyCode: P1LuckyEventCode.flyOut);
+    // await Future.delayed(const Duration(milliseconds: 300));
     UserInfoUtils.instance.updateUserCoins(allReward);
     var showLevelDialog = UserInfoUtils.instance.updateUserPlayNum();
     if(showLevelDialog){
@@ -173,10 +173,10 @@ class PlayUtils{
       LuckyRouters.instance.back();
       // _toNextUnlockPlay();
     }else{
+      LuckyEvent(luckyCode: P1LuckyEventCode.flyOut);
+      await Future.delayed(const Duration(milliseconds: 200));
       LuckyEvent(luckyCode: P1LuckyEventCode.updatePlayBottomReward,intValue: 0);
       resetCallback.call();
-      await Future.delayed(const Duration(milliseconds: 200));
-      LuckyEvent(luckyCode: P1LuckyEventCode.flyIn);
     }
   }
 

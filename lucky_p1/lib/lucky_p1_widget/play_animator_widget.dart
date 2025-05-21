@@ -75,6 +75,7 @@ class PlayAnimatorWidgetState extends LuckyBaseState<PlayAnimatorWidget> with Ti
         _isVisible = false;
         _controller.reset();
       });
+      _flyIn();
     });
   }
 
@@ -101,9 +102,9 @@ class PlayAnimatorWidgetState extends LuckyBaseState<PlayAnimatorWidget> with Ti
       case P1LuckyEventCode.flyOut:
         _flyOut();
         break;
-      case P1LuckyEventCode.flyIn:
-        _flyIn();
-        break;
+      // case P1LuckyEventCode.flyIn:
+      //   _flyIn();
+      //   break;
     }
   }
 
