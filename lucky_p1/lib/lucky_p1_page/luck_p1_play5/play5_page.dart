@@ -75,7 +75,7 @@ class Play5Page extends LuckyBasePage<Play5Controller>{
                       ],
                     ),
                     Expanded(
-                      child: StaggeredGridView.countBuilder(
+                      child: MasonryGridView.count(
                         padding: const EdgeInsets.all(0),
                         itemCount: luckyController.playUtils.yourList.length,
                         shrinkWrap: true,
@@ -97,7 +97,6 @@ class Play5Page extends LuckyBasePage<Play5Controller>{
                             child: w,
                           ):w;
                         },
-                        staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
                       ),
                     )
                   ],

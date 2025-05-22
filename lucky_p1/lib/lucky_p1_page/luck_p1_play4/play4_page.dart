@@ -76,7 +76,7 @@ class Play4Page extends LuckyBasePage<Play4Controller>{
                     _columnWidget(3),
                     SizedBox(width: 12.w,),
                     Expanded(
-                      child: StaggeredGridView.countBuilder(
+                      child: MasonryGridView.count(
                         padding: const EdgeInsets.all(0),
                         itemCount: 9,
                         shrinkWrap: true,
@@ -88,7 +88,6 @@ class Play4Page extends LuckyBasePage<Play4Controller>{
                           var yourBean = luckyController.playUtils.yourList[index+6];
                           return _itemWidget(yourBean);
                         },
-                        staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
                       ),
                     )
                   ],

@@ -64,7 +64,7 @@ class Play8Page extends LuckyBasePage<Play8Controller>{
                 width: double.infinity,
                 height: 223.h,
                 margin: EdgeInsets.only(left: 38.w,right: 38.w,bottom: 80.h),
-                child: StaggeredGridView.countBuilder(
+                child: MasonryGridView.count(
                   padding: const EdgeInsets.all(0),
                   itemCount: luckyController.playUtils.yourList.length,
                   shrinkWrap: true,
@@ -97,7 +97,6 @@ class Play8Page extends LuckyBasePage<Play8Controller>{
                       child: LuckyTextWidget(text: yourBean.content, size: 40.sp, color: "#691000",fontFamily: "one",),
                     );
                   },
-                  staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
                 ),
               ),
             )

@@ -75,7 +75,7 @@ class Play2Page extends LuckyBasePage<Play2Controller>{
                       ],
                     ),
                     Expanded(
-                      child: StaggeredGridView.countBuilder(
+                      child: MasonryGridView.count(
                         padding: const EdgeInsets.all(0),
                         itemCount: luckyController.playUtils.yourList.length,
                         shrinkWrap: true,
@@ -97,7 +97,6 @@ class Play2Page extends LuckyBasePage<Play2Controller>{
                             child: w,
                           ):w;
                         },
-                        staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
                       ),
                     )
                   ],
