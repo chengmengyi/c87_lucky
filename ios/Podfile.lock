@@ -18,6 +18,8 @@ PODS:
     - Flutter
   - lucky_p1 (0.0.1):
     - Flutter
+  - lucky_p2 (0.0.1):
+    - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -38,6 +40,7 @@ DEPENDENCIES:
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - lucky_base (from `.symlinks/plugins/lucky_base/ios`)
   - lucky_p1 (from `.symlinks/plugins/lucky_p1/ios`)
+  - lucky_p2 (from `.symlinks/plugins/lucky_p2/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
@@ -65,6 +68,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/lucky_base/ios"
   lucky_p1:
     :path: ".symlinks/plugins/lucky_p1/ios"
+  lucky_p2:
+    :path: ".symlinks/plugins/lucky_p2/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   sqflite_darwin:
@@ -83,6 +88,7 @@ SPEC CHECKSUMS:
   fluttertoast: 2c67e14dce98bbdb200df9e1acf610d7a6264ea1
   lucky_base: ac222435441dc376a05ec239732f18da97a8cf5c
   lucky_p1: 02c77f2831a3bd20b40f76eef69c30b07ece4a89
+  lucky_p2: a5a86d4cd66df44a636977aa7e0d7325213bf3f2
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   webview_flutter_wkwebview: 1821ceac936eba6f7984d89a9f3bcb4dea99ebb2

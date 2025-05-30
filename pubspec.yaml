@@ -39,6 +39,8 @@ dependencies:
     path: lucky_base
   lucky_p1:
     path:  lucky_p1
+  lucky_p2:
+    path: lucky_p2
 
 dev_dependencies:
   flutter_test:

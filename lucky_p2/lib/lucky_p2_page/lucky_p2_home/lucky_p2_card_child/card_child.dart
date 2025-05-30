@@ -1,0 +1,114 @@
+import 'package:flutter/material.dart';
+import 'package:lucky_base/lucky_base/lucky_base_child.dart';
+import 'package:lucky_base/lucky_utils/lucky_export.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_widget/click_widget.dart';
+import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
+import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
+import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_card_child/card_child_controller.dart';
+
+class CardChild extends LuckyBaseChild<CardChildController>{
+
+  @override
+  CardChildController initController() => CardChildController();
+
+  @override
+  Widget child() => SingleChildScrollView(
+    child: GetBuilder<CardChildController>(
+      id: "list",
+      builder: (_)=> luckyController.list.length==9?
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 12.h,),
+          _item1Widget(0),
+          SizedBox(height: 12.h,),
+          _item2Widget(3),
+          SizedBox(height: 12.h,),
+          _item1Widget(6),
+        ],
+      ):
+      Container(),
+    ),
+  );
+
+  _item1Widget(int startIndex) => Row(
+    children: [
+       Expanded(
+         child: _itemWidget(startIndex,234.h),
+       ),
+      Expanded(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _itemWidget(startIndex+1,110.h),
+            SizedBox(height: 14.h,),
+            _itemWidget(startIndex+2,110.h),
+          ],
+        ),
+      )
+    ],
+  );
+
+  _item2Widget(int startIndex) => Row(
+    children: [
+      Expanded(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _itemWidget(startIndex,110.h),
+            SizedBox(height: 14.h,),
+            _itemWidget(startIndex+1,110.h),
+          ],
+        ),
+      ),
+      Expanded(
+        child: _itemWidget(startIndex+2,234.h),
+      ),
+    ],
+  );
+
+  _itemWidget(int index,double height){
+    var infoBean = luckyController.list[index];
+    return ClickWidget(
+      onTap: (){
+        luckyController.clickItem(index);
+      },
+      child: Stack(
+        children: [
+          LuckyImageWidget(name: infoBean.type??"",height: height,),
+          Align(
+            alignment: Alignment.topRight,
+            child: Visibility(
+              visible: infoBean.unlock==1,
+              child: SizedBox(
+                width: 80.w,
+                height: 36.h,
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    LuckyImageWidget(name: "home4",width: 80.w,height: 36.h,),
+                    LuckyTextWidget(text: "${infoBean.playedNum}/10", size: 14.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,).marginOnly(top: 5.h)
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: infoBean.unlock!=1,
+            child: Container(
+              width: double.infinity,
+              height: height,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6.w),
+                color: "#000000".toColor().withOpacity(0.5),
+              ),
+              child: LuckyImageWidget(name: "home3",width: 33.w,height: 41.h,),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

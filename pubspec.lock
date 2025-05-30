@@ -334,6 +334,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  lucky_p2:
+    dependency: "direct main"
+    description:
+      path: lucky_p2
+      relative: true
+    source: path
+    version: "0.0.1"
   matcher:
     dependency: transitive
     description:
@@ -635,5 +642,5 @@ packages:
     source: hosted
     version: "1.1.0"
 sdks:
-  dart: ">=3.7.0 <4.0.0"
+  dart: ">=3.8.0 <4.0.0"
   flutter: ">=3.27.0"

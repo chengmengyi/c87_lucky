@@ -5,6 +5,7 @@ import 'package:lucky_base/lucky_utils/app_lifecycle_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_p1/lucky_p1_routers/lucky_p1_routers.dart';
+import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
 import 'package:scratch_it_lucky/main/main_page.dart';
 import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart' as p1PlayUtils;
 
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
         transition: Transition.fadeIn,
       ),
     ];
-    var list=mainList+LuckyP1RouterList.list;
+    var list=mainList+LuckyP1RouterList.list+LuckyP2RouterList.list;
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (c,child)=>GetMaterialApp(
