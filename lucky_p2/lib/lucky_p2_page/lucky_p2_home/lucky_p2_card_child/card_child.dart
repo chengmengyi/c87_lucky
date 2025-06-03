@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_child.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
@@ -20,6 +21,16 @@ class CardChild extends LuckyBaseChild<CardChildController>{
       Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Visibility(
+            visible: kDebugMode,
+            child: ClickWidget(
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.red,
+              ),
+            ),
+          ),
           SizedBox(height: 12.h,),
           _item1Widget(0),
           SizedBox(height: 12.h,),
@@ -35,7 +46,10 @@ class CardChild extends LuckyBaseChild<CardChildController>{
   _item1Widget(int startIndex) => Row(
     children: [
        Expanded(
-         child: _itemWidget(startIndex,234.h),
+         child: SizedBox(
+           key: luckyController.firstPlayGlobalKey,
+           child: _itemWidget(startIndex,234.h),
+         ),
        ),
       Expanded(
         child: Column(
