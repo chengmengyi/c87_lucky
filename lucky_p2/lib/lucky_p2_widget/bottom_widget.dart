@@ -8,6 +8,10 @@ import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_gra_text_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
+import 'package:lucky_p2/lucky_p2_util/storage.dart';
+import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_steps.dart';
+import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
+import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
 
 class BottomWidget extends LuckyBaseStateful{
   Function() revealAllCall;
@@ -41,6 +45,8 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
           alignment: Alignment.bottomCenter,
           child: ClickWidget(
             onTap: (){
+              UserGuideUtils.instance.completedNewUserGuide();
+              setState(() {});
               widget.revealAllCall.call();
             },
             child: LuckyImageWidget(name: "bottom3",width: 185.w,height: 51.h,).marginOnly(bottom: 18.h),
@@ -55,6 +61,20 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
             colors: ["#FFFFFF".toColor(),"#E8FAFF".toColor(),],
             shadowsColor: "#000225",
           ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Visibility(
+            visible: UserGuideUtils.instance.checkShowRevealAllGuide(),
+            child: ClickWidget(
+              onTap: (){
+                UserGuideUtils.instance.completedNewUserGuide();
+                setState(() {});
+                widget.revealAllCall.call();
+              },
+              child: FingerWidget(),
+            ),
+          ),
         )
       ],
     ),
@@ -66,10 +86,13 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
   @override
   receivedLuckyEventMsg(LuckyEvent luckyEvent) {
     switch(luckyEvent.luckyCode){
-      case P1LuckyEventCode.updatePlayBottomReward:
+      case P2LuckyEventCode.updatePlayBottomReward:
         setState(() {
           reward=luckyEvent.intValue??0;
         });
+        break;
+      case P2LuckyEventCode.showRevealAllGuide:
+        setState(() {});
         break;
     }
   }

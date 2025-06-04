@@ -10,6 +10,6 @@ class WheelChild extends LuckyBaseChild<WheelChildController>{
 
   @override
   Widget child() => Center(
-    child: LuckyTextWidget(text: "wheel", size: 20.sp, color: "#000000"),
+    child: LuckyTextWidget(text: "wheel_dialog", size: 20.sp, color: "#000000"),
   );
 }

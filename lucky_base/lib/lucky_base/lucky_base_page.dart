@@ -11,6 +11,7 @@ abstract class LuckyBasePage<T extends LuckyBaseController> extends StatelessWid
   Widget build(BuildContext context) {
     if(_init){
       luckyController=Get.put(initController());
+      luckyController.context=context;
       _init=false;
     }
     return Scaffold(
@@ -27,7 +28,7 @@ abstract class LuckyBasePage<T extends LuckyBaseController> extends StatelessWid
               height: double.infinity,
               child: child(),
             ),
-          )
+          ),
         ],
       ),
     );

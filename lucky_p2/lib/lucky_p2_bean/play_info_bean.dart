@@ -1,37 +1,35 @@
 class PlayInfoBean {
   PlayInfoBean({
-      this.type, 
-      this.playedNum, 
-      this.unlock, 
-      this.time,
-      this.watchVideoNum,
+    this.type,
+    this.playedNum,
+    this.hasNum,
+    this.secondsNum,
+    this.showFinger,
   });
 
   PlayInfoBean.fromJson(dynamic json) {
     type = json['type'];
     playedNum = json['playedNum'];
-    unlock = json['unlock'];
-    time = json['time'];
-    watchVideoNum = json['watchVideoNum'];
+    hasNum = json['hasNum'];
+    secondsNum = json['secondsNum'];
   }
   String? type;
   int? playedNum;
-  int? unlock;
-  int? time;
-  int? watchVideoNum;
+  int? hasNum;
+  int? secondsNum;
+  bool? showFinger;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['type'] = type;
     map['playedNum'] = playedNum;
-    map['unlock'] = unlock;
-    map['time'] = time;
-    map['watchVideoNum'] = watchVideoNum;
+    map['hasNum'] = hasNum;
+    map['secondsNum'] = secondsNum;
     return map;
   }
 
   @override
   String toString() {
-    return 'PlayInfoBean{type: $type, playedNum: $playedNum, unlock: $unlock, time: $time, watchVideoNum: $watchVideoNum}';
+    return 'PlayInfoBean{type: $type, playedNum: $playedNum, hasNum: $hasNum, secondsNum: $secondsNum, showFinger: $showFinger}';
   }
 }

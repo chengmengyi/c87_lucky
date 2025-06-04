@@ -10,7 +10,11 @@ import 'package:lucky_p2/lucky_p2_dialog/no_win/no_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/up_level/up_level_dialog.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/storage.dart';
+import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
+
+import 'user_guide/user_guide_steps.dart';
 
 class PlayUtils{
   late PlayType playType;
@@ -114,19 +118,15 @@ class PlayUtils{
         allReward = yourList.where((element) => element.win).fold(0, (previousValue, element) => previousValue+element.reward);
         break;
     }
-    LuckyEvent(luckyCode: P1LuckyEventCode.updatePlayBottomReward,intValue: allReward);
-
+    LuckyEvent(luckyCode: P2LuckyEventCode.updatePlayBottomReward,intValue: allReward);
     await Future.delayed(const Duration(milliseconds: 1000));
-    // LuckyEvent(luckyCode: P1LuckyEventCode.flyOut);
-    // await Future.delayed(const Duration(milliseconds: 300));
-    UserInfoUtils.instance.updateUserCoins(allReward);
     var showLevelDialog = UserInfoUtils.instance.updateUserPlayNum();
     if(showLevelDialog){
       LuckyRouters.instance.showDialog(
         child: UpLevelDialog(
-          playType: playType,
+          addNum: 20.3,
           dismiss: (){
-            _resetPlay(allReward,resetCallback);
+            _resetPlay(allReward.toDouble(),resetCallback);
           },
         )
       );
@@ -136,7 +136,7 @@ class PlayUtils{
       LuckyRouters.instance.showDialog(
         child: NoWinDialog(
           dismiss: (){
-            _resetPlay(allReward,resetCallback);
+            _resetPlay(0.0,resetCallback);
           },
         ),
       );
@@ -145,38 +145,45 @@ class PlayUtils{
     if(allReward>=3000){
       LuckyRouters.instance.showDialog(
         child: BigWinDialog(
-          allReward: allReward,
-          dismiss: (){
-            _resetPlay(allReward,resetCallback);
+          allReward: allReward.toDouble(),
+          dismiss: (addNum){
+            _resetPlay(addNum,resetCallback);
           },
         ),
       );
     }else{
       LuckyRouters.instance.showDialog(
         child: NormalWinDialog(
-          allReward: allReward,
-          dismiss: (){
-            _resetPlay(allReward,resetCallback);
+          allReward: allReward.toDouble(),
+          dismiss: (addNum){
+            _resetPlay(addNum,resetCallback);
           },
         ),
       );
     }
   }
 
-  _resetPlay(int allReward, Function() resetCallback)async{
+  _resetPlay(double allReward, Function() resetCallback)async{
     _stopAuto=false;
     key.currentState?.reset();
     canClick=true;
-    UserInfoUtils.instance.updateUserCoins(allReward);
-    var showTime = await PlayInfoUtils.instance.updatePlayInfo(playType);
-    if(showTime){
+    UserInfoUtils.instance.updateUserCoins(allReward.toDouble());
+    var hasPlayNum = await PlayInfoUtils.instance.checkHasPlayNum(playType);
+    if(!hasPlayNum){
       LuckyRouters.instance.back();
-      // _toNextUnlockPlay();
     }else{
-      LuckyEvent(luckyCode: P1LuckyEventCode.flyOut);
+      LuckyEvent(luckyCode: P2LuckyEventCode.flyOut);
       await Future.delayed(const Duration(milliseconds: 200));
-      LuckyEvent(luckyCode: P1LuckyEventCode.updatePlayBottomReward,intValue: 0);
+      LuckyEvent(luckyCode: P2LuckyEventCode.updatePlayBottomReward,intValue: 0);
       resetCallback.call();
+      if(allReward>0&&p2UserGuideStep.getData()==UserGuideSteps.showCashGuide){
+        LuckyRouters.instance.back();
+        LuckyEvent(luckyCode: P2LuckyEventCode.showCashGuide);
+      }
+      if(UserGuideUtils.instance.checkShowRevealAllGuide()){
+        LuckyEvent(luckyCode: P2LuckyEventCode.showRevealAllGuide);
+      }
+      LuckyEvent(luckyCode: P2LuckyEventCode.updateBoxProgress);
     }
   }
 

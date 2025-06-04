@@ -10,6 +10,7 @@ abstract class LuckyBaseChild<T extends LuckyBaseController> extends StatelessWi
   Widget build(BuildContext context) {
     if(_init){
       luckyController=Get.put(initController());
+      luckyController.context=context;
       _init=false;
     }
     return SizedBox(

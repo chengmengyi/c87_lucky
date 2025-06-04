@@ -5,6 +5,7 @@ import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/home_controller.dart';
 import 'package:lucky_p2/lucky_p2_widget/coins_widget.dart';
+import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/set_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/star_widget.dart';
 
@@ -16,20 +17,25 @@ class HomePage extends LuckyBasePage<HomeController>{
   HomeController initController() => HomeController();
 
   @override
-  Widget child() => GetBuilder<HomeController>(
-    id: "page",
-    builder: (_)=>Column(
-      children: [
-        _titleWidget(),
-        Expanded(
-          child: IndexedStack(
-            index: luckyController.tabIndex,
-            children: luckyController.pageList,
-          ),
+  Widget child() => Stack(
+    children: [
+      GetBuilder<HomeController>(
+        id: "page",
+        builder: (_)=>Column(
+          children: [
+            _titleWidget(),
+            Expanded(
+              child: IndexedStack(
+                index: luckyController.tabIndex,
+                children: luckyController.pageList,
+              ),
+            ),
+            _bottomWidget(),
+          ],
         ),
-        _bottomWidget(),
-      ],
-    ),
+      ),
+      _cashGuideWidget(),
+    ],
   );
 
   _titleWidget()=>Row(
@@ -85,5 +91,22 @@ class HomePage extends LuckyBasePage<HomeController>{
         ],
       )
     ],
+  );
+
+  _cashGuideWidget()=>GetBuilder<HomeController>(
+    id: "cash_guide",
+    builder: (_)=>Positioned(
+      right: 0,
+      bottom: 0,
+      child: Visibility(
+        visible: luckyController.checkShowCashGuide(),
+        child: ClickWidget(
+          onTap: (){
+            luckyController.clickTab(2);
+          },
+          child: FingerWidget(),
+        ),
+      ),
+    ),
   );
 }

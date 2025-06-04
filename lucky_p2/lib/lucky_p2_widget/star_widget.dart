@@ -39,7 +39,7 @@ class StarWidgetState extends LuckyBaseState<StarWidget>{
             ),
             Align(
               child: LuckyTextWidget(
-                text: "LV${(p1UserPlayNum.getData()~/5)+1}",
+                text: "LV${(p2UserPlayNum.getData()~/5)+1}",
                 size: 14.sp,
                 color: "#FFFFFF",
                 fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class StarWidgetState extends LuckyBaseState<StarWidget>{
   );
 
   double _getPro(){
-    var playNum = p1UserPlayNum.getData();
+    var playNum = p2UserPlayNum.getData();
     var i = (playNum~/5)*5;
     return getPro(playNum-i, 5);
   }
@@ -62,7 +62,7 @@ class StarWidgetState extends LuckyBaseState<StarWidget>{
   @override
   receivedLuckyEventMsg(LuckyEvent luckyEvent) {
     switch(luckyEvent.luckyCode){
-      case P1LuckyEventCode.updateUserPlayNum:
+      case P2LuckyEventCode.updateUserPlayNum:
         setState(() {});
         break;
     }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -53,3 +54,30 @@ showToast(String text){
       fontSize: 16
   );
 }
+
+extension Str2Dou on String{
+  double toDou(){
+    try{
+      return double.parse(this);
+    }catch(e){
+      return 0.0;
+    }
+  }
+}
+
+double addTwoNums(dynamic num1,dynamic num2){
+  try{
+    return (Decimal.parse("$num1")+Decimal.parse("$num2")).toDouble();
+  }catch(e){
+    return 0.0;
+  }
+}
+
+double mulTwoNums(dynamic num1,dynamic num2){
+  try{
+    return (Decimal.parse("$num1")*Decimal.parse("$num2")).toDouble();
+  }catch(e){
+    return 0.0;
+  }
+}
+

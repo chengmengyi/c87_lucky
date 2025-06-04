@@ -25,6 +25,8 @@ dependencies:
   fluttertoast: 8.2.12
   audioplayers: 6.4.0
   flutter_app_lifecycle: 0.0.1
+  decimal: 3.2.1
+  outlined_text: 1.0.1
   scratcher:
     path: plugins/scratcher-2.5.0
 

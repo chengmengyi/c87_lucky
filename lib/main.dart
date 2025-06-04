@@ -8,10 +8,13 @@ import 'package:lucky_p1/lucky_p1_routers/lucky_p1_routers.dart';
 import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
 import 'package:scratch_it_lucky/main/main_page.dart';
 import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart' as p1PlayUtils;
+import 'package:lucky_p2/lucky_p2_util/value_utils.dart' as p2ValueUtils;
+import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart' as p2PlayInfoUtils;
 
 void main() {
   _initBase();
   _initP1();
+  _initP2();
   runApp(const MyApp());
 }
 
@@ -36,6 +39,11 @@ _initP1()async{
   p1PlayUtils.PlayInfoUtils.instance.initPlayList();
   p1PlayUtils.PlayInfoUtils.instance.resetPlayTime();
   LuckyAdUtils.instance.initAd();
+}
+
+_initP2()async{
+  p2ValueUtils.ValueUtils.instance.initValue();
+  p2PlayInfoUtils.PlayInfoUtils.instance.initPlayList();
 }
 
 class MyApp extends StatelessWidget {

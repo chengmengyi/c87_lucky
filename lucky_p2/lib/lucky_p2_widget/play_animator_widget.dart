@@ -99,7 +99,7 @@ class PlayAnimatorWidgetState extends LuckyBaseState<PlayAnimatorWidget> with Ti
   @override
   receivedLuckyEventMsg(LuckyEvent luckyEvent) {
     switch(luckyEvent.luckyCode){
-      case P1LuckyEventCode.flyOut:
+      case P2LuckyEventCode.flyOut:
         _flyOut();
         break;
       // case P1LuckyEventCode.flyIn:

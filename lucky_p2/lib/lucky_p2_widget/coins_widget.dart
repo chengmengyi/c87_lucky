@@ -32,7 +32,7 @@ class CoinsWidgetState extends LuckyBaseState<CoinsWidget>{
           children: [
             LuckyImageWidget(name: "coins2",width: 140.w,height: 26.h,),
             LuckyGraTextWidget(
-              text: "${p1UserCoins.getData()}",
+              text: "${p2UserCoins.getData()}",
               size: 14.sp,
               colors: [
                 "#FFF7C2".toColor(),
@@ -50,7 +50,7 @@ class CoinsWidgetState extends LuckyBaseState<CoinsWidget>{
   @override
   receivedLuckyEventMsg(LuckyEvent luckyEvent) {
     switch(luckyEvent.luckyCode){
-      case P1LuckyEventCode.updateUserCoins:
+      case P2LuckyEventCode.updateUserCoins:
         setState(() {});
         break;
     }

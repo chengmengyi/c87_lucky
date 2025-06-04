@@ -7,6 +7,7 @@ import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_card_child/card_child_controller.dart';
+import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
 
 class CardChild extends LuckyBaseChild<CardChildController>{
 
@@ -24,6 +25,9 @@ class CardChild extends LuckyBaseChild<CardChildController>{
           Visibility(
             visible: kDebugMode,
             child: ClickWidget(
+              onTap: (){
+                luckyController.test();
+              },
               child: Container(
                 width: 100,
                 height: 100,
@@ -47,7 +51,7 @@ class CardChild extends LuckyBaseChild<CardChildController>{
     children: [
        Expanded(
          child: SizedBox(
-           key: luckyController.firstPlayGlobalKey,
+           key: startIndex==0?luckyController.firstPlayGlobalKey:null,
            child: _itemWidget(startIndex,234.h),
          ),
        ),
@@ -93,34 +97,28 @@ class CardChild extends LuckyBaseChild<CardChildController>{
           LuckyImageWidget(name: infoBean.type??"",height: height,),
           Align(
             alignment: Alignment.topRight,
-            child: Visibility(
-              visible: infoBean.unlock==1,
-              child: SizedBox(
-                width: 80.w,
-                height: 36.h,
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: [
-                    LuckyImageWidget(name: "home4",width: 80.w,height: 36.h,),
-                    LuckyTextWidget(text: "${infoBean.playedNum}/10", size: 14.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,).marginOnly(top: 5.h)
-                  ],
-                ),
+            child: SizedBox(
+              width: 80.w,
+              height: 36.h,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  LuckyImageWidget(name: "home4",width: 80.w,height: 36.h,),
+                  LuckyTextWidget(text: "${infoBean.hasNum??0}/10", size: 14.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,).marginOnly(top: 5.h)
+                ],
               ),
             ),
           ),
           Visibility(
-            visible: infoBean.unlock!=1,
+            visible: infoBean.showFinger==true,
             child: Container(
               width: double.infinity,
               height: height,
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6.w),
-                color: "#000000".toColor().withOpacity(0.5),
-              ),
-              child: LuckyImageWidget(name: "home3",width: 33.w,height: 41.h,),
+              child: FingerWidget(),
             ),
-          )
+          ),
+          LuckyTextWidget(text: "${80-(infoBean.secondsNum??0)}", size: 30.sp, color: "#FFFFFFF")
         ],
       ),
     );

@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 
 abstract class LuckyBaseController extends GetxController{
+  late BuildContext context;
   StreamSubscription<LuckyEvent>? _subscription;
 
   @override

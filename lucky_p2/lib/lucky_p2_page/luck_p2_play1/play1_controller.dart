@@ -1,9 +1,14 @@
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
+import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
+import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/storage.dart';
+import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_steps.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class Play1Controller extends LuckyBaseController with GetTickerProviderStateMixin{
@@ -31,6 +36,13 @@ class Play1Controller extends LuckyBaseController with GetTickerProviderStateMix
         _initYourList();
       }
     );
+  }
+
+  onScratchStart(){
+    if(checkShowNewUserGuaGuide()){
+      p2UserGuideStep.saveData(UserGuideSteps.showCashGuide);
+      update(["gua_lottie"]);
+    }
   }
 
   _initYourList(){
@@ -61,8 +73,10 @@ class Play1Controller extends LuckyBaseController with GetTickerProviderStateMix
     }
     yourList.shuffle();
     playUtils.setYourList(yourList);
-    update(["your_widget"]);
+    update(["your_widget","gua_lottie"]);
   }
+
+  bool checkShowNewUserGuaGuide()=>p2UserGuideStep.getData()==UserGuideSteps.showGuaGuide;
 
   @override
   void onClose() {

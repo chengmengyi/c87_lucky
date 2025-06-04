@@ -18,44 +18,29 @@ class PlayInfoUtils extends LuckyBaseSql{
 
   initPlayList()async{
     var sql = await initSql();
-    var list = await sql.query(LuckySqlName.p1PlayTime);
+    var list = await sql.query(LuckySqlName.p2PlayTime);
     if(list.isEmpty){
       var initList=[
-        PlayInfoBean(type: PlayType.card1.name,playedNum: 0,unlock: 1,time: 0,watchVideoNum: 3),
-        PlayInfoBean(type: PlayType.card2.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-        PlayInfoBean(type: PlayType.card3.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-        PlayInfoBean(type: PlayType.card4.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-        PlayInfoBean(type: PlayType.card5.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-        PlayInfoBean(type: PlayType.card6.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-        PlayInfoBean(type: PlayType.card7.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-        PlayInfoBean(type: PlayType.card8.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-        PlayInfoBean(type: PlayType.card9.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
+        PlayInfoBean(type: PlayType.card1.name,hasNum: 10,playedNum: 0,secondsNum: 0),
+        PlayInfoBean(type: PlayType.card2.name,hasNum: 10,playedNum: 0,secondsNum: 0),
+        PlayInfoBean(type: PlayType.card3.name,hasNum: 10,playedNum: 0,secondsNum: 0),
+        PlayInfoBean(type: PlayType.card4.name,hasNum: 10,playedNum: 0,secondsNum: 0),
+        PlayInfoBean(type: PlayType.card5.name,hasNum: 10,playedNum: 0,secondsNum: 0),
+        PlayInfoBean(type: PlayType.card6.name,hasNum: 10,playedNum: 0,secondsNum: 0),
+        PlayInfoBean(type: PlayType.card7.name,hasNum: 10,playedNum: 0,secondsNum: 0),
+        PlayInfoBean(type: PlayType.card8.name,hasNum: 10,playedNum: 0,secondsNum: 0),
+        PlayInfoBean(type: PlayType.card9.name,hasNum: 10,playedNum: 0,secondsNum: 0),
       ];
       for (var value in initList) {
-        await sql.insert(LuckySqlName.p1PlayTime, value.toJson());
+        await sql.insert(LuckySqlName.p2PlayTime, value.toJson());
       }
     }
   }
 
   Future<List<PlayInfoBean>> queryPlayList()async{
     var sql = await initSql();
-    var list = await sql.query(LuckySqlName.p1PlayTime);
+    var list = await sql.query(LuckySqlName.p2PlayTime);
     if(list.isEmpty){
-      // var initList=[
-      //   PlayInfoBean(type: PlayType.card1.name,playedNum: 0,unlock: 1,time: 0,watchVideoNum: 3),
-      //   PlayInfoBean(type: PlayType.card2.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-      //   PlayInfoBean(type: PlayType.card3.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-      //   PlayInfoBean(type: PlayType.card4.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-      //   PlayInfoBean(type: PlayType.card5.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-      //   PlayInfoBean(type: PlayType.card6.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-      //   PlayInfoBean(type: PlayType.card7.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-      //   PlayInfoBean(type: PlayType.card8.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-      //   PlayInfoBean(type: PlayType.card9.name,playedNum: 0,unlock: 0,time: 0,watchVideoNum: 0),
-      // ];
-      // for (var value in initList) {
-      //   sql.insert(LuckySqlName.p1PlayTime, value.toJson());
-      // }
-      // return initList;
       return [];
     }
     List<PlayInfoBean> resultList=[];
@@ -65,60 +50,48 @@ class PlayInfoUtils extends LuckyBaseSql{
     return resultList;
   }
 
-  Future<bool> updatePlayInfo(PlayType playType)async{
+  Future<bool> checkHasPlayNum(PlayType playType)async{
     var sql = await initSql();
-    var list = await sql.query(LuckySqlName.p1PlayTime,where: '"type" = ?',whereArgs: [playType.name]);
+    var list = await sql.query(LuckySqlName.p2PlayTime,where: '"type" = ?',whereArgs: [playType.name]);
     if(list.isEmpty){
       return false;
     }
     var map = list.first;
     var playInfoBean = PlayInfoBean.fromJson(map);
     playInfoBean.playedNum=(playInfoBean.playedNum??0)+1;
-    if((playInfoBean.playedNum??0)>=10){
-      playInfoBean.time=DateTime.now().millisecondsSinceEpoch+10*60*60*1000;
-      // var nextPlayType = getNextPlayType(playType);
-      // if(null!=nextPlayType){
-      //   unlockPlayType(nextPlayType);
-      // }
+    playInfoBean.hasNum=(playInfoBean.hasNum??0)-1;
+    if((playInfoBean.hasNum??0)<0){
+      playInfoBean.hasNum=0;
     }
-    await sql.update(LuckySqlName.p1PlayTime, playInfoBean.toJson(),where: '"id" = ?',whereArgs: [map["id"]]);
-    LuckyEvent(luckyCode: P1LuckyEventCode.updateHomeList);
-    return (playInfoBean.playedNum??0)>=10;
+    await sql.update(LuckySqlName.p2PlayTime, playInfoBean.toJson(),where: '"id" = ?',whereArgs: [map["id"]]);
+    LuckyEvent(luckyCode: P2LuckyEventCode.updateHomeList,boolValue: (playInfoBean.hasNum??0)<=0);
+    return (playInfoBean.hasNum??0)>0;
   }
 
-  Future<int> unlockPlayType(PlayType playType,UnlockType unlockType)async{
-    var sql = await initSql();
-    var list = await sql.query(LuckySqlName.p1PlayTime,where: '"type" = ? AND "unlock" = ?',whereArgs: [playType.name,0]);
-    if(list.isEmpty){
-      return 0;
-    }
-    var map = list.first;
-    var playInfoBean = PlayInfoBean.fromJson(map);
-    if(unlockType==UnlockType.coins){
-      playInfoBean.unlock=1;
-    }else if(unlockType==UnlockType.video){
-      playInfoBean.watchVideoNum=(playInfoBean.watchVideoNum??0)+1;
-      if((playInfoBean.watchVideoNum??0)>=3){
-        playInfoBean.unlock=1;
-      }
-    }
-    await sql.update(LuckySqlName.p1PlayTime, playInfoBean.toJson(),where: '"id" = ?',whereArgs: [map["id"]]);
-    LuckyEvent(luckyCode: P1LuckyEventCode.updateHomeList);
-    return playInfoBean.watchVideoNum??0;
-  }
-
-  resetPlayTime()async{
-    var sql = await initSql();
-    var list = await sql.query(LuckySqlName.p1PlayTime,where: '"time" > 0');
+  Future<void> savePlayInfo(PlayInfoBean bean)async{
+    var db = await initSql();
+    var list = await db.query(LuckySqlName.p2PlayTime,where: '"type" = ? ', whereArgs: [bean.type]);
     if(list.isEmpty){
       return;
     }
-    for (var value in list) {
-      var infoBean = PlayInfoBean.fromJson(value);
-      infoBean.playedNum=0;
-      infoBean.time=0;
-      await sql.update(LuckySqlName.p1PlayTime, infoBean.toJson(),where: '"id" = ?',whereArgs: [value["id"]]);
+    await db.update(LuckySqlName.p2PlayTime, bean.toJson(),where: '"id" = ?',whereArgs: [list.first["id"]]);
+  }
+
+  Future<void> addPlayNum(String playType,{int addNum=1})async{
+    var db = await initSql();
+    var list = await db.query(LuckySqlName.p2PlayTime,where: '"type" = ? ', whereArgs: [playType]);
+    if(list.isEmpty){
+      return;
     }
+    var map = list.first;
+    var id = map["id"];
+    var hasNum = map["hasNum"] as int;
+    var newMap = Map<String, Object?>.from(map);
+    if(hasNum<10){
+      newMap["hasNum"]=hasNum+addNum;
+      newMap["secondsNum"]=0;
+    }
+    await db.update(LuckySqlName.p2PlayTime, newMap,where: '"id" = ?',whereArgs: [id]);
   }
 
   PlayType? getNextPlayType(PlayType currentPlayType){

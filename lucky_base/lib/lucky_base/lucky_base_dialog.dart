@@ -11,6 +11,7 @@ abstract class LuckyBaseDialog<T extends LuckyBaseController> extends StatelessW
   Widget build(BuildContext context) {
     if(_init){
       luckyController=Get.put(initController());
+      luckyController.context=context;
       initView();
       _init=false;
     }

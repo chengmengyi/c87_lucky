@@ -1,26 +1,34 @@
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
+import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 
 class UserInfoUtils{
   static final UserInfoUtils _instance = UserInfoUtils();
   static UserInfoUtils get instance => _instance;
 
-  updateUserCoins(int addCoins){
-    if(addCoins==0){
+  updateUserCoins(double addCoins){
+    if(addCoins==0.0){
       return;
     }
-    p1UserCoins.saveData(p1UserCoins.getData()+addCoins);
-    LuckyEvent(luckyCode: P1LuckyEventCode.updateUserCoins);
+    p2UserCoins.saveData(addTwoNums(p2UserCoins.getData(),addCoins));
+    LuckyEvent(luckyCode: P2LuckyEventCode.updateUserCoins);
   }
 
   bool updateUserPlayNum(){
-    p1UserPlayNum.saveData(p1UserPlayNum.getData()+1);
-    LuckyEvent(luckyCode: P1LuckyEventCode.updateUserPlayNum);
-    return p1UserPlayNum.getData()%5==0;
+    p2UserPlayNum.saveData(p2UserPlayNum.getData()+1);
+    LuckyEvent(luckyCode: P2LuckyEventCode.updateUserPlayNum);
+    if(p2UserPlayNum.getData()==3){
+      UserGuideUtils.instance.completedNewUserGuide();
+    }
+    if(p2BoxPro.getData()<5){
+      p2BoxPro.saveData(p2BoxPro.getData()+1);
+    }
+    return p2UserPlayNum.getData()%5==0;
   }
 
   openPlayPageByType(String playType){
@@ -55,6 +63,7 @@ class UserInfoUtils{
     if(routersName.isEmpty){
       return;
     }
+    p2LastPlayType.saveData(playType);
     LuckyRouters.instance.openNextPage(routersName: routersName);
   }
 }

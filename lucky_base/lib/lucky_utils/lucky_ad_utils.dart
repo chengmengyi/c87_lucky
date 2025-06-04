@@ -25,6 +25,7 @@ class LuckyAdUtils{
     );
   }
 
+  //显示A包的广告
   showP1Ad({
     required Function() closeAd,
   }){
@@ -51,5 +52,35 @@ class LuckyAdUtils{
         },
       ),
     );
+  }
+
+  //显示B包的广告
+  showP2Ad({
+    required Function() closeAd,
+  }){
+    closeAd.call();
+    // var resultData = FlutterIosAdHep.instance.getCacheResultData(AdType.reward);
+    // if(null==resultData){
+    //   showToast("Advertisement display failed, please try again later");
+    //   return;
+    // }
+    // FlutterIosAdHep.instance.showAd(
+    //   adType: AdType.reward,
+    //   iosAdCallback: IosAdCallback(
+    //     showSuccess: (ad,info){
+    //       VoicePlayUtils.instance.pauseBg();
+    //     },
+    //     showFail: (ad){
+    //       showToast("Advertisement display failed, please try again later");
+    //     },
+    //     closeAd: (){
+    //       VoicePlayUtils.instance.playBg();
+    //       closeAd.call();
+    //     },
+    //     onAdRevenuePaidCallback: (ad,info){
+    //
+    //     },
+    //   ),
+    // );
   }
 }

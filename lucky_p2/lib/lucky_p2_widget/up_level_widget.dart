@@ -34,7 +34,7 @@ class UpLevelWidgetState extends LuckyBaseState<UpLevelWidget>{
   );
 
   int getNum(){
-    var playNum = p1UserPlayNum.getData();
+    var playNum = p2UserPlayNum.getData();
     var i = (playNum~/5)*5;
     return 5-playNum+i;
   }
@@ -42,7 +42,7 @@ class UpLevelWidgetState extends LuckyBaseState<UpLevelWidget>{
   @override
   receivedLuckyEventMsg(LuckyEvent luckyEvent) {
     switch(luckyEvent.luckyCode){
-      case P1LuckyEventCode.updateUserPlayNum:
+      case P2LuckyEventCode.updateUserPlayNum:
         setState(() {});
         break;
     }
