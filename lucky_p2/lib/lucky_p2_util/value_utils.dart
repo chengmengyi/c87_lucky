@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:lucky_base/lucky_utils/local_config.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_p2/lucky_p2_bean/cash_task_bean.dart';
 import 'package:lucky_p2/lucky_p2_bean/value_bean.dart';
 import 'package:lucky_p2/lucky_p2_bean/win_reward_bean.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
@@ -63,6 +64,61 @@ class ValueUtils{
     }
   }
 
+  List<int> getCashList()=>_valueBean?.cardRange??[1000,1200,1500,2000];
+
+  WtdTask? getFirstWtdTask(){
+    try{
+      return _valueBean?.wtdTask?.first;
+    }catch(e){
+      return null;
+    }
+  }
+
+  WtdTask? getWtdTaskByIndex(CashTaskBean? bean){
+    try{
+      return _valueBean?.wtdTask?[bean?.task3Index??0];
+    }catch(e){
+      return null;
+    }
+  }
+
+  WtdTask? getNextWtdTask(CashTaskBean? bean){
+    try{
+      return _valueBean?.wtdTask?[(bean?.task3Index??0)+1];
+    }catch(e){
+      return null;
+    }
+  }
+
+  bool checkIsFinalTask(CashTaskBean? bean) => bean?.task3Index==(_valueBean?.wtdTask?.length??0)-1;
+
+  int getRankAll()=>_valueBean?.queueNumberAll?.intAll??388;
+
+  int getRankCurrent()=>_valueBean?.queueNumberCurrent?.intCurrent??99;
+
+  int getAllReduce(){
+    var list = _valueBean?.queueNumberAll?.intAllDelete??[1,3];
+    if(list.isEmpty){
+      return 1;
+    }
+    if(list.length<2){
+      return list.first;
+    }
+    final random = Random();
+    return list.first + random.nextInt(list.last - list.first + 1);
+  }
+
+  int getCurrentReduce(){
+    var list = _valueBean?.queueNumberCurrent?.intCurrentDelete??[5,8];
+    if(list.isEmpty){
+      return 1;
+    }
+    if(list.length<2){
+      return list.first;
+    }
+    final random = Random();
+    return list.first + random.nextInt(list.last - list.first + 1);
+  }
 
   WinRewardBean getWinnerBean(PlayType playType){
     var bigWin=200,rewardNormal=100;

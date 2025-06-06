@@ -60,6 +60,9 @@ class HomeController extends LuckyBaseController{
       case P2LuckyEventCode.updateKeyNum:
         update(["key_num"]);
         break;
+      case P2LuckyEventCode.showHomeTab:
+        clickTab(luckyEvent.intValue??0);
+        break;
     }
   }
 

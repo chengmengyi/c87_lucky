@@ -21,4 +21,6 @@ class P2LuckyEventCode{
   static const int clickWheelTabCheckHasKey=111;
   static const int clickNoKeyFindIt=112;
   static const int updateKeyNum=113;
+  static const int showHomeTab=114;
+  static const int updateCashList=115;
 }
