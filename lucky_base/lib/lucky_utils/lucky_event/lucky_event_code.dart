@@ -18,4 +18,7 @@ class P2LuckyEventCode{
   static const int showRevealAllGuide=108;
   static const int showLastPlayFingerGuide=109;
   static const int updateBoxProgress=110;
+  static const int clickWheelTabCheckHasKey=111;
+  static const int clickNoKeyFindIt=112;
+  static const int updateKeyNum=113;
 }

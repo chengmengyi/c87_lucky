@@ -5,6 +5,7 @@ import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p2/lucky_p2_bean/value_bean.dart';
 import 'package:lucky_p2/lucky_p2_bean/win_reward_bean.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/storage.dart';
 
 class ValueUtils{
   static final ValueUtils _instance = ValueUtils();
@@ -21,6 +22,24 @@ class ValueUtils{
   }
 
   double getBubbleAddNum()=> 20.3;
+
+  double getBoxAddNum(){
+    var playNum = p2UserPlayNum.getData();
+    var list = _valueBean?.boxPrize??[];
+    if(list.isEmpty){
+      return 0.0;
+    }
+    var last = list.last;
+    if(playNum>=(last.endNumber??1000)){
+      return _getRandomDoubleInRange(last.prize??[]);
+    }
+    for (var value in list) {
+      if(playNum>=(value.firstNumber??0)&&playNum<(value.endNumber??0)){
+        return _getRandomDoubleInRange(value.prize??[]);
+      }
+    }
+    return 0.0;
+  }
 
   double getSignAddNum()=>_getRandomDoubleInRange(_valueBean?.checkReward??[]);
 
@@ -210,12 +229,4 @@ class ValueUtils{
     return value.toStringAsFixed(2).toDou();
   }
 
-  int _randomReward(List<int> list){
-    if(list.length!=2){
-      return 0;
-    }
-    var min = list.first;
-    var max = list.last;
-    return min + Random().nextInt(max - min + 1);
-  }
 }

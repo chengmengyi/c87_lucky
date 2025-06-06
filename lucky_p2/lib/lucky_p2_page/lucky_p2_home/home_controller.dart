@@ -38,6 +38,9 @@ class HomeController extends LuckyBaseController{
       p2UserGuideStep.saveData(UserGuideSteps.showRevealAllGuide);
       update(["cash_guide"]);
     }
+    if(index==1){
+      LuckyEvent(luckyCode: P2LuckyEventCode.clickWheelTabCheckHasKey);
+    }
   }
 
   bool checkShowCashGuide()=>p2UserGuideStep.getData()==UserGuideSteps.showCashGuide;
@@ -50,6 +53,12 @@ class HomeController extends LuckyBaseController{
     switch(luckyEvent.luckyCode){
       case P2LuckyEventCode.showCashGuide:
         update(["cash_guide"]);
+        break;
+      case P2LuckyEventCode.clickNoKeyFindIt:
+        clickTab(0);
+        break;
+      case P2LuckyEventCode.updateKeyNum:
+        update(["key_num"]);
         break;
     }
   }

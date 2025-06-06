@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_page.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/home_controller.dart';
+import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_wheel_child/wheel_child_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_widget/coins_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/set_widget.dart';
@@ -73,11 +76,18 @@ class HomePage extends LuckyBasePage<HomeController>{
             ),
           ),
           Expanded(
-            child: ClickWidget(
-              onTap: (){
-                luckyController.clickTab(1);
-              },
-              child: LuckyImageWidget(name: luckyController.tabIndex==1?"home_wheel_sel2":"home_wheel_uns2",height: luckyController.tabIndex==1?64.h:56.h,),
+            child: GetBuilder<WheelChildController>(
+              id: "key_num",
+              builder: (_)=>ClickWidget(
+                onTap: (){
+                  luckyController.clickTab(1);
+                },
+                child: LuckyImageWidget(
+                  name: p2KeyNum.getData()<=0?"home_wheel_lock":luckyController.tabIndex==1?"home_wheel_sel2":"home_wheel_uns2",
+                  height: luckyController.tabIndex==1?64.h:56.h,
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
             ),
           ),
           Expanded(

@@ -8,11 +8,13 @@ import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p2/lucky_p2_bean/play_info_bean.dart';
+import 'package:lucky_p2/lucky_p2_dialog/box_dialog/box_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/up_level/up_level_dialog.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class CardChildController extends LuckyBaseController{
   List<PlayInfoBean> list=[];
@@ -116,6 +118,8 @@ class CardChildController extends LuckyBaseController{
     if(!kDebugMode){
       return;
     }
-    LuckyRouters.instance.showDialog(child: UpLevelDialog(addNum: 20.3, dismiss: (){}));
+    // LuckyRouters.instance.showDialog(child: BoxDialog());
+    p2KeyNum.saveData(10);
+    // print("kk====${ValueUtils.instance.getWheelAddNum()}");
   }
 }

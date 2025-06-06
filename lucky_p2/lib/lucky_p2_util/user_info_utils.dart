@@ -31,6 +31,11 @@ class UserInfoUtils{
     return p2UserPlayNum.getData()%5==0;
   }
 
+  updateKeyNum(int addNum){
+    p2KeyNum.saveData(p2KeyNum.getData()+addNum);
+    LuckyEvent(luckyCode: P2LuckyEventCode.updateKeyNum);
+  }
+
   openPlayPageByType(String playType){
     String routersName="";
     if(playType==PlayType.card1.name){

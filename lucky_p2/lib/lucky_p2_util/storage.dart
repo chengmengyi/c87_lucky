@@ -10,12 +10,14 @@ class StorageName{
   static const p2LastPlayType="p2LastPlayType";
   static const p2BoxPro="p2BoxPro";
   static const p2FirstBoxGuide="p2FirstBoxGuide";
+  static const p2KeyNum="p2KeyNum";
 }
 
 
 StorageData<double> p2UserCoins=StorageData<double>(key: StorageName.p2UserCoins, defaultValue: 0.0);
 StorageData<int> p2UserPlayNum=StorageData<int>(key: StorageName.p2UserPlayNum, defaultValue: 0);
 StorageData<int> p2BoxPro=StorageData<int>(key: StorageName.p2BoxPro, defaultValue: 0);
+StorageData<int> p2KeyNum=StorageData<int>(key: StorageName.p2KeyNum, defaultValue: 0);
 
 
 StorageData<String> p2UserGuideStep=StorageData<String>(key: StorageName.p2UserGuideStep, defaultValue: UserGuideSteps.firstPlayGuide);
