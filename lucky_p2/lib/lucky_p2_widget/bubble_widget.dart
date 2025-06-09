@@ -1,12 +1,18 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_stateful.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
+import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class BubbleWidget extends LuckyBaseStateful{
@@ -45,12 +51,17 @@ class BubbleWidgetState extends LuckyBaseState<BubbleWidget>{
             Positioned(
               top: currentY,
               left: currentX,
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  LuckyImageWidget(name: "bubble",width: 58.w,height: 58.w,),
-                  LuckyTextWidget(text: "\$$addNum", size: 18.sp, color: "#1AFF16",shadowsColor: "#000000",)
-                ],
+              child: ClickWidget(
+                onTap: (){
+                  _click();
+                },
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    LuckyImageWidget(name: "bubble",width: 58.w,height: 58.w,),
+                    LuckyTextWidget(text: "\$$addNum", size: 18.sp, color: "#1AFF16",shadowsColor: "#000000",)
+                  ],
+                ),
               ),
             )
           ],
@@ -117,6 +128,20 @@ class BubbleWidgetState extends LuckyBaseState<BubbleWidget>{
       }
       setState(() {});
     });
+  }
+
+  _click(){
+    TTTTUtils.instance.pointEvent(customId: CustomId.float_c);
+    LuckyAdUtils.instance.showP2Ad(
+      adType: AdType.reward,
+      adPosId: AdPosId.skerk_float_rv,
+      showAd: ValueUtils.instance.showAd(AdType.reward),
+      closeAd: (){
+        UserInfoUtils.instance.updateUserCoins(addNum);
+        addNum=ValueUtils.instance.getBubbleAddNum();
+        setState(() {});
+      },
+    );
   }
 
   @override

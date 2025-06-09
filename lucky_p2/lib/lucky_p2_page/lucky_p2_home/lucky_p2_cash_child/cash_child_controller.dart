@@ -1,7 +1,9 @@
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_p2/lucky_p2_bean/cash_list_bean.dart';
 import 'package:lucky_p2/lucky_p2_bean/cash_task_bean.dart';
 import 'package:lucky_p2/lucky_p2_dialog/account/account_dialog.dart';
@@ -25,6 +27,7 @@ class CashChildController extends LuckyBaseController{
   }
 
   clickCashOut(CashListBean bean)async{
+    TTTTUtils.instance.pointEvent(customId: CustomId.cash_page_c);
     if(null!=bean.cashTaskBean){
       if(bean.cashTaskBean?.cashStatus==CashStatus.completed){
         LuckyRouters.instance.showDialog(child: CashSuccessDialog(cashTaskBean: bean.cashTaskBean,));
@@ -62,7 +65,12 @@ class CashChildController extends LuckyBaseController{
     if(cashTaskBean?.taskType==TaskType.task2Rank){
       LuckyRouters.instance.showDialog(child: RankDialog(cashTaskBean: cashTaskBean));
     }else{
-      LuckyRouters.instance.showDialog(child: CashTaskDialog(cashTaskBean: cashTaskBean));
+      LuckyRouters.instance.showDialog(
+        child: CashTaskDialog(
+          cashTaskBean: cashTaskBean,
+          firstStep: cashTaskBean?.taskType==TaskType.task1Card,
+        ),
+      );
     }
   }
 

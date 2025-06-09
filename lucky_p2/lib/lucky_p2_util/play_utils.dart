@@ -6,6 +6,7 @@ import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_dialog/big_win/big_win_dialog.dart';
+import 'package:lucky_p2/lucky_p2_dialog/first_get_coins/first_get_coins_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/no_win/no_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/up_level/up_level_dialog.dart';
@@ -13,6 +14,7 @@ import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 import 'user_guide/user_guide_steps.dart';
 
@@ -120,6 +122,17 @@ class PlayUtils{
     }
     LuckyEvent(luckyCode: P2LuckyEventCode.updatePlayBottomReward,intValue: allReward);
     await Future.delayed(const Duration(milliseconds: 1000));
+    if(p2FirstGetCoins.getData()){
+      LuckyRouters.instance.showDialog(
+        child: FirstGetCoinsDialog(
+          allReward: ValueUtils.instance.getNewPrize().toDouble(),
+          dismiss: (addNum){
+            _resetPlay(addNum,resetCallback);
+          },
+        ),
+      );
+      return;
+    }
     var showLevelDialog = UserInfoUtils.instance.updateUserPlayNum();
     if(showLevelDialog){
       LuckyRouters.instance.showDialog(
@@ -146,6 +159,7 @@ class PlayUtils{
       LuckyRouters.instance.showDialog(
         child: BigWinDialog(
           allReward: allReward.toDouble(),
+          playType: playType,
           dismiss: (addNum){
             _resetPlay(addNum,resetCallback);
           },
@@ -155,6 +169,7 @@ class PlayUtils{
       LuckyRouters.instance.showDialog(
         child: NormalWinDialog(
           allReward: allReward.toDouble(),
+          playType: playType,
           dismiss: (addNum){
             _resetPlay(addNum,resetCallback);
           },

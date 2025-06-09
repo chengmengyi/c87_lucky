@@ -118,7 +118,6 @@ class CardChild extends LuckyBaseChild<CardChildController>{
               child: FingerWidget(),
             ),
           ),
-          LuckyTextWidget(text: "${80-(infoBean.secondsNum??0)}", size: 30.sp, color: "#FFFFFFF")
         ],
       ),
     );

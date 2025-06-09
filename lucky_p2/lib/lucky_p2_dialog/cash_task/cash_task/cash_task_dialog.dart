@@ -1,21 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_bean/cash_task_bean.dart';
 import 'package:lucky_p2/lucky_p2_dialog/cash_task/cash_task/cash_task_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 
 class CashTaskDialog extends LuckyBaseDialog<CashTaskController>{
   CashTaskBean? cashTaskBean;
-  CashTaskDialog({required this.cashTaskBean});
+  bool firstStep;
+  CashTaskDialog({
+    required this.cashTaskBean,
+    required this.firstStep,
+  });
 
   @override
   CashTaskController initController() => CashTaskController();
+
+  @override
+  initView() {
+    if(firstStep){
+      TTTTUtils.instance.pointEvent(customId: CustomId.cash_task_pop);
+    }else{
+      var wtdTask = ValueUtils.instance.getWtdTaskByIndex(cashTaskBean);
+      TTTTUtils.instance.pointEvent(customId: CustomId.one_last_step_pop,params: {"task_from":wtdTask?.type});
+    }
+  }
 
   @override
   Widget child() => Stack(
@@ -43,7 +60,7 @@ class CashTaskDialog extends LuckyBaseDialog<CashTaskController>{
                   rightStr: "",
                   showVideo: false,
                   onTap: (){
-                    luckyController.clickCash();
+                    luckyController.clickCash(firstStep,cashTaskBean);
                   },
                 ),
               ],
@@ -56,7 +73,7 @@ class CashTaskDialog extends LuckyBaseDialog<CashTaskController>{
         right: 32.w,
         child: ClickWidget(
           onTap: (){
-            LuckyRouters.instance.back();
+            luckyController.clickClose();
           },
           child: LuckyImageWidget(name: "icon_close",width: 38.w,height: 38.h,),
         ),

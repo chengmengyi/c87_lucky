@@ -9,6 +9,8 @@ import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_page/luck_p2_play4/play4_controller.dart';
 import 'package:lucky_p2/lucky_p2_widget/bottom_widget.dart';
+import 'package:lucky_p2/lucky_p2_widget/box_widget.dart';
+import 'package:lucky_p2/lucky_p2_widget/bubble_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/play_animator_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/play_top_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/up_level_widget.dart';
@@ -21,18 +23,24 @@ class Play4Page extends LuckyBasePage<Play4Controller>{
   Play4Controller initController() => Play4Controller();
 
   @override
-  Widget child() =>Column(
+  Widget child() => Stack(
     children: [
-      PlayTopWidget(),
-      SizedBox(height: 16.h,),
-      UpLevelWidget(),
-      const Spacer(),
-      _playWidget(),
-      BottomWidget(
-        revealAllCall: (){
-          luckyController.clickRevealAll();
-        },
+      Column(
+        children: [
+          PlayTopWidget(),
+          SizedBox(height: 16.h,),
+          UpLevelWidget(),
+          const Spacer(),
+          _playWidget(),
+          BottomWidget(
+            revealAllCall: (){
+              luckyController.clickRevealAll();
+            },
+          ),
+        ],
       ),
+      BubbleWidget(),
+      BoxWidget(),
     ],
   );
 

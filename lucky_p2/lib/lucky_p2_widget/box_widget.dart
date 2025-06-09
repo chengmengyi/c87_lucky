@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_stateful.dart';
+import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
+import 'package:lucky_p2/lucky_p2_dialog/box_dialog/box_dialog.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/box_guide_overlay.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
@@ -110,7 +114,7 @@ class BoxWidgetState extends LuckyBaseState<BoxWidget>{
       showFinger=false;
       p2BoxPro.saveData(0);
       setState(() {});
-
+      LuckyRouters.instance.showDialog(child: BoxDialog());
     }else{
       showToast("Continue to eliminate ${5-p2BoxPro.getData()} times to open the treasure box");
     }
@@ -124,9 +128,16 @@ class BoxWidgetState extends LuckyBaseState<BoxWidget>{
       p2FirstBoxGuide.saveData(false);
       var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
       var offset = renderBox.localToGlobal(Offset.zero);
+      TTTTUtils.instance.pointEvent(customId: CustomId.box_guide);
       UserGuideUtils.instance.showOverlay(
         context: context,
-        widget: BoxGuideOverlay(offset: offset, dismissCall: (){}),
+        widget: BoxGuideOverlay(
+          offset: offset,
+          dismissCall: (){
+            TTTTUtils.instance.pointEvent(customId: CustomId.box_guide_c);
+            _clickBox();
+          },
+        ),
       );
     }else{
       setState(() {

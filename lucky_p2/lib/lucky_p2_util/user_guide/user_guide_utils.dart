@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_p2/lucky_p2_dialog/old_user/old_user_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/old_user/wheel_dialog/wheel_dialog.dart';
 import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
@@ -44,6 +46,7 @@ class UserGuideUtils{
     LuckyRouters.instance.showDialog(
       child: OldUserDialog(
         clickSpin: (){
+          TTTTUtils.instance.pointEvent(customId: CustomId.wheel_c,params: {"source_from":"old"});
           LuckyRouters.instance.showDialog(
             child: WheelDialog(),
           );
@@ -61,12 +64,14 @@ class UserGuideUtils{
     }
     var renderBox = firstGuideGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
+    TTTTUtils.instance.pointEvent(customId: CustomId.card_guide);
     showOverlay(
       context: context,
       widget: FirstPlayGuideOverlay(
         offset: offset,
         size: renderBox.size,
         dismissCall: (){
+          TTTTUtils.instance.pointEvent(customId: CustomId.card_guide_c);
           p2UserGuideStep.saveData(UserGuideSteps.showGuaGuide);
           checkShowGuide();
         },

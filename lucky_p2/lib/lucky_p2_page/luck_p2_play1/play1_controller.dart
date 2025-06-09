@@ -1,9 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_utils.dart';
@@ -40,6 +42,7 @@ class Play1Controller extends LuckyBaseController with GetTickerProviderStateMix
 
   onScratchStart(){
     if(checkShowNewUserGuaGuide()){
+      TTTTUtils.instance.pointEvent(customId: CustomId.card_detail_guide_c);
       p2UserGuideStep.saveData(UserGuideSteps.showCashGuide);
       update(["gua_lottie"]);
     }
@@ -56,8 +59,8 @@ class Play1Controller extends LuckyBaseController with GetTickerProviderStateMix
     final List<YourBean> yourList = [];
     final List<int> remainingNumbersInA = List.from(winList);
     for (int i = 0; i < 12; i++) {
-      final bool condition = ValueUtils.instance.getPlay1Point();
-      if (condition && remainingNumbersInA.isNotEmpty) {
+      var winnerBean = ValueUtils.instance.getWinnerBean(playUtils.playType);
+      if (winnerBean. && remainingNumbersInA.isNotEmpty) {
         final int numberFromA = remainingNumbersInA.first;
         yourList.add(YourBean(content: "$numberFromA", reward: ValueUtils.instance.getPlay1Reward(), win: true));
       } else {
@@ -74,6 +77,9 @@ class Play1Controller extends LuckyBaseController with GetTickerProviderStateMix
     yourList.shuffle();
     playUtils.setYourList(yourList);
     update(["your_widget","gua_lottie"]);
+    if(checkShowNewUserGuaGuide()){
+      TTTTUtils.instance.pointEvent(customId: CustomId.card_detail_guide);
+    }
   }
 
   bool checkShowNewUserGuaGuide()=>p2UserGuideStep.getData()==UserGuideSteps.showGuaGuide;

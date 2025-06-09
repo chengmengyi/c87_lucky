@@ -10,6 +10,7 @@ import 'package:lucky_p1/lucky_p1_dialog/up_level/up_level_dialog.dart';
 import 'package:lucky_p1/lucky_p1_page/lucky_p1_home/lucky_p1_card_child/card_child.dart';
 import 'package:lucky_p1/lucky_p1_page/lucky_p1_home/lucky_p1_reward_child/reward_child.dart';
 import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart';
+import 'package:lucky_base/lucky_utils/check_af_utils.dart';
 
 class HomeController extends LuckyBaseController{
   var tabIndex=0;
@@ -22,6 +23,7 @@ class HomeController extends LuckyBaseController{
   void onInit() {
     super.onInit();
     VoicePlayUtils.instance.playBg();
+    p1HomeShowing.saveData(true);
   }
 
   clickTab(index){
@@ -49,5 +51,11 @@ class HomeController extends LuckyBaseController{
         },
       ),
     );
+  }
+
+  @override
+  void onClose() {
+    p1HomeShowing.saveData(false);
+    super.onClose();
   }
 }

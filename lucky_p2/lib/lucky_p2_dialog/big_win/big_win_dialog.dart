@@ -7,18 +7,26 @@ import 'package:lucky_base/lucky_widget/lucky_gra_text_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_lottie_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_dialog/big_win/big_win_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 
 class BigWinDialog extends LuckyBaseDialog<BigWinController>{
   double allReward;
+  PlayType playType;
   Function(double addNum) dismiss;
   BigWinDialog({
     required this.allReward,
+    required this.playType,
     required this.dismiss,
 });
 
   @override
   BigWinController initController() => BigWinController();
+
+  @override
+  initView() {
+    luckyController.playType=playType;
+  }
 
   @override
   Widget child() => Column(

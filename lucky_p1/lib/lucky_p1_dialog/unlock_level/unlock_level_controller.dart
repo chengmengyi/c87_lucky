@@ -1,6 +1,6 @@
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
-import 'package:lucky_base/lucky_utils/lucky_ad_utils.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p1/lucky_p1_bean/play_info_bean.dart';
 import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart';

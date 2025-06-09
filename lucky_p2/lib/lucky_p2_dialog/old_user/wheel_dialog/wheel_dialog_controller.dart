@@ -3,7 +3,8 @@ import 'dart:math';
 import 'package:flutter/animation.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
-import 'package:lucky_base/lucky_utils/lucky_ad_utils.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
@@ -61,6 +62,9 @@ class WheelDialogController extends LuckyBaseController with GetSingleTickerProv
     await Future.delayed(Duration(milliseconds: 800));
     LuckyRouters.instance.back();
     LuckyAdUtils.instance.showP2Ad(
+      adType: AdType.interstitial,
+      showAd: ValueUtils.instance.showAd(AdType.interstitial),
+      adPosId: AdPosId.skerk_signin_spin_int,
       closeAd: (){
         LuckyRouters.instance.showDialog(
           child: WheelSignRewardDialog(
@@ -75,7 +79,14 @@ class WheelDialogController extends LuckyBaseController with GetSingleTickerProv
     if(!canClick){
       return;
     }
-    LuckyRouters.instance.back();
+    LuckyAdUtils.instance.showP2Ad(
+      adType: AdType.interstitial,
+      adPosId: AdPosId.skerk_close_int,
+      showAd: ValueUtils.instance.showAd(AdType.interstitial),
+      closeAd: (){
+        LuckyRouters.instance.back();
+      },
+    );
   }
 
   @override

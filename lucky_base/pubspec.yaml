@@ -27,6 +27,12 @@ dependencies:
   flutter_app_lifecycle: 0.0.1
   decimal: 3.2.1
   outlined_text: 1.0.1
+  firebase_analytics: 11.4.6
+  firebase_core: 3.13.1
+  firebase_remote_config: 5.4.4
+  connectivity_plus: 6.1.4
+  flutter_check_af: 0.0.4
+  flutter_local_notifications: 19.2.1
   scratcher:
     path: plugins/scratcher-2.5.0
 

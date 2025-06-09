@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:flutter/foundation.dart';
+import 'package:lucky_base/lucky_utils/firebase_utils.dart';
 import 'package:lucky_base/lucky_utils/local_config.dart';
+import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p2/lucky_p2_bean/cash_task_bean.dart';
 import 'package:lucky_p2/lucky_p2_bean/value_bean.dart';
@@ -16,13 +19,55 @@ class ValueUtils{
 
   initValue(){
     try{
-      _valueBean=ValueBean.fromJson(jsonDecode(localValueStrB.base64()));
+      _valueBean=ValueBean.fromJson(jsonDecode(_getValueStr()));
+      FirebaseUtils.instance.valueResultCall=(){
+        _valueBean=ValueBean.fromJson(jsonDecode(_getValueStr()));
+      };
     }catch(e){
-      print(e);
+      _valueBean=ValueBean.fromJson(jsonDecode(localValueStrB.base64()));
     }
   }
 
-  double getBubbleAddNum()=> 20.3;
+  int getNewPrize()=>_valueBean?.newPrize??134;
+
+  bool showAd(AdType adType){
+    if(kDebugMode){
+      return false;
+    }
+    var list = _valueBean?.intadPoint??[];
+    if(list.isEmpty){
+      return false;
+    }
+    var last = list.last;
+    var playNum = p2UserPlayNum.getData();
+    if(playNum>=(last.endNumber??1000)){
+      return Random().nextInt(100)<(last.point??60);
+    }
+    for (var value in list) {
+      if(playNum>=(value.firstNumber??0)&&playNum<(value.endNumber??0)){
+        return Random().nextInt(100)<(value.point??60);
+      }
+    }
+    return true;
+  }
+
+  double getBubbleAddNum(){
+    var list = _valueBean?.floatPrize??[];
+    if(list.isEmpty){
+      return 0.0;
+    }
+    var last = list.last;
+    var playNum = p2UserPlayNum.getData();
+    if(playNum>=(last.endNumber??1000)){
+      return _getRandomDoubleInRange(last.prize??[]);
+    }
+    for (var value in list) {
+      if(playNum>=(value.firstNumber??0)&&playNum<(value.endNumber??0)){
+        return _getRandomDoubleInRange(value.prize??[]);
+      }
+    }
+    return 0.0;
+  }
 
   double getBoxAddNum(){
     var playNum = p2UserPlayNum.getData();
@@ -285,4 +330,11 @@ class ValueUtils{
     return value.toStringAsFixed(2).toDou();
   }
 
+  String _getValueStr(){
+    var data = p2ValueFirebaseConfig.getData();
+    if(data.isEmpty){
+      return localValueStrB.base64();
+    }
+    return data;
+  }
 }

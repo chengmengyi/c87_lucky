@@ -1,7 +1,10 @@
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
+import 'package:lucky_p2/lucky_p2_dialog/comment/comment_dialog.dart';
 import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
@@ -16,7 +19,18 @@ class UserInfoUtils{
       return;
     }
     p2UserCoins.saveData(addTwoNums(p2UserCoins.getData(),addCoins));
+    var moneyLevel = p2LastCoinsLevel.getData()+100;
+    if(p2UserCoins.getData()>=moneyLevel){
+      TTTTUtils.instance.pointEvent(customId: CustomId.cash_money_detail,params: {"money":moneyLevel});
+      p2LastCoinsLevel.saveData(moneyLevel);
+    }
     LuckyEvent(luckyCode: P2LuckyEventCode.updateUserCoins);
+    if(p2FirstGetCoins.getData()){
+      if(p2ShowComment.getData()){
+        LuckyRouters.instance.showDialog(child: CommentDialog());
+      }
+      p2FirstGetCoins.saveData(false);
+    }
   }
 
   bool updateUserPlayNum(){
@@ -69,6 +83,7 @@ class UserInfoUtils{
       return;
     }
     p2LastPlayType.saveData(playType);
+    TTTTUtils.instance.pointEvent(customId: CustomId.card_detail_page,params: {"page_from":playType});
     LuckyRouters.instance.openNextPage(routersName: routersName);
   }
 }

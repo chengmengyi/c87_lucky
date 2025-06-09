@@ -3,13 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
-import 'package:lucky_base/lucky_utils/lucky_ad_utils.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_p2/lucky_p2_dialog/no_key/no_key_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
+import 'package:lucky_p2/lucky_p2_dialog/old_user/wheel_win/wheel_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
@@ -27,14 +31,15 @@ class WheelChildController extends LuckyBaseController with GetSingleTickerProvi
   }
 
   startAnimator(){
-    if(p2KeyNum.getData()<=0){
-      _checkHasKey();
-      return;
-    }
     if(!canClick){
       return;
     }
     canClick=false;
+    TTTTUtils.instance.pointEvent(customId: CustomId.wheel_page_c);
+    if(p2KeyNum.getData()<=0){
+      _checkHasKey();
+      return;
+    }
     showSpinFinger=false;
     update(["spin_finger"]);
     wheelAddNum = ValueUtils.instance.getWheelAddNum();
@@ -73,9 +78,12 @@ class WheelChildController extends LuckyBaseController with GetSingleTickerProvi
     canClick=true;
     UserInfoUtils.instance.updateKeyNum(-1);
     LuckyAdUtils.instance.showP2Ad(
+      adType: AdType.interstitial,
+      adPosId: AdPosId.skerk_wheel_spin_int,
+      showAd: ValueUtils.instance.showAd(AdType.interstitial),
       closeAd: (){
         LuckyRouters.instance.showDialog(
-          child: NormalWinDialog(
+          child: WheelWinDialog(
             allReward: wheelAddNum.toDouble(),
             dismiss: (addNum){
               UserInfoUtils.instance.updateUserCoins(addNum);

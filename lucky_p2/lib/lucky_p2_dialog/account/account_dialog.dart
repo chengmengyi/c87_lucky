@@ -127,7 +127,7 @@ class AccountDialog extends LuckyBaseDialog<AccountController>{
           right: 32.w,
           child: ClickWidget(
             onTap: (){
-              LuckyRouters.instance.back();
+              luckyController.clickClose();
             },
             child: LuckyImageWidget(name: "icon_close",width: 38.w,height: 38.h,),
           ),

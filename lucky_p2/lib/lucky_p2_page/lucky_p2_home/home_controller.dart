@@ -2,10 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
+import 'package:lucky_base/lucky_utils/local_notification_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
 import 'package:lucky_p2/lucky_p2_dialog/big_win/big_win_dialog.dart';
+import 'package:lucky_p2/lucky_p2_dialog/comment/comment_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/old_user/old_user_dialog.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_card_child/card_child.dart';
@@ -26,6 +30,16 @@ class HomeController extends LuckyBaseController{
   void onInit() {
     super.onInit();
     VoicePlayUtils.instance.playBg();
+    TTTTUtils.instance.pointEvent(customId: CustomId.home_page);
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    if(p2ShowComment.getData()&&!p2FirstGetCoins.getData()){
+      LuckyRouters.instance.showDialog(child: CommentDialog());
+    }
+    LocationNotificationUtils.instance.init();
   }
 
   clickTab(index){
@@ -34,12 +48,20 @@ class HomeController extends LuckyBaseController{
     }
     tabIndex=index;
     update(["page"]);
-    if(index==2&&checkShowCashGuide()){
-      p2UserGuideStep.saveData(UserGuideSteps.showRevealAllGuide);
-      update(["cash_guide"]);
+    if(index==2){
+      TTTTUtils.instance.pointEvent(customId: CustomId.cash_page);
+      if(checkShowCashGuide()){
+        TTTTUtils.instance.pointEvent(customId: CustomId.cash_guide_c);
+        p2UserGuideStep.saveData(UserGuideSteps.showRevealAllGuide);
+        update(["cash_guide"]);
+      }
     }
     if(index==1){
+      TTTTUtils.instance.pointEvent(customId: CustomId.wheel_c,params: {"source_from":"home"});
       LuckyEvent(luckyCode: P2LuckyEventCode.clickWheelTabCheckHasKey);
+    }
+    if(index==0){
+      TTTTUtils.instance.pointEvent(customId: CustomId.home_page);
     }
   }
 
@@ -52,6 +74,7 @@ class HomeController extends LuckyBaseController{
   receivedLuckyEventMsg(LuckyEvent luckyEvent) {
     switch(luckyEvent.luckyCode){
       case P2LuckyEventCode.showCashGuide:
+        TTTTUtils.instance.pointEvent(customId: CustomId.cash_guide);
         update(["cash_guide"]);
         break;
       case P2LuckyEventCode.clickNoKeyFindIt:
