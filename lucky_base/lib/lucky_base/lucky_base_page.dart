@@ -21,7 +21,7 @@ abstract class LuckyBasePage<T extends LuckyBaseController> extends StatelessWid
           Container():
           LuckyImageWidget(name: bgName(),width: double.infinity,height: double.infinity,),
           SafeArea(
-            top: true,
+            top: safeTop(),
             bottom: false,
             child: SizedBox(
               width: double.infinity,
@@ -39,4 +39,6 @@ abstract class LuckyBasePage<T extends LuckyBaseController> extends StatelessWid
   String bgName();
 
   Widget child();
+
+  bool safeTop()=>true;
 }

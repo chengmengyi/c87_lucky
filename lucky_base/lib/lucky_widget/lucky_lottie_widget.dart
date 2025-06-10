@@ -6,16 +6,18 @@ class LuckyLottieWidget extends StatelessWidget{
   double? width;
   double? height;
   BoxFit? fit;
+  String ext;
   LuckyLottieWidget({
     required this.name,
     this.width,
     this.height,
     this.fit,
+    this.ext=".json",
 });
 
   @override
   Widget build(BuildContext context) => Lottie.asset(
-    "lucky_lottie/$name.json",
+    "lucky_lottie/$name$ext",
     width: width,
     height: height,
     fit: fit,

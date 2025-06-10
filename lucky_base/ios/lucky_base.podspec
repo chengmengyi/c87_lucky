@@ -20,4 +20,9 @@ A new Flutter project.
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
+  s.vendored_frameworks = 'Framework/*.framework'
+  s.vendored_libraries = 'Framework/*.a'
+  s.resource ='Framework/*.bundle'
+  s.public_header_files = 'Classes/**/*.h'
+
 end

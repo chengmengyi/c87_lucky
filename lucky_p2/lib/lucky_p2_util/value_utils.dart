@@ -34,6 +34,9 @@ class ValueUtils{
     if(kDebugMode){
       return false;
     }
+    if(adType==AdType.reward){
+      return true;
+    }
     var list = _valueBean?.intadPoint??[];
     if(list.isEmpty){
       return false;
@@ -166,6 +169,9 @@ class ValueUtils{
   }
 
   WinRewardBean getWinnerBean(PlayType playType){
+    // if(kDebugMode){
+    //   return WinRewardBean(winNum: 2, bigWin: 200, coinsNum: 0, winType: WinType.diamond,rewardNormal: 200);
+    // }
     var bigWin=200,rewardNormal=100;
     List<RewardNumber> rewardNumberList=[];
     List<RewardMoney> rewardMoneyList=[];
@@ -237,6 +243,46 @@ class ValueUtils{
     return WinRewardBean(winNum: randomRewardNumber?.number??0, bigWin: bigWin, coinsNum: coinsNum, winType: winType,rewardNormal: rewardNormal);
   }
 
+  int getBigNum(PlayType playType){
+    int bigWin=200;
+    switch(playType){
+    //玩法2
+      case PlayType.card1:
+      case PlayType.card3:
+        var play = _valueBean?.cardNumberPlay2;
+        bigWin=play?.bigwinNumber??200;
+        break;
+    //玩法1
+      case PlayType.card2:
+      case PlayType.card5:
+        var play = _valueBean?.cardFruitPlay1;
+        bigWin=play?.bigwinNumber??200;
+        break;
+    //玩法3
+      case PlayType.card7:
+        var play = _valueBean?.cardTigerPlay3;
+        bigWin=play?.bigwinNumber??200;
+        break;
+    //玩法4
+      case PlayType.card8:
+        var play = _valueBean?.card77hotPlay4;
+        bigWin=play?.bigwinNumber??200;
+        break;
+    //玩法5
+      case PlayType.card9:
+        var play = _valueBean?.cardDiamondPlay5;
+        bigWin=play?.bigwinNumber??200;
+        break;
+    //玩法6
+      case PlayType.card4:
+      case PlayType.card6:
+        var play = _valueBean?.card9betPlay6;
+        bigWin=play?.bigwinNumber??200;
+        break;
+    }
+    return bigWin;
+  }
+
   RewardMoney? _randomRewardMoney(List<RewardMoney> list){
     if(list.isEmpty){
       return null;
@@ -277,47 +323,49 @@ class ValueUtils{
     return (rewardNumber?.scale??0)/allScale;
   }
 
-  bool getPlay1Point()=>true;
-  bool getPlay2Point()=>true;
-  bool getPlay4Point9()=>true;
-  bool getPlay4PointOther()=>true;
-  bool getPlay8Point7()=>true;
-  bool getPlay8Point77()=>true;
-  bool getPlay9Point()=>true;
+  double getRandomRewardByMax()=>_getRandomDoubleInRange([0,200]);
 
-  int getPlay1Reward()=>100;
-  int getPlay2Reward()=>100;
-  int getPlay4Reward()=>100;
-  int getPlay7Reward()=>100;
-  int getPlay8Reward()=>100;
-  int getPlay9Reward()=>100;
-
-  int getPlay7Num(){
-    return 100;
-    // var cardTiger = _valueBean?.cardTiger;
-    // var tiger0 = cardTiger?.tiger0??40;
-    // var tiger3 = cardTiger?.tiger3??30;
-    // var tiger4 = cardTiger?.tiger4??10;
-    // var tiger5 = cardTiger?.tiger5??10;
-    // var tiger6 = cardTiger?.tiger6??8;
-    // var tiger7 = cardTiger?.tiger7??2;
-    // var index = Random().nextInt(100);
-    // if(index<tiger0){
-    //   return 0;
-    // }else if(index>=tiger0&&index<(tiger0+tiger3)){
-    //   return 3;
-    // }else if(index>=(tiger0+tiger3)&&index<(tiger0+tiger3+tiger4)){
-    //   return 4;
-    // }else if(index>=(tiger0+tiger3+tiger4)&&index<(tiger0+tiger3+tiger4+tiger5)){
-    //   return 5;
-    // }else if(index>=(tiger0+tiger3+tiger4+tiger5)&&index<(tiger0+tiger3+tiger4+tiger5+tiger6)){
-    //   return 6;
-    // }else if(index>=(tiger0+tiger3+tiger4+tiger5+tiger6)&&index<(tiger0+tiger3+tiger4+tiger5+tiger6+tiger7)){
-    //   return 7;
-    // }else{
-    //   return 0;
-    // }
-  }
+  // bool getPlay1Point()=>true;
+  // bool getPlay2Point()=>true;
+  // bool getPlay4Point9()=>true;
+  // bool getPlay4PointOther()=>true;
+  // bool getPlay8Point7()=>true;
+  // bool getPlay8Point77()=>true;
+  // bool getPlay9Point()=>true;
+  //
+  // double getPlay1Reward()=>100.0;
+  // double getPlay2Reward()=>100.0;
+  // double getPlay4Reward()=>100.0;
+  // double getPlay7Reward()=>100.0;
+  // double getPlay8Reward()=>100.0;
+  // double getPlay9Reward()=>100.0;
+  //
+  // double getPlay7Num(){
+  //   return 100.0;
+  //   // var cardTiger = _valueBean?.cardTiger;
+  //   // var tiger0 = cardTiger?.tiger0??40;
+  //   // var tiger3 = cardTiger?.tiger3??30;
+  //   // var tiger4 = cardTiger?.tiger4??10;
+  //   // var tiger5 = cardTiger?.tiger5??10;
+  //   // var tiger6 = cardTiger?.tiger6??8;
+  //   // var tiger7 = cardTiger?.tiger7??2;
+  //   // var index = Random().nextInt(100);
+  //   // if(index<tiger0){
+  //   //   return 0;
+  //   // }else if(index>=tiger0&&index<(tiger0+tiger3)){
+  //   //   return 3;
+  //   // }else if(index>=(tiger0+tiger3)&&index<(tiger0+tiger3+tiger4)){
+  //   //   return 4;
+  //   // }else if(index>=(tiger0+tiger3+tiger4)&&index<(tiger0+tiger3+tiger4+tiger5)){
+  //   //   return 5;
+  //   // }else if(index>=(tiger0+tiger3+tiger4+tiger5)&&index<(tiger0+tiger3+tiger4+tiger5+tiger6)){
+  //   //   return 6;
+  //   // }else if(index>=(tiger0+tiger3+tiger4+tiger5+tiger6)&&index<(tiger0+tiger3+tiger4+tiger5+tiger6+tiger7)){
+  //   //   return 7;
+  //   // }else{
+  //   //   return 0;
+  //   // }
+  // }
 
   double _getRandomDoubleInRange(List<int> list) {
     if(list.length<2){

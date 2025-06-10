@@ -10,8 +10,19 @@ class MethodChannelLuckyBase extends LuckyBasePlatform {
   final methodChannel = const MethodChannel('lucky_base');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  Future<void> func1() async {
+    await methodChannel.invokeMethod<String>('func1');
+  }
+  @override
+  Future<void> func2() async {
+    await methodChannel.invokeMethod<String>('func2');
+  }
+  @override
+  Future<void> func3() async {
+    await methodChannel.invokeMethod<String>('func3');
+  }
+  @override
+  Future<void> func4() async {
+    await methodChannel.invokeMethod<String>('func4');
   }
 }

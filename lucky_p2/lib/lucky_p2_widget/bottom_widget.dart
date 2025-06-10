@@ -8,6 +8,7 @@ import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_gra_text_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
+import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_steps.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
@@ -23,7 +24,7 @@ class BottomWidget extends LuckyBaseStateful{
 }
 
 class BottomWidgetState extends LuckyBaseState<BottomWidget>{
-  var reward=0;
+  var reward=0.0;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -37,8 +38,21 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
           child: ClickWidget(
             onTap: (){
               LuckyRouters.instance.back();
+              LuckyEvent(luckyCode: P2LuckyEventCode.showHomeTab,intValue: 1);
             },
-            child: LuckyImageWidget(name: "bottom2",width: 76.w,height: 89.h,),
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                LuckyImageWidget(name: "bottom4",width: 76.w,height: 89.h,),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LuckyImageWidget(name: "icon_key2",width: 30.w,height: 35.h,),
+                    LuckyTextWidget(text: "x${p2KeyNum.getData()}", size: 12.sp, color: "#FFFFFF",shadowsColor: "#000000",fontWeight: FontWeight.bold,)
+                  ],
+                )
+              ],
+            ),
           ),
         ),
         Align(
@@ -88,10 +102,11 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
     switch(luckyEvent.luckyCode){
       case P2LuckyEventCode.updatePlayBottomReward:
         setState(() {
-          reward=luckyEvent.intValue??0;
+          reward=luckyEvent.doubleValue??0.0;
         });
         break;
       case P2LuckyEventCode.showRevealAllGuide:
+      case P2LuckyEventCode.updateKeyNum:
         setState(() {});
         break;
     }

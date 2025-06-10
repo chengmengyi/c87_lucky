@@ -1,0 +1,6 @@
+framework module NeoUtility {
+  umbrella header "NeoUtility.h"
+  export *
+
+  module * { export * }
+}

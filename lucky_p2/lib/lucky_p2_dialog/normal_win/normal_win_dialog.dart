@@ -36,11 +36,11 @@ class NormalWinDialog extends LuckyBaseDialog<NormalWinController>{
     children: [
       Container(
         width: double.infinity,
-        height: 174.h,
+        height: 109.h,
         margin: EdgeInsets.only(left: 12.w,right: 12.w),
         child: Stack(
           children: [
-            LuckyImageWidget(name: "win1",width: double.infinity,height: 174.h,),
+            LuckyImageWidget(name: "win3",width: double.infinity,height: 109.h,),
             Align(
               alignment: Alignment.bottomCenter,
               child: LuckyGraTextWidget(

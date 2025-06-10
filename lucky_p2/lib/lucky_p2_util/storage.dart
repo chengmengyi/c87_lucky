@@ -30,6 +30,6 @@ StorageData<String> p2UserGuideStep=StorageData<String>(key: StorageName.p2UserG
 StorageData<String> p2OldUserGuideTimer=StorageData<String>(key: StorageName.p2OldUserGuideTimer, defaultValue: "");
 StorageData<String> p2LastPlayType=StorageData<String>(key: StorageName.p2LastPlayType, defaultValue: "");
 
-StorageData<bool> p2FirstBoxGuide=StorageData<bool>(key: StorageName.p2LastPlayType, defaultValue: true);
+StorageData<bool> p2FirstBoxGuide=StorageData<bool>(key: StorageName.p2FirstBoxGuide, defaultValue: true);
 StorageData<bool> p2FirstGetCoins=StorageData<bool>(key: StorageName.p2FirstGetCoins, defaultValue: true);
 StorageData<bool> p2ShowComment=StorageData<bool>(key: StorageName.p2ShowComment, defaultValue: true);

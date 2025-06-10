@@ -18,6 +18,8 @@ class CheckAfUtils{
   static final CheckAfUtils _instance = CheckAfUtils();
   static CheckAfUtils get instance => _instance;
 
+  var isWhite=false;
+
   initAf()async{
     var distinctId = await FlutterTbaInfo.instance.getDistinctId();
     var cloakData=CloakBean(
@@ -62,6 +64,7 @@ class CheckAfUtils{
           TTTTUtils.instance.pointEvent(customId: CustomId.cloak_req);
         },
         requestSuccess: (bool isWhite){
+          this.isWhite=isWhite;
           //cloak_user：【0】【1】，对应【黑名单用户】【自然量用户】
           TTTTUtils.instance.pointEvent(customId: CustomId.cloak_suc,params: {"cloak_user":isWhite?1:0});
           _checkUserDelay();

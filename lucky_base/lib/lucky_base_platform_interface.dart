@@ -23,7 +23,16 @@ abstract class LuckyBasePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
+  Future<void> func1() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+  Future<void> func2() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+  Future<void> func3() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+  Future<void> func4() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

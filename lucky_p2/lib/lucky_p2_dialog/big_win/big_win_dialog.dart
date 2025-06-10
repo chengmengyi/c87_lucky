@@ -37,7 +37,7 @@ class BigWinDialog extends LuckyBaseDialog<BigWinController>{
         height: 432.h,
         child: Stack(
           children: [
-            LuckyLottieWidget(name: "big_win",height: 432.h,fit: BoxFit.fitHeight,),
+            LuckyLottieWidget(name: "big_win2",height: 432.h,fit: BoxFit.fitHeight,ext: ".zip",),
             Align(
               alignment: Alignment.bottomCenter,
               child: LuckyGraTextWidget(

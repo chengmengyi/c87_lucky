@@ -176,7 +176,7 @@ class CashChild extends LuckyBaseChild<CashChildController>{
                     builder: (context,bc){
                       var maxWidth = bc.maxWidth;
                       return Container(
-                        width: maxWidth*0.5,
+                        width: maxWidth*getPro(p2UserCoins.getData(), bean.cashMoney),
                         height: 14.h,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4.w),
@@ -186,7 +186,7 @@ class CashChild extends LuckyBaseChild<CashChildController>{
                     },
                   ),
                 ),
-                LuckyTextWidget(text: "14%", size: 13.sp, color: "#FFFFFF",shadowsColor: "#000000",fontWeight: FontWeight.bold,)
+                LuckyTextWidget(text: "${(getPro(p2UserCoins.getData(), bean.cashMoney)*100).toInt()}%", size: 13.sp, color: "#FFFFFF",shadowsColor: "#000000",fontWeight: FontWeight.bold,)
               ],
             ),
             LuckyImageWidget(name: "icon_money",width: 42.w,height: 42.w,)

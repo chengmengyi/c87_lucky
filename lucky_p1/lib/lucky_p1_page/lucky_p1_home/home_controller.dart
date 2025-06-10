@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lucky_base/lucky_base.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
@@ -24,6 +25,7 @@ class HomeController extends LuckyBaseController{
     super.onInit();
     VoicePlayUtils.instance.playBg();
     p1HomeShowing.saveData(true);
+    LuckyBase.instance.func1();
   }
 
   clickTab(index){

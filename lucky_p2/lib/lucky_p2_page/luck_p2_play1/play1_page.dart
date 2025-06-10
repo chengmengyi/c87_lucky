@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucky_base/lucky_base/lucky_base_page.dart';
+import 'package:lucky_base/lucky_base/lucky_base_page2.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -9,11 +9,14 @@ import 'package:lucky_p2/lucky_p2_widget/bottom_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/box_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/bubble_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/gua_lottie_widget.dart';
+import 'package:lucky_p2/lucky_p2_widget/key_animator_widget.dart';
+import 'package:lucky_p2/lucky_p2_widget/key_widget.dart';
+import 'package:lucky_p2/lucky_p2_widget/max_num_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/play_animator_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/play_top_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/up_level_widget.dart';
 
-class Play1Page extends LuckyBasePage<Play1Controller>{
+class Play1Page extends LuckyBasePage2<Play1Controller>{
   @override
   String bgName() => "play11";
 
@@ -23,22 +26,27 @@ class Play1Page extends LuckyBasePage<Play1Controller>{
   @override
   Widget child() =>Stack(
     children: [
-      Column(
-        children: [
-          PlayTopWidget(),
-          SizedBox(height: 16.h,),
-          UpLevelWidget(),
-          const Spacer(),
-          _playWidget(),
-          BottomWidget(
-            revealAllCall: (){
-              luckyController.clickRevealAll();
-            },
-          ),
-        ],
+      SafeArea(
+        top: true,
+        bottom: false,
+        child: Column(
+          children: [
+            PlayTopWidget(),
+            SizedBox(height: 16.h,),
+            UpLevelWidget(),
+            const Spacer(),
+            _playWidget(),
+            BottomWidget(
+              revealAllCall: (){
+                luckyController.clickRevealAll();
+              },
+            ),
+          ],
+        ),
       ),
       BubbleWidget(),
       BoxWidget(),
+      KeyAnimatorWidget(),
     ],
   );
 
@@ -55,7 +63,7 @@ class Play1Page extends LuckyBasePage<Play1Controller>{
             brushSize: 40,
             threshold: 40,
             color: Colors.transparent,
-            image: Image.asset('lucky_images/play12.webp',fit: BoxFit.fill,),
+            image: Image.asset('lucky_images/play14.webp',fit: BoxFit.fill,),
             onThreshold: (){
               luckyController.onThreshold();
             },
@@ -69,7 +77,7 @@ class Play1Page extends LuckyBasePage<Play1Controller>{
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                LuckyImageWidget(name: "play13",width: double.infinity,height: double.infinity,),
+                LuckyImageWidget(name: "play15",width: double.infinity,height: double.infinity,),
                 GetBuilder<Play1Controller>(
                   id: "your_widget",
                   builder: (_)=>Column(
@@ -99,6 +107,17 @@ class Play1Page extends LuckyBasePage<Play1Controller>{
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context,index){
                             var yourBean = luckyController.playUtils.yourList[index];
+                            if(yourBean.isKey){
+                              return Container(
+                                width: double.infinity,
+                                height: 55.h,
+                                alignment: Alignment.center,
+                                child: Visibility(
+                                  visible: yourBean.showKey,
+                                  child: KeyWidegt(width: 55.w, height: 55.w, globalKey: luckyController.playUtils.keyGlobalKey),
+                                ),
+                              );
+                            }
                             var w = Container(
                               width: double.infinity,
                               height: 55.h,
@@ -127,6 +146,16 @@ class Play1Page extends LuckyBasePage<Play1Controller>{
                     ],
                   ),
                 ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MaxNumWidget(playType: luckyController.playUtils.playType, fontSize: 30.sp),
+                LuckyTextWidget(text: "WIN UP TO", size: 11.sp, color: "#FFFFFF",shadowsColor: "#000000",fontWeight: FontWeight.bold,)
               ],
             ),
           ),

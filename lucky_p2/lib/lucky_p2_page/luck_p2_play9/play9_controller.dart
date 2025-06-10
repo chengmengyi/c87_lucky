@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_p2/lucky_p2_bean/win_reward_bean.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_utils.dart';
@@ -44,12 +45,15 @@ class Play9Controller extends LuckyBaseController with GetTickerProviderStateMix
     playUtils.onThreshold(
       resetCallback: (){
         _initYourList();
-      }
+      },
+      refreshKey: (){
+        update(["your_widget"]);
+      },
     );
   }
 
   _initYourList(){
-    var list = generateGrid(forceWin: ValueUtils.instance.getPlay9Point());
+    var list = generateGrid();
     playUtils.setYourList(list);
     update(["your_widget"]);
   }
@@ -71,33 +75,40 @@ class Play9Controller extends LuckyBaseController with GetTickerProviderStateMix
   }
 
   /// 生成满足条件的3x3列表
-  List<YourBean> generateGrid({required bool forceWin}) {
+  List<YourBean> generateGrid() {
+    var winnerBean = ValueUtils.instance.getWinnerBean(playUtils.playType);
     while (true) {
       List<YourBean> board = List.filled(9, YourBean(content: "", reward: 0, win: false));
 
-      if (forceWin) {
+      if (winnerBean.winNum>0) {
         // 1. 随机选择一个 winningLine 让 play94 占据
         var line = winningLines.random();
         for (var i in line) {
-          board[i] = YourBean(content: "play94", reward: ValueUtils.instance.getPlay9Reward(), win: true);
+          board[i] = YourBean(content: "play94", reward: winnerBean.coinsNum, win: true);
         }
 
         // 2. 剩余格子用 play95/play96 随机填
         for (int i = 0; i < 9; i++) {
           if (board[i].content.isEmpty) {
-            board[i] = YourBean(content: random.nextBool() ? "play95" : "play96", reward: ValueUtils.instance.getPlay9Reward(), win: false);
+            board[i] = YourBean(content: random.nextBool() ? "play95" : "play96", reward: winnerBean.coinsNum, win: false);
           }
         }
 
         // 3. 确保 play95/96 没有组成其他线
         if (!hasWinningLine(board, "play95") && !hasWinningLine(board, "play96")) {
+          if(winnerBean.winType==WinType.diamond){
+            var indexWhere = board.indexWhere((value)=>value.win);
+            if(indexWhere>=0){
+              board[indexWhere]=YourBean(content: "", reward: winnerBean.coinsNum, win: true,isKey: true);
+            }
+          }
           return board;
         }
 
       } else {
         // 不满足条件：所有格子随机填，但不能有一条线
         for (int i = 0; i < 9; i++) {
-          board[i] = YourBean(content: elements.random(), reward: ValueUtils.instance.getPlay9Reward(), win: false);
+          board[i] = YourBean(content: elements.random(), reward: winnerBean.coinsNum, win: false);
         }
 
         if (!anyLineExists(board)) return board;

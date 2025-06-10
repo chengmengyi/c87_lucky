@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_p2/lucky_p2_bean/win_reward_bean.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_utils.dart';
@@ -34,32 +36,38 @@ class Play5Controller extends LuckyBaseController with GetTickerProviderStateMix
     playUtils.onThreshold(
       resetCallback: (){
         _initYourList();
-      }
+      },
+      refreshKey: (){
+        update(["your_widget"]);
+      },
     );
   }
 
   _initYourList(){
-    var list = generateGrid(hasWinningLine: ValueUtils.instance.getPlay2Point());
+    var list = generateGrid();
     playUtils.setYourList(list);
     update(["your_widget"]);
   }
 
-  List<YourBean> generateGrid({bool hasWinningLine = true}) {
+  List<YourBean> generateGrid() {
     final List<String> options = ["play54", "play55", "play56"];
     final Random rand = Random();
+    var winnerBean = ValueUtils.instance.getWinnerBean(playUtils.playType);
     while (true) {
       List<YourBean> grid = List.filled(9, YourBean(content: "", reward: 0, win: false));
 
-      if (hasWinningLine) {
+      if (winnerBean.winNum>0) {
         // 1. 随机选择一个中奖横线
         int winLineIndex = rand.nextInt(3);
         List<int> winLine = horizontalLines[winLineIndex];
         String winValue = options[rand.nextInt(options.length)];
-        var play2reward = ValueUtils.instance.getPlay2Reward()~/3;
-
         // 设置这条横线为中奖值
         for (int index in winLine) {
-          grid[index] = YourBean(content: winValue, reward: play2reward, win: true);
+          if(winnerBean.winType==WinType.diamond&&index==winLine.first){
+            grid[index] = YourBean(content: winValue, reward: winnerBean.coinsNum, win: true,isKey: true);
+          }else{
+            grid[index] = YourBean(content: winValue, reward: winnerBean.coinsNum, win: true);
+          }
         }
 
         // 2. 给其他两行填入非三连的值
@@ -72,7 +80,7 @@ class Play5Controller extends LuckyBaseController with GetTickerProviderStateMix
             // 如果不是三连才使用
             if (!(values[0] == values[1] && values[1] == values[2])) {
               for (int j = 0; j < 3; j++) {
-                grid[line[j]] = YourBean(content: values[j], reward: ValueUtils.instance.getPlay2Reward()~/3, win: false);
+                grid[line[j]] = YourBean(content: values[j], reward: ValueUtils.instance.getRandomRewardByMax(), win: false);
               }
               break;
             }
@@ -94,7 +102,7 @@ class Play5Controller extends LuckyBaseController with GetTickerProviderStateMix
             List<String> values = List.generate(3, (_) => options[rand.nextInt(options.length)]);
             if (!(values[0] == values[1] && values[1] == values[2])) {
               for (int j = 0; j < 3; j++) {
-                grid[line[j]] = YourBean(content: values[j], reward: ValueUtils.instance.getPlay2Reward()~/3, win: false);
+                grid[line[j]] = YourBean(content: values[j], reward: ValueUtils.instance.getRandomRewardByMax(), win: false);
               }
               break;
             }
@@ -110,6 +118,14 @@ class Play5Controller extends LuckyBaseController with GetTickerProviderStateMix
         if (!hasLine) return grid;
       }
     }
+  }
+
+
+  String getLeftReward(List<YourBean> list){
+    if(list.indexWhere((value)=>value.isKey)>=0){
+      return "+1";
+    }
+    return "${list.fold(0.0, (previousValue, element) => addTwoNums(previousValue, element.reward))}";
   }
 
   @override

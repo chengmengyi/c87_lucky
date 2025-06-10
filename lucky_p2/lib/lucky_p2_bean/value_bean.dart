@@ -210,6 +210,8 @@ class CardFruitPlay1 {
   CardFruitPlay1.fromJson(dynamic json) {
     rewardNormal = json['reward_normal'];
     bigwinNumber = json['bigwin_number'];
+    num9Point = json['num9_point'];
+    num9Reward = json['num9_reward'] != null ? json['num9_reward'].cast<int>() : [];
     if (json['reward_number'] != null) {
       rewardNumber = [];
       json['reward_number'].forEach((v) {
@@ -227,11 +229,15 @@ class CardFruitPlay1 {
   int? bigwinNumber;
   List<RewardNumber>? rewardNumber;
   List<RewardMoney>? rewardMoney;
+  int? num9Point;
+  List<int>? num9Reward;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['reward_normal'] = rewardNormal;
     map['bigwin_number'] = bigwinNumber;
+    map['num9_point'] = num9Point;
+    map['num9_reward'] = num9Reward;
     if (rewardNumber != null) {
       map['reward_number'] = rewardNumber?.map((v) => v.toJson()).toList();
     }

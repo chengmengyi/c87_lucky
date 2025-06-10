@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_p2/lucky_p2_bean/win_reward_bean.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_utils.dart';
@@ -30,17 +31,25 @@ class Play8Controller extends LuckyBaseController with GetTickerProviderStateMix
     playUtils.onThreshold(
       resetCallback: (){
         _initYourList();
-      }
+      },
+      refreshKey: (){
+        update(["your_widget"]);
+      },
     );
   }
 
   _initYourList(){
     List<YourBean> list=[];
-    if(ValueUtils.instance.getPlay8Point7()){
-      list.add(YourBean(content: "play84", reward: ValueUtils.instance.getPlay8Reward(), win: true));
-    }
-    if(ValueUtils.instance.getPlay8Point77()){
-      list.add(YourBean(content: "play85", reward: ValueUtils.instance.getPlay8Reward()*2, win: true));
+    var winnerBean = ValueUtils.instance.getWinnerBean(playUtils.playType);
+    if(winnerBean.winNum>0){
+      if(winnerBean.winType==WinType.diamond){
+        list.add(YourBean(content: "", reward: 0.0, win: true,isKey: true));
+      }else{
+        list.add(YourBean(content: "play84", reward: winnerBean.coinsNum, win: true));
+        if(winnerBean.winNum>1){
+          list.add(YourBean(content: "play85", reward: winnerBean.coinsNum*2, win: true));
+        }
+      }
     }
     while(list.length<12){
       list.add(YourBean(content: "${Random().nextInt(100)}", reward: 0, win: false));

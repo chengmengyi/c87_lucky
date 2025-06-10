@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>API_KEY</key>
+        <string>AIzaSyDfUdRnsfKMtEKoUx-7-if0juKt74qrhuA</string>
+        <key>GCM_SENDER_ID</key>
+        <string>999820408463</string>
+        <key>PLIST_VERSION</key>
+        <string>1</string>
+        <key>BUNDLE_ID</key>
+        <string>com.scratch.luckycard.play</string>
+        <key>PROJECT_ID</key>
+        <string>ios-c87-scatch-it-lucky</string>
+        <key>STORAGE_BUCKET</key>
+        <string>ios-c87-scatch-it-lucky.firebasestorage.app</string>
+        <key>IS_ADS_ENABLED</key>
+        <false></false>
+        <key>IS_ANALYTICS_ENABLED</key>
+        <false></false>
+        <key>IS_APPINVITE_ENABLED</key>
+        <true></true>
+        <key>IS_GCM_ENABLED</key>
+        <true></true>
+        <key>IS_SIGNIN_ENABLED</key>
+        <true></true>
+        <key>GOOGLE_APP_ID</key>
+        <string>1:999820408463:ios:d12ad3605fe7fe3301e2fa</string>
+</dict>
+</plist>

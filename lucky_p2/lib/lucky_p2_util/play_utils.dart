@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_dialog/big_win/big_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/first_get_coins/first_get_coins_dialog.dart';
@@ -25,6 +28,7 @@ class PlayUtils{
   bool _stopAuto=false,canClick=true;
   double _width=0.0,_height=0.0;
   GlobalKey scratchGlobalKey=GlobalKey();
+  GlobalKey keyGlobalKey=GlobalKey();
 
   List<YourBean> yourList=[];
 
@@ -90,6 +94,7 @@ class PlayUtils{
 
   onThreshold({
     required Function() resetCallback,
+    Function()? refreshKey,
 })async{
     _stopAuto=true;
     key.currentState?.reveal();
@@ -97,13 +102,27 @@ class PlayUtils{
     if(hasWin){
       scaleController..reset()..forward();
     }
-    var allReward=0;
+    var keyIndex = yourList.indexWhere((value)=>value.isKey);
+    if(keyIndex>=0){
+      TTTTUtils.instance.pointEvent(customId: CustomId.key_out,params: {"source_from":playType.name});
+      yourList[keyIndex].showKey=false;
+      refreshKey?.call();
+      var renderBox = keyGlobalKey.currentContext!.findRenderObject() as RenderBox;
+      var offset = renderBox.localToGlobal(Offset.zero);
+      LuckyEvent(luckyCode: P2LuckyEventCode.startKeyAnimator,dynamicValue: offset);
+      await Future.delayed(const Duration(milliseconds: 1300));
+      UserInfoUtils.instance.updateKeyNum(1);
+      _resetPlay(0.0,resetCallback);
+      return;
+    }
+
+    var allReward=0.0;
     switch(playType){
       case PlayType.card7:
         var indexWhere = yourList.indexWhere((element) => element.win);
         if(indexWhere>=0){
           var yourBean = yourList[indexWhere];
-          allReward=yourBean.reward*yourBean.play7Num;
+          allReward=mulTwoNums(yourBean.reward, yourBean.play7Num);
         }
         break;
       case PlayType.card4:
@@ -117,10 +136,10 @@ class PlayUtils{
         }
         break;
       default:
-        allReward = yourList.where((element) => element.win).fold(0, (previousValue, element) => previousValue+element.reward);
+        allReward = yourList.where((element) => element.win).fold(0, (previousValue, element) => addTwoNums(previousValue, element.reward));
         break;
     }
-    LuckyEvent(luckyCode: P2LuckyEventCode.updatePlayBottomReward,intValue: allReward);
+    LuckyEvent(luckyCode: P2LuckyEventCode.updatePlayBottomReward,doubleValue: allReward);
     await Future.delayed(const Duration(milliseconds: 1000));
     if(p2FirstGetCoins.getData()){
       LuckyRouters.instance.showDialog(
@@ -137,7 +156,7 @@ class PlayUtils{
     if(showLevelDialog){
       LuckyRouters.instance.showDialog(
         child: UpLevelDialog(
-          addNum: 20.3,
+          addNum: ValueUtils.instance.getBigNum(playType).toDouble(),
           dismiss: (){
             _resetPlay(allReward.toDouble(),resetCallback);
           },
@@ -155,7 +174,7 @@ class PlayUtils{
       );
       return;
     }
-    if(allReward>=3000){
+    if(allReward>=ValueUtils.instance.getBigNum(playType)){
       LuckyRouters.instance.showDialog(
         child: BigWinDialog(
           allReward: allReward.toDouble(),
@@ -229,6 +248,8 @@ class PlayUtils{
     yourList.clear();
     yourList.addAll(list);
   }
+
+  bool checkHasKey()=>yourList.indexWhere((element) => element.isKey)>=0;
 
   onClose(){
     scaleController.dispose();

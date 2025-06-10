@@ -7,7 +7,9 @@ import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_card_child/card_child_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
+import 'package:lucky_p2/lucky_p2_widget/max_num_widget.dart';
 
 class CardChild extends LuckyBaseChild<CardChildController>{
 
@@ -88,13 +90,18 @@ class CardChild extends LuckyBaseChild<CardChildController>{
 
   _itemWidget(int index,double height){
     var infoBean = luckyController.list[index];
+    var indexWhere = PlayType.values.indexWhere((value)=>value.name==infoBean.type);
+    PlayType playType=PlayType.card1;
+    if(indexWhere>=0){
+      playType=PlayType.values[indexWhere];
+    }
     return ClickWidget(
       onTap: (){
         luckyController.clickItem(index);
       },
       child: Stack(
         children: [
-          LuckyImageWidget(name: infoBean.type??"",height: height,),
+          LuckyImageWidget(name: "new_${infoBean.type}",height: height,),
           Align(
             alignment: Alignment.topRight,
             child: SizedBox(
@@ -108,6 +115,12 @@ class CardChild extends LuckyBaseChild<CardChildController>{
                 ],
               ),
             ),
+          ),
+          Container(
+            width: double.infinity,
+            height: height,
+            alignment: Alignment.bottomCenter,
+            child: MaxNumWidget(playType: playType, fontSize: 18.sp),
           ),
           Visibility(
             visible: infoBean.showFinger==true,

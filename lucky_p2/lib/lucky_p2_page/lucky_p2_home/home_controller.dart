@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lucky_base/lucky_base.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
@@ -31,6 +32,8 @@ class HomeController extends LuckyBaseController{
     super.onInit();
     VoicePlayUtils.instance.playBg();
     TTTTUtils.instance.pointEvent(customId: CustomId.home_page);
+    LuckyBase.instance.func2();
+    LuckyBase.instance.func3();
   }
 
   @override

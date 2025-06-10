@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
+import 'package:lucky_p2/lucky_p2_bean/win_reward_bean.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_utils.dart';
@@ -43,21 +44,29 @@ class Play3Controller extends LuckyBaseController with GetTickerProviderStateMix
     winList.addAll(setA.toList());
     final List<YourBean> yourList = [];
     final List<int> remainingNumbersInA = List.from(winList);
-    for (int i = 0; i < 12; i++) {
-      final bool condition = ValueUtils.instance.getPlay1Point();
-      if (condition && remainingNumbersInA.isNotEmpty) {
-        final int numberFromA = remainingNumbersInA.first;
-        yourList.add(YourBean(content: "$numberFromA", reward: ValueUtils.instance.getPlay1Reward(), win: true));
-      } else {
-        int randomNumber;
-        do {
-          randomNumber = random.nextInt(100);
-        } while (setA.contains(randomNumber));
-        yourList.add(YourBean(content: "$randomNumber", reward: ValueUtils.instance.getPlay1Reward(), win: false));
+    var winnerBean = ValueUtils.instance.getWinnerBean(playUtils.playType);
+    if(winnerBean.winNum>0){
+      if(winnerBean.winType==WinType.diamond){
+        yourList.add(YourBean(content: "+1", reward: 0.0, win: true,isKey: true));
+      }else{
+        for (int i = 0; i < winnerBean.winNum; i++) {
+          if (remainingNumbersInA.isNotEmpty) {
+            final int numberFromA = remainingNumbersInA.first;
+            yourList.add(YourBean(content: "$numberFromA", reward: winnerBean.coinsNum, win: true));
+          }
+          if(remainingNumbersInA.isNotEmpty){
+            remainingNumbersInA.removeAt(0);
+          }
+        }
       }
-      if(remainingNumbersInA.isNotEmpty){
-        remainingNumbersInA.removeAt(0);
-      }
+    }
+    var otherLength = 12-yourList.length;
+    for (int i = 0; i < otherLength; i++) {
+      int randomNumber;
+      do {
+        randomNumber = random.nextInt(100);
+      } while (setA.contains(randomNumber));
+      yourList.add(YourBean(content: "$randomNumber", reward: ValueUtils.instance.getRandomRewardByMax(), win: false));
     }
     yourList.shuffle();
     playUtils.setYourList(yourList);
