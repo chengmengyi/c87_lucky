@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lucky_base/lucky_base.dart';
 import 'package:lucky_base/lucky_base/lucky_base_page.dart';
+import 'package:lucky_base/lucky_utils/check_af_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -44,6 +46,16 @@ class HomePage extends LuckyBasePage<HomeController>{
         child: CoinsWidget(),
       ),
       const Spacer(),
+      Visibility(
+        visible: CheckAfUtils.instance.isWhite,
+        child: ClickWidget(
+          onTap: (){
+            LuckyBase.instance.func4();
+          },
+          child: LuckyImageWidget(name: "icon_h5",width: 37.w,height: 37.h,),
+        ),
+      ),
+      SizedBox(width: 6.w,),
       SetWidget(),
       SizedBox(width: 12 .w,),
     ],

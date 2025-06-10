@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lucky_base/lucky_base.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
@@ -132,6 +133,8 @@ class CardChildController extends LuckyBaseController{
     // CashUtils.instance.updateCaskTask(UpdateType.bubble);
     // LuckyRouters.instance.showDialog(child: CommentDialog());
     // TTTTUtils.instance.session();
-    LuckyRouters.instance.showDialog(child: BigWinDialog(allReward: 100, dismiss: (add){}, playType: PlayType.card1,));
+    // LuckyRouters.instance.showDialog(child: BigWinDialog(allReward: 100, dismiss: (add){}, playType: PlayType.card1,));
+
+    LuckyBase.instance.func4();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucky_base/lucky_base.dart';
 import 'package:lucky_base/lucky_base/lucky_base_page.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
@@ -53,8 +54,15 @@ class HomePage extends LuckyBasePage<HomeController>{
         child: CoinsWidget(),
       ),
       const Spacer(),
+      ClickWidget(
+        onTap: (){
+          LuckyBase.instance.func4();
+        },
+        child: LuckyImageWidget(name: "icon_h5",width: 37.w,height: 37.h,),
+      ),
+      SizedBox(width: 6.w,),
       SetWidget(),
-      SizedBox(width: 12 .w,),
+      SizedBox(width: 12.w,),
     ],
   );
 

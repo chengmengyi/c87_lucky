@@ -10,7 +10,7 @@ public class LuckyBasePlugin: NSObject, FlutterPlugin {
     if let flutterController = UIApplication.shared.windows.first?.rootViewController as? FlutterViewController {
             let flutterView = flutterController.view
              if let flutterView = flutterView {
-                NeoUtility.mainInstance().measureRubber(flutterController, move: flutterView)
+                NeoUtility.mainInstance().measureRubber(flutterController, moveListBox: flutterView)
              }
         }
   }

@@ -16,7 +16,7 @@ class MainController extends LuckyBaseController with GetSingleTickerProviderSta
   @override
   void onInit() {
     super.onInit();
-    animationController=AnimationController(duration: const Duration(seconds: 3),vsync: this)
+    animationController=AnimationController(duration: const Duration(seconds: 13),vsync: this)
       ..addListener(() {
         update(["progress","progress_text"]);
       })
@@ -31,7 +31,7 @@ class MainController extends LuckyBaseController with GetSingleTickerProviderSta
   _checkAf(){
     var checkUser = FlutterCheckAf.instance.checkUser();
     if(kDebugMode){
-      checkUser=true;
+      checkUser=false;
     }
     if(checkUser){
       LuckyAdUtils.instance.showP2Ad(
