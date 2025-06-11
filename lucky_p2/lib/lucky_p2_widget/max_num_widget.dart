@@ -14,7 +14,7 @@ class MaxNumWidget extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) => LuckyGraTextWidget(
-    text: "${ValueUtils.instance.getBigNum(playType)}",
+    text: "\$${ValueUtils.instance.getBigNum(playType)}",
     size: fontSize,
     colors: ["#FAFF21".toColor(),"#FF8B02".toColor()],
     shadowsColor: "#351400",

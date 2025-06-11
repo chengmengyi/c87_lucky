@@ -19,9 +19,7 @@ class NoWinDialog extends LuckyBaseDialog<NoWinController>{
   Widget child() => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      LuckyImageWidget(name: "no1",height: 70.h,),
-      SizedBox(height: 16.h,),
-      LuckyImageWidget(name: "no2",width: 112.w,height: 112.h,),
+      LuckyImageWidget(name: "no4",height: 86.h,),
       SizedBox(height: 36.h,),
       ClickWidget(
         onTap: (){

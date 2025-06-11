@@ -112,6 +112,10 @@ class PlayUtils{
       var offset = renderBox.localToGlobal(Offset.zero);
       LuckyEvent(luckyCode: P2LuckyEventCode.startKeyAnimator,dynamicValue: offset);
       await Future.delayed(const Duration(milliseconds: 1300));
+      if(p2FirstGetKey.getData()){
+        LuckyEvent(luckyCode: P2LuckyEventCode.firstGetKey);
+        p2FirstGetKey.saveData(false);
+      }
       UserInfoUtils.instance.updateKeyNum(1);
       _resetPlay(0.0,resetCallback);
       return;

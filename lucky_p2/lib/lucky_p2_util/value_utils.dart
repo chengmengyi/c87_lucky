@@ -244,43 +244,12 @@ class ValueUtils{
   }
 
   int getBigNum(PlayType playType){
-    int bigWin=200;
-    switch(playType){
-    //玩法2
-      case PlayType.card1:
-      case PlayType.card3:
-        var play = _valueBean?.cardNumberPlay2;
-        bigWin=play?.bigwinNumber??200;
-        break;
-    //玩法1
-      case PlayType.card2:
-      case PlayType.card5:
-        var play = _valueBean?.cardFruitPlay1;
-        bigWin=play?.bigwinNumber??200;
-        break;
-    //玩法3
-      case PlayType.card7:
-        var play = _valueBean?.cardTigerPlay3;
-        bigWin=play?.bigwinNumber??200;
-        break;
-    //玩法4
-      case PlayType.card8:
-        var play = _valueBean?.card77hotPlay4;
-        bigWin=play?.bigwinNumber??200;
-        break;
-    //玩法5
-      case PlayType.card9:
-        var play = _valueBean?.cardDiamondPlay5;
-        bigWin=play?.bigwinNumber??200;
-        break;
-    //玩法6
-      case PlayType.card4:
-      case PlayType.card6:
-        var play = _valueBean?.card9betPlay6;
-        bigWin=play?.bigwinNumber??200;
-        break;
+    try{
+      var indexWhere = PlayType.values.indexWhere((value)=>value==playType);
+      return _valueBean?.winupNumber?[indexWhere]??50;
+    }catch(e){
+      return 50;
     }
-    return bigWin;
   }
 
   RewardMoney? _randomRewardMoney(List<RewardMoney> list){

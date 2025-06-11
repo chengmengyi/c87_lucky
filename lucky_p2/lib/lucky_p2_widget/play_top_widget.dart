@@ -20,7 +20,7 @@ class PlayTopWidget extends StatelessWidget{
       SizedBox(width: 14.w,),
       StarWidget(),
       SizedBox(width: 14.w,),
-      CoinsWidget(),
+      CoinsWidget(fromDetail: true,),
     ],
   );
 }

@@ -15,6 +15,7 @@ class StorageName{
   static const p2ShowComment="p2LoadAppShowComment";
   static const p2CashRankWatchAdNum="p2CashRankWatchAdNum";
   static const p2LastCoinsLevel="p2LastCoinsLevel";
+  static const p2FirstGetKey="p2FirstGetKey";
 }
 
 
@@ -33,3 +34,4 @@ StorageData<String> p2LastPlayType=StorageData<String>(key: StorageName.p2LastPl
 StorageData<bool> p2FirstBoxGuide=StorageData<bool>(key: StorageName.p2FirstBoxGuide, defaultValue: true);
 StorageData<bool> p2FirstGetCoins=StorageData<bool>(key: StorageName.p2FirstGetCoins, defaultValue: true);
 StorageData<bool> p2ShowComment=StorageData<bool>(key: StorageName.p2ShowComment, defaultValue: true);
+StorageData<bool> p2FirstGetKey=StorageData<bool>(key: StorageName.p2FirstGetKey, defaultValue: true);

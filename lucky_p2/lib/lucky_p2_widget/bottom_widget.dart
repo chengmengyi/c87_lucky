@@ -24,7 +24,7 @@ class BottomWidget extends LuckyBaseStateful{
 }
 
 class BottomWidgetState extends LuckyBaseState<BottomWidget>{
-  var reward=0.0;
+  var reward=0.0,showKeyGuide=false;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -37,8 +37,7 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
           alignment: Alignment.centerLeft,
           child: ClickWidget(
             onTap: (){
-              LuckyRouters.instance.back();
-              LuckyEvent(luckyCode: P2LuckyEventCode.showHomeTab,intValue: 1);
+              _toWheel();
             },
             child: Stack(
               alignment: Alignment.bottomCenter,
@@ -89,10 +88,27 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
               child: FingerWidget(),
             ),
           ),
+        ),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: Visibility(
+            visible: showKeyGuide,
+            child: ClickWidget(
+              onTap: (){
+                _toWheel();
+              },
+              child: FingerWidget(),
+            ).marginOnly(left: 40.w),
+          ),
         )
       ],
     ),
   );
+
+  _toWheel(){
+    LuckyRouters.instance.back();
+    LuckyEvent(luckyCode: P2LuckyEventCode.showHomeTab,intValue: 1);
+  }
 
   @override
   bool initLuckyEvent() => true;
@@ -108,6 +124,11 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
       case P2LuckyEventCode.showRevealAllGuide:
       case P2LuckyEventCode.updateKeyNum:
         setState(() {});
+        break;
+      case P2LuckyEventCode.firstGetKey:
+        setState(() {
+          showKeyGuide=true;
+        });
         break;
     }
   }
