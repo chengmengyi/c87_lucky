@@ -14,6 +14,7 @@ import 'package:lucky_p2/lucky_p2_widget/bubble_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/key_animator_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/key_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/max_num_widget.dart';
+import 'package:lucky_p2/lucky_p2_widget/money_lottie_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/play_animator_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/play_top_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/up_level_widget.dart';
@@ -49,6 +50,7 @@ class Play2Page extends LuckyBasePage2<Play2Controller>{
       BubbleWidget(),
       BoxWidget(),
       KeyAnimatorWidget(),
+      MoneyLottieWidget(),
     ],
   );
 

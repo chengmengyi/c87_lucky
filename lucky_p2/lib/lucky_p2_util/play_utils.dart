@@ -13,6 +13,7 @@ import 'package:lucky_p2/lucky_p2_dialog/first_get_coins/first_get_coins_dialog.
 import 'package:lucky_p2/lucky_p2_dialog/no_win/no_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/up_level/up_level_dialog.dart';
+import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
@@ -201,6 +202,7 @@ class PlayUtils{
     _stopAuto=false;
     key.currentState?.reset();
     canClick=true;
+    await CashUtils.instance.updateCaskTask(UpdateType.card);
     UserInfoUtils.instance.updateUserCoins(allReward.toDouble());
     var hasPlayNum = await PlayInfoUtils.instance.checkHasPlayNum(playType);
     if(!hasPlayNum){

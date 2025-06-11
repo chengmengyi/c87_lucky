@@ -7,12 +7,14 @@ class LuckyLottieWidget extends StatelessWidget{
   double? height;
   BoxFit? fit;
   String ext;
+  AnimationController? animationController;
   LuckyLottieWidget({
     required this.name,
     this.width,
     this.height,
     this.fit,
     this.ext=".json",
+    this.animationController,
 });
 
   @override
@@ -21,5 +23,6 @@ class LuckyLottieWidget extends StatelessWidget{
     width: width,
     height: height,
     fit: fit,
+    controller: animationController,
   );
 }

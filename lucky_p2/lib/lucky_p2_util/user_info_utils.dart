@@ -24,7 +24,7 @@ class UserInfoUtils{
       TTTTUtils.instance.pointEvent(customId: CustomId.cash_money_detail,params: {"money":moneyLevel});
       p2LastCoinsLevel.saveData(moneyLevel);
     }
-    LuckyEvent(luckyCode: P2LuckyEventCode.updateUserCoins);
+    LuckyEvent(luckyCode: P2LuckyEventCode.startMoneyAnimator);
     if(p2FirstGetCoins.getData()){
       if(p2ShowComment.getData()){
         LuckyRouters.instance.showDialog(child: CommentDialog());

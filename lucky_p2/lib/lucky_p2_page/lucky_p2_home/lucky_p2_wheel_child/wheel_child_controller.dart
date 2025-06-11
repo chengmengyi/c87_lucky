@@ -14,6 +14,7 @@ import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_p2/lucky_p2_dialog/no_key/no_key_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/old_user/wheel_win/wheel_win_dialog.dart';
+import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
@@ -77,6 +78,7 @@ class WheelChildController extends LuckyBaseController with GetSingleTickerProvi
     await Future.delayed(Duration(milliseconds: 800));
     canClick=true;
     UserInfoUtils.instance.updateKeyNum(-1);
+    await CashUtils.instance.updateCaskTask(UpdateType.wheel);
     LuckyAdUtils.instance.showP2Ad(
       adType: AdType.interstitial,
       adPosId: AdPosId.skerk_wheel_spin_int,

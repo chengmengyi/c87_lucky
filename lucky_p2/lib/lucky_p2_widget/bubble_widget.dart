@@ -11,6 +11,7 @@ import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
+import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
@@ -130,8 +131,9 @@ class BubbleWidgetState extends LuckyBaseState<BubbleWidget>{
     });
   }
 
-  _click(){
+  _click()async{
     TTTTUtils.instance.pointEvent(customId: CustomId.float_c);
+    await CashUtils.instance.updateCaskTask(UpdateType.bubble);
     LuckyAdUtils.instance.showP2Ad(
       adType: AdType.reward,
       adPosId: AdPosId.skerk_float_rv,

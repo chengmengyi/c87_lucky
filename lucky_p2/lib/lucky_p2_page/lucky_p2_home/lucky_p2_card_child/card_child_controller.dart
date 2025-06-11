@@ -135,6 +135,6 @@ class CardChildController extends LuckyBaseController{
     // TTTTUtils.instance.session();
     // LuckyRouters.instance.showDialog(child: BigWinDialog(allReward: 100, dismiss: (add){}, playType: PlayType.card1,));
 
-    LuckyBase.instance.func4();
+    UserInfoUtils.instance.updateUserCoins(100);
   }
 }

@@ -24,4 +24,5 @@ class P2LuckyEventCode{
   static const int showHomeTab=114;
   static const int updateCashList=115;
   static const int startKeyAnimator=116;
+  static const int startMoneyAnimator=117;
 }
