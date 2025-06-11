@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
   in_app_review: 2.0.10
+  shake_animation_widget: 3.0.4
   lucky_base:
     path: ../lucky_base
 

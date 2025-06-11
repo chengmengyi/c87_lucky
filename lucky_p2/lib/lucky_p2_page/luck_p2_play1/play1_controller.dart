@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
+import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
@@ -12,17 +13,21 @@ import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_steps.dart';
+import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class Play1Controller extends LuckyBaseController with GetTickerProviderStateMixin{
   PlayUtils playUtils=PlayUtils(PlayType.card1);
   List<int> winList=[];
+  GlobalKey coinsGlobalKey=GlobalKey();
+  Offset? cashOffset;
   
   @override
   void onReady() {
     super.onReady();
     playUtils.initPlay(this);
     _initYourList();
+    _checkShowCashGuide();
   }
 
   clickRevealAll(){
@@ -95,6 +100,34 @@ class Play1Controller extends LuckyBaseController with GetTickerProviderStateMix
   }
 
   bool checkShowNewUserGuaGuide()=>p2UserGuideStep.getData()==UserGuideSteps.showGuaGuide;
+
+  _checkShowCashGuide(){
+    if(p2UserGuideStep.getData()==UserGuideSteps.showCashGuide){
+      TTTTUtils.instance.pointEvent(customId: CustomId.cash_guide);
+      var renderBox = coinsGlobalKey.currentContext!.findRenderObject() as RenderBox;
+      cashOffset=renderBox.localToGlobal(Offset.zero);
+      update(["cash_guide"]);
+    }
+  }
+
+  clickCashGuide(){
+    TTTTUtils.instance.pointEvent(customId: CustomId.cash_guide_c);
+    UserGuideUtils.instance.completedNewUserGuide();
+    LuckyRouters.instance.back();
+    LuckyEvent(luckyCode: P2LuckyEventCode.showHomeTab,intValue: 2);
+  }
+
+  @override
+  bool initLuckyEvent() => true;
+
+  @override
+  receivedLuckyEventMsg(LuckyEvent luckyEvent) {
+    switch(luckyEvent.luckyCode){
+      case P2LuckyEventCode.showCashGuide:
+        _checkShowCashGuide();
+        break;
+    }
+  }
 
   @override
   void onClose() {

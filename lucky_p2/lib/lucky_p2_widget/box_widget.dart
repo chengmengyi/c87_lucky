@@ -15,6 +15,7 @@ import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/box_guide_overlay.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
+import 'package:shake_animation_widget/shake_animation_widget.dart';
 
 class BoxWidget extends LuckyBaseStateful{
   @override
@@ -24,6 +25,8 @@ class BoxWidget extends LuckyBaseStateful{
 class BoxWidgetState extends LuckyBaseState<BoxWidget>{
   var showFinger=false;
   GlobalKey globalKey=GlobalKey();
+  ShakeAnimationController shakeAnimationController=ShakeAnimationController();
+
   @override
   void initState() {
     super.initState();
@@ -46,7 +49,14 @@ class BoxWidgetState extends LuckyBaseState<BoxWidget>{
         key: globalKey,
         child: Stack(
           children: [
-            LuckyImageWidget(name: "box",width: 60.w,height: 51.h,),
+            ShakeAnimationWidget(
+              randomValue: 10,
+              isForward: false,
+              shakeCount: 0,
+              shakeAnimationType: ShakeAnimationType.LeftRightShake,
+              shakeAnimationController: shakeAnimationController,
+              child: LuckyImageWidget(name: "box",width: 60.w,height: 51.h,),
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Stack(
@@ -80,11 +90,6 @@ class BoxWidgetState extends LuckyBaseState<BoxWidget>{
             ),
             Align(
               alignment: Alignment.bottomRight,
-              // child: Transform(
-              //   alignment: Alignment.center,
-              //   transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0),
-              //   child: FingerWidget(width: 30.w,height: 30.h,),
-              // ),
               child: Visibility(
                 visible: showFinger,
                 child: FingerWidget(width: 40.w,height: 40.h,),
@@ -112,6 +117,7 @@ class BoxWidgetState extends LuckyBaseState<BoxWidget>{
   _clickBox(){
     if(p2BoxPro.getData()>=5){
       showFinger=false;
+      shakeAnimationController.stop();
       p2BoxPro.saveData(0);
       setState(() {});
       LuckyRouters.instance.showDialog(child: BoxDialog());
@@ -143,6 +149,7 @@ class BoxWidgetState extends LuckyBaseState<BoxWidget>{
       setState(() {
         showFinger=true;
       });
+      shakeAnimationController.start(shakeCount: 0);
     }
   }
 }

@@ -29,12 +29,28 @@ class CashTaskController extends LuckyBaseController{
     if(cashTaskBean?.taskType==TaskType.task1Card){
       return "Scratch ";
     }
+    if(cashTaskBean?.taskType==TaskType.task3Task9){
+      var wtdTask = ValueUtils.instance.getWtdTaskByIndex(cashTaskBean);
+      switch(wtdTask?.type){
+        case "card": return "Scratch ";
+        case "wheel": return "Play ";
+        case "bubble": return "Collect ";
+      }
+    }
     return "";
   }
 
   String getTaskRightStr(CashTaskBean? cashTaskBean){
     if(cashTaskBean?.taskType==TaskType.task1Card){
       return " cards";
+    }
+    if(cashTaskBean?.taskType==TaskType.task3Task9){
+      var wtdTask = ValueUtils.instance.getWtdTaskByIndex(cashTaskBean);
+      switch(wtdTask?.type){
+        case "card": return " cards";
+        case "wheel": return " Spins";
+        case "bubble": return " Cash Pops";
+      }
     }
     return "";
   }

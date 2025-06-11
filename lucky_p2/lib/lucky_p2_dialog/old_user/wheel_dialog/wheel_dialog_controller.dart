@@ -23,6 +23,12 @@ class WheelDialogController extends LuckyBaseController with GetSingleTickerProv
     _initAnimator();
   }
 
+  @override
+  void onReady() {
+    super.onReady();
+    startAnimator();
+  }
+
   startAnimator(){
     if(!canClick){
       return;

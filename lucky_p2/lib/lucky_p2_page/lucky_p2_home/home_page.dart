@@ -23,6 +23,9 @@ class HomePage extends LuckyBasePage<HomeController>{
   HomeController initController() => HomeController();
 
   @override
+  bool resizeToAvoidBottomInset() => false;
+
+  @override
   Widget child() => Stack(
     children: [
       GetBuilder<HomeController>(
@@ -40,7 +43,6 @@ class HomePage extends LuckyBasePage<HomeController>{
           ],
         ),
       ),
-      _cashGuideWidget(),
       MoneyLottieWidget(),
     ],
   );
@@ -48,14 +50,14 @@ class HomePage extends LuckyBasePage<HomeController>{
   _titleWidget()=>Row(
     children: [
       SizedBox(width: 8.w,),
-      StarWidget(),
-      SizedBox(width: 8.w,),
       ClickWidget(
         onTap: (){
           luckyController.test();
         },
-        child: CoinsWidget(),
+        child: StarWidget(),
       ),
+      SizedBox(width: 8.w,),
+      CoinsWidget(),
       const Spacer(),
       ClickWidget(
         onTap: (){
@@ -112,22 +114,5 @@ class HomePage extends LuckyBasePage<HomeController>{
         ],
       )
     ],
-  );
-
-  _cashGuideWidget()=>GetBuilder<HomeController>(
-    id: "cash_guide",
-    builder: (_)=>Positioned(
-      right: 0,
-      bottom: 0,
-      child: Visibility(
-        visible: luckyController.checkShowCashGuide(),
-        child: ClickWidget(
-          onTap: (){
-            luckyController.clickTab(2);
-          },
-          child: FingerWidget(),
-        ),
-      ),
-    ),
   );
 }

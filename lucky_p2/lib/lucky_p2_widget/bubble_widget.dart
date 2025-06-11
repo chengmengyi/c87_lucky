@@ -12,6 +12,7 @@ import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
@@ -32,7 +33,7 @@ class BubbleWidgetState extends LuckyBaseState<BubbleWidget>{
   @override
   void initState() {
     super.initState();
-    showBubble=UserGuideUtils.instance.checkBubble();
+    showBubble=p2UserPlayNum.getData()>=3;
     Future((){
       _initAnimator();
     });
@@ -79,9 +80,9 @@ class BubbleWidgetState extends LuckyBaseState<BubbleWidget>{
   receivedLuckyEventMsg(LuckyEvent luckyEvent) {
     switch(luckyEvent.luckyCode){
       case P2LuckyEventCode.updateUserPlayNum:
-        if(!showBubble){
+        if(!showBubble&&p2UserPlayNum.getData()>=3){
           setState(() {
-            showBubble=UserGuideUtils.instance.checkBubble();
+            showBubble=true;
           });
           _initAnimator();
         }

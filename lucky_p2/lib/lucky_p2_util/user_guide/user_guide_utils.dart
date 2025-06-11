@@ -30,9 +30,10 @@ class UserGuideUtils{
         LuckyRouters.instance.openNextPage(routersName: LuckyP2RoutersName.play1);
         break;
       case UserGuideSteps.showCashGuide:
-        LuckyEvent(luckyCode: P2LuckyEventCode.showCashGuide);
+        // LuckyEvent(luckyCode: P2LuckyEventCode.showCashGuide);
+
         break;
-      case UserGuideSteps.showBubble:
+      case UserGuideSteps.completed:
         _checkShowOldUserGuide();
         break;
     }
@@ -87,15 +88,13 @@ class UserGuideUtils{
     }
   }
 
-  bool checkShowRevealAllGuide() => p2UserPlayNum.getData()==2&&p2UserGuideStep.getData()==UserGuideSteps.showRevealAllGuide;
-
-  bool checkBubble() => p2UserPlayNum.getData()>2&&p2UserGuideStep.getData()==UserGuideSteps.showBubble;
+  // bool checkShowRevealAllGuide() => p2UserPlayNum.getData()==2&&p2UserGuideStep.getData()==UserGuideSteps.showRevealAllGuide;
+  //
+  // bool checkBubble() => p2UserPlayNum.getData()>2&&p2UserGuideStep.getData()==UserGuideSteps.showBubble;
 
   completedNewUserGuide(){
-    if(checkShowRevealAllGuide()){
-      p2UserGuideStep.saveData(UserGuideSteps.showBubble);
-      _addOldUserTimer();
-    }
+    p2UserGuideStep.saveData(UserGuideSteps.completed);
+    _addOldUserTimer();
   }
 
   _addOldUserTimer(){

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_page2.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
+import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_page/luck_p2_play1/play1_controller.dart';
 import 'package:lucky_p2/lucky_p2_widget/bottom_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/box_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/bubble_widget.dart';
+import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/gua_lottie_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/key_animator_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/key_widget.dart';
@@ -32,7 +34,7 @@ class Play1Page extends LuckyBasePage2<Play1Controller>{
         bottom: false,
         child: Column(
           children: [
-            PlayTopWidget(),
+            PlayTopWidget(coinsGlobalKey: luckyController.coinsGlobalKey,),
             SizedBox(height: 16.h,),
             UpLevelWidget(),
             const Spacer(),
@@ -45,6 +47,7 @@ class Play1Page extends LuckyBasePage2<Play1Controller>{
           ],
         ),
       ),
+      _cashGuideWidget(),
       BubbleWidget(),
       BoxWidget(),
       KeyAnimatorWidget(),
@@ -174,4 +177,21 @@ class Play1Page extends LuckyBasePage2<Play1Controller>{
       ),
     ),
   );
+
+_cashGuideWidget()=>GetBuilder<Play1Controller>(
+  id: "cash_guide",
+  builder: (_){
+    var dx = luckyController.cashOffset?.dx??0;
+    var dy = luckyController.cashOffset?.dy??0;
+    return Visibility(
+      visible: null!=luckyController.cashOffset,
+      child: ClickWidget(
+        onTap: (){
+          luckyController.clickCashGuide();
+        },
+        child: FingerWidget(),
+      ),
+    ).marginOnly(left: dx+50.w,top: dy+20.h);
+  },
+);
 }

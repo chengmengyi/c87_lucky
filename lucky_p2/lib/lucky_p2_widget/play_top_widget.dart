@@ -7,6 +7,8 @@ import 'package:lucky_p2/lucky_p2_widget/coins_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/star_widget.dart';
 
 class PlayTopWidget extends StatelessWidget{
+  GlobalKey? coinsGlobalKey;
+  PlayTopWidget({this.coinsGlobalKey});
   @override
   Widget build(BuildContext context) => Row(
     children: [
@@ -20,7 +22,10 @@ class PlayTopWidget extends StatelessWidget{
       SizedBox(width: 14.w,),
       StarWidget(),
       SizedBox(width: 14.w,),
-      CoinsWidget(fromDetail: true,),
+      SizedBox(
+        key: coinsGlobalKey,
+        child: CoinsWidget(fromDetail: true,),
+      ),
     ],
   );
 }

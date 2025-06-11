@@ -6,44 +6,48 @@ import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_p2/lucky_p2_dialog/comment/comment_dialog.dart';
 import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
+import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
-import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 
 class UserInfoUtils{
   static final UserInfoUtils _instance = UserInfoUtils();
   static UserInfoUtils get instance => _instance;
 
-  updateUserCoins(double addCoins){
+  updateUserCoins(double addCoins)async{
     if(addCoins==0.0){
       return;
     }
     p2UserCoins.saveData(addTwoNums(p2UserCoins.getData(),addCoins));
-    var moneyLevel = p2LastCoinsLevel.getData()+100;
-    if(p2UserCoins.getData()>=moneyLevel){
-      TTTTUtils.instance.pointEvent(customId: CustomId.cash_money_detail,params: {"money":moneyLevel});
-      p2LastCoinsLevel.saveData(moneyLevel);
-    }
-    LuckyEvent(luckyCode: P2LuckyEventCode.startMoneyAnimator);
-    if(p2FirstGetCoins.getData()){
-      if(p2ShowComment.getData()){
-        LuckyRouters.instance.showDialog(child: CommentDialog());
+    if(addCoins>0){
+      var moneyLevel = p2LastCoinsLevel.getData()+100;
+      if(p2UserCoins.getData()>=moneyLevel){
+        TTTTUtils.instance.pointEvent(customId: CustomId.cash_money_detail,params: {"money":moneyLevel});
+        p2LastCoinsLevel.saveData(moneyLevel);
       }
-      p2FirstGetCoins.saveData(false);
+      LuckyEvent(luckyCode: P2LuckyEventCode.startMoneyAnimator);
+      if(p2FirstGetCoins.getData()){
+        if(p2ShowComment.getData()){
+          LuckyRouters.instance.showDialog(child: CommentDialog());
+        }
+        p2FirstGetCoins.saveData(false);
+      }
+      var showAccountDialog = await CashUtils.instance.checkAutoShowAccountDialog();
+      if(showAccountDialog){
+        LuckyEvent(luckyCode: P2LuckyEventCode.showAccountDialog);
+      }
     }
   }
 
-  bool updateUserPlayNum(){
+  updateUserPlayNum(){
     p2UserPlayNum.saveData(p2UserPlayNum.getData()+1);
     LuckyEvent(luckyCode: P2LuckyEventCode.updateUserPlayNum);
-    if(p2UserPlayNum.getData()==3){
-      UserGuideUtils.instance.completedNewUserGuide();
-    }
     if(p2BoxPro.getData()<5){
       p2BoxPro.saveData(p2BoxPro.getData()+1);
     }
-    return p2UserPlayNum.getData()%5==0;
   }
+
+  bool checkUpLevel()=>p2UserPlayNum.getData()%10==0;
 
   updateKeyNum(int addNum){
     p2KeyNum.saveData(p2KeyNum.getData()+addNum);

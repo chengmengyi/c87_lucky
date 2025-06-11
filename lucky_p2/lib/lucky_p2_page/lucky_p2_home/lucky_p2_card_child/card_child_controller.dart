@@ -1,28 +1,14 @@
 import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lucky_base/lucky_base.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
-import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
-import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_p2/lucky_p2_bean/play_info_bean.dart';
-import 'package:lucky_p2/lucky_p2_dialog/big_win/big_win_dialog.dart';
-import 'package:lucky_p2/lucky_p2_dialog/box_dialog/box_dialog.dart';
-import 'package:lucky_p2/lucky_p2_dialog/comment/comment_dialog.dart';
-import 'package:lucky_p2/lucky_p2_dialog/first_get_coins/first_get_coins_dialog.dart';
-import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
-import 'package:lucky_p2/lucky_p2_dialog/old_user/wheel_win/wheel_win_dialog.dart';
-import 'package:lucky_p2/lucky_p2_dialog/up_level/up_level_dialog.dart';
-import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
-import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class CardChildController extends LuckyBaseController{
   List<PlayInfoBean> list=[];
@@ -120,21 +106,5 @@ class CardChildController extends LuckyBaseController{
   void onClose() {
     _timer?.cancel();
     super.onClose();
-  }
-
-  test()async{
-    if(!kDebugMode){
-      return;
-    }
-    // LuckyRouters.instance.showDialog(child: BoxDialog());
-    // p2KeyNum.saveData(10);
-    // UserInfoUtils.instance.updateUserCoins(1000);
-    // CashUtils.instance.test();
-    // CashUtils.instance.updateCaskTask(UpdateType.bubble);
-    // LuckyRouters.instance.showDialog(child: CommentDialog());
-    // TTTTUtils.instance.session();
-    // LuckyRouters.instance.showDialog(child: BigWinDialog(allReward: 100, dismiss: (add){}, playType: PlayType.card1,));
-
-    UserInfoUtils.instance.updateUserCoins(100);
   }
 }

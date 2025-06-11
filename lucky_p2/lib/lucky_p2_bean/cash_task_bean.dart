@@ -37,4 +37,9 @@ class CashTaskBean {
     map['cashStatus'] = cashStatus;
     return map;
   }
+
+  @override
+  String toString() {
+    return 'CashTaskBean{payTypeIndex: $payTypeIndex, payMoney: $payMoney, taskType: $taskType, currentPro: $currentPro, totalPro: $totalPro, task3Index: $task3Index, cashStatus: $cashStatus}';
+  }
 }

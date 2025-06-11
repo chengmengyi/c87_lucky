@@ -31,6 +31,7 @@ abstract class LuckyBasePage<T extends LuckyBaseController> extends StatelessWid
           ),
         ],
       ),
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset(),
     );
   }
 
@@ -41,4 +42,6 @@ abstract class LuckyBasePage<T extends LuckyBaseController> extends StatelessWid
   Widget child();
 
   bool safeTop()=>true;
+
+  bool resizeToAvoidBottomInset()=>true;
 }

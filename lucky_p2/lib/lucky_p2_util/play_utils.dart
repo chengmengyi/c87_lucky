@@ -104,6 +104,7 @@ class PlayUtils{
       scaleController..reset()..forward();
     }
     var keyIndex = yourList.indexWhere((value)=>value.isKey);
+    UserInfoUtils.instance.updateUserPlayNum();
     if(keyIndex>=0){
       TTTTUtils.instance.pointEvent(customId: CustomId.key_out,params: {"source_from":playType.name});
       yourList[keyIndex].showKey=false;
@@ -151,13 +152,14 @@ class PlayUtils{
         child: FirstGetCoinsDialog(
           allReward: ValueUtils.instance.getNewPrize().toDouble(),
           dismiss: (addNum){
+            LuckyEvent(luckyCode: P2LuckyEventCode.showCashGuide);
             _resetPlay(addNum,resetCallback);
           },
         ),
       );
       return;
     }
-    var showLevelDialog = UserInfoUtils.instance.updateUserPlayNum();
+    var showLevelDialog = UserInfoUtils.instance.checkUpLevel();
     if(showLevelDialog){
       LuckyRouters.instance.showDialog(
         child: UpLevelDialog(
@@ -216,13 +218,6 @@ class PlayUtils{
       await Future.delayed(const Duration(milliseconds: 200));
       LuckyEvent(luckyCode: P2LuckyEventCode.updatePlayBottomReward,intValue: 0);
       resetCallback.call();
-      if(allReward>0&&p2UserGuideStep.getData()==UserGuideSteps.showCashGuide){
-        LuckyRouters.instance.back();
-        LuckyEvent(luckyCode: P2LuckyEventCode.showCashGuide);
-      }
-      if(UserGuideUtils.instance.checkShowRevealAllGuide()){
-        LuckyEvent(luckyCode: P2LuckyEventCode.showRevealAllGuide);
-      }
       LuckyEvent(luckyCode: P2LuckyEventCode.updateBoxProgress);
     }
   }

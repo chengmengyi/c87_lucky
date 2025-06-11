@@ -26,4 +26,5 @@ class P2LuckyEventCode{
   static const int startKeyAnimator=116;
   static const int startMoneyAnimator=117;
   static const int firstGetKey=118;
+  static const int showAccountDialog=119;
 }

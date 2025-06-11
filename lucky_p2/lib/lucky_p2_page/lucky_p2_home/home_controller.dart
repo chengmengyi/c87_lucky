@@ -16,8 +16,10 @@ import 'package:lucky_p2/lucky_p2_dialog/old_user/old_user_dialog.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_card_child/card_child.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_cash_child/cash_child.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_wheel_child/wheel_child.dart';
+import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_steps.dart';
+import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
 
 class HomeController extends LuckyBaseController{
   var tabIndex=0;
@@ -53,11 +55,6 @@ class HomeController extends LuckyBaseController{
     update(["page"]);
     if(index==2){
       TTTTUtils.instance.pointEvent(customId: CustomId.cash_page);
-      if(checkShowCashGuide()){
-        TTTTUtils.instance.pointEvent(customId: CustomId.cash_guide_c);
-        p2UserGuideStep.saveData(UserGuideSteps.showRevealAllGuide);
-        update(["cash_guide"]);
-      }
     }
     if(index==1){
       TTTTUtils.instance.pointEvent(customId: CustomId.wheel_c,params: {"source_from":"home"});
@@ -76,10 +73,6 @@ class HomeController extends LuckyBaseController{
   @override
   receivedLuckyEventMsg(LuckyEvent luckyEvent) {
     switch(luckyEvent.luckyCode){
-      case P2LuckyEventCode.showCashGuide:
-        TTTTUtils.instance.pointEvent(customId: CustomId.cash_guide);
-        update(["cash_guide"]);
-        break;
       case P2LuckyEventCode.clickNoKeyFindIt:
         clickTab(0);
         break;
@@ -101,5 +94,6 @@ class HomeController extends LuckyBaseController{
     // print("kk====${list.length}");
     // UserInfoUtils.instance.updateUserCoins(10000000);
     // VoicePlayUtils.instance.playBg();
+
   }
 }

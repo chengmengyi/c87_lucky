@@ -58,7 +58,6 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
           alignment: Alignment.bottomCenter,
           child: ClickWidget(
             onTap: (){
-              UserGuideUtils.instance.completedNewUserGuide();
               setState(() {});
               widget.revealAllCall.call();
             },
@@ -78,10 +77,9 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
         Align(
           alignment: Alignment.bottomCenter,
           child: Visibility(
-            visible: UserGuideUtils.instance.checkShowRevealAllGuide(),
+            visible: p2UserPlayNum.getData()==2,
             child: ClickWidget(
               onTap: (){
-                UserGuideUtils.instance.completedNewUserGuide();
                 setState(() {});
                 widget.revealAllCall.call();
               },
@@ -129,6 +127,11 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
         setState(() {
           showKeyGuide=true;
         });
+        break;
+      case P2LuckyEventCode.updateUserPlayNum:
+        if(p2UserPlayNum.getData()==2){
+          setState(() {});
+        }
         break;
     }
   }

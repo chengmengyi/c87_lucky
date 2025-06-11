@@ -1,8 +1,10 @@
+import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_sql/lucky_base_sql.dart';
 import 'package:lucky_base/lucky_utils/lucky_sql/lucky_sql_name.dart';
 import 'package:lucky_p2/lucky_p2_bean/cash_task_bean.dart';
+import 'package:lucky_p2/lucky_p2_dialog/cash_task/rank/rank_dialog.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class CashStatus{
@@ -73,6 +75,7 @@ class CashUtils extends LuckyBaseSql{
     if(list.isEmpty){
       return;
     }
+    CashTaskBean? rankCashTaskBean;
     for (var value in list) {
       var cashTaskBean = CashTaskBean.fromJson(value);
       if(cashTaskBean.taskType==TaskType.task1Card&&updateType==UpdateType.card){
@@ -81,6 +84,7 @@ class CashUtils extends LuckyBaseSql{
           cashTaskBean.taskType=TaskType.task2Rank;
           cashTaskBean.currentPro=ValueUtils.instance.getRankCurrent();
           cashTaskBean.totalPro=ValueUtils.instance.getRankAll();
+          rankCashTaskBean ??= cashTaskBean;
         }
         await sql.update(LuckySqlName.p2CashTask, cashTaskBean.toJson(),where: '"id" = ?',whereArgs: [value["id"]]);
       }
@@ -120,7 +124,16 @@ class CashUtils extends LuckyBaseSql{
         }
       }
     }
+    if(null!=rankCashTaskBean){
+      LuckyRouters.instance.showDialog(child: RankDialog(cashTaskBean: rankCashTaskBean));
+    }
     LuckyEvent(luckyCode: P2LuckyEventCode.updateCashList);
+  }
+
+  Future<bool> checkAutoShowAccountDialog()async{
+    var sql = await initSql();
+    var list = await sql.query(LuckySqlName.p2CashTask);
+    return list.isEmpty;
   }
 
   deleteCashTask(CashTaskBean? bean)async{

@@ -24,19 +24,6 @@ class CardChild extends LuckyBaseChild<CardChildController>{
       Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Visibility(
-            visible: kDebugMode,
-            child: ClickWidget(
-              onTap: (){
-                luckyController.test();
-              },
-              child: Container(
-                width: 100,
-                height: 100,
-                color: Colors.red,
-              ),
-            ),
-          ),
           SizedBox(height: 12.h,),
           _item1Widget(0),
           SizedBox(height: 12.h,),
