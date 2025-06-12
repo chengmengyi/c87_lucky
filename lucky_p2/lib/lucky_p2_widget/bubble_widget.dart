@@ -43,8 +43,8 @@ class BubbleWidgetState extends LuckyBaseState<BubbleWidget>{
   Widget build(BuildContext context) => showBubble?
   LayoutBuilder(
     builder: (c,bc){
-      width=bc.maxWidth-58.w;
-      height=bc.maxHeight-58.h;
+      width=bc.maxWidth-68.w;
+      height=bc.maxHeight-68.h;
       return SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -60,7 +60,7 @@ class BubbleWidgetState extends LuckyBaseState<BubbleWidget>{
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
-                    LuckyImageWidget(name: "bubble",width: 58.w,height: 58.w,),
+                    LuckyImageWidget(name: "bubble",width: 68.w,height: 68.w,),
                     LuckyTextWidget(text: "\$$addNum", size: 18.sp, color: "#1AFF16",shadowsColor: "#000000",)
                   ],
                 ),

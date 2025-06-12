@@ -17,7 +17,7 @@ class MoneyLottieWidgetState extends LuckyBaseState<MoneyLottieWidget> with Tick
   @override
   void initState() {
     super.initState();
-    moneyLottieController=AnimationController(vsync: this,duration: const Duration(milliseconds: 800))..addStatusListener((status) {
+    moneyLottieController=AnimationController(vsync: this,duration: const Duration(milliseconds: 1500))..addStatusListener((status) {
       if(status==AnimationStatus.completed){
         showMoneyLottie=false;
         setState(() {});

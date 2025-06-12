@@ -43,7 +43,7 @@ class HomePage extends LuckyBasePage<HomeController>{
           ],
         ),
       ),
-      // MoneyLottieWidget(),
+      MoneyLottieWidget(),
     ],
   );
 

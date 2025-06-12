@@ -23,10 +23,12 @@ class NoKeyDialog extends LuckyBaseDialog<NoKeyController>{
           children: [
             LuckyImageWidget(name: "no_key1",width: double.infinity,height: double.infinity,),
             Align(
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  SizedBox(height: 50.h,),
+                  LuckyImageWidget(name: "no_key2",width: 54.w,height: 70.h,),
                   LuckyTextWidget(
                     text: "Not Enough Keys to\nUnlock Spin",
                     size: 18.sp,

@@ -44,7 +44,7 @@ class CoinsWidgetState extends LuckyBaseState<CoinsWidget>{
             children: [
               LuckyImageWidget(name: "coins2",width: 140.w,height: 26.h,),
               LuckyGraTextWidget(
-                text: "${p2UserCoins.getData()}",
+                text: "\$${p2UserCoins.getData()}",
                 size: 14.sp,
                 colors: [
                   "#FFF7C2".toColor(),

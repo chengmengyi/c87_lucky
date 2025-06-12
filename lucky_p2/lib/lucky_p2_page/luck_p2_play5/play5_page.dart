@@ -161,7 +161,7 @@ class Play5Page extends LuckyBasePage2<Play5Controller>{
     alignment: Alignment.center,
     child: LuckyTextWidget(
       text: luckyController.getLeftReward(list),
-      size: 18.sp,
+      size: 16.sp,
       color: "#FFFFFF",
       shadowsColor: "#000120",
       fontWeight: FontWeight.bold,

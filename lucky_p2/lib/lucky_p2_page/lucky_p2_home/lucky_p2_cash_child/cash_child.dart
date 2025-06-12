@@ -35,19 +35,18 @@ class CashChild extends LuckyBaseChild<CashChildController>{
           id: "pay_money",
           builder: (_)=>LuckyImageWidget(name: luckyController.getPayBg(),width: double.infinity,height: double.infinity,),
         ),
-        Positioned(
-          right: 16.w,
-          bottom: 0,
+        Align(
+          alignment: Alignment.centerRight,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               LuckyTextWidget(text: "\$", size: 28.sp, color: "#0D7300",fontWeight: FontWeight.bold,),
               GetBuilder<CashChildController>(
                 id: "coins",
-                builder: (_)=>LuckyTextWidget(text: "${p2UserCoins.getData()}", size: 40.sp, color: "#0D7300",fontWeight: FontWeight.bold,),
+                builder: (_)=>LuckyTextWidget(text: "${p2UserCoins.getData()}", size: 30.sp, color: "#0D7300",fontWeight: FontWeight.bold,),
               ),
             ],
-          ),
+          ).marginOnly(right: 6.w),
         )
       ],
     ),

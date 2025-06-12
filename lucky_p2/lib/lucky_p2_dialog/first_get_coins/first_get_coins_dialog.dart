@@ -28,16 +28,24 @@ class FirstGetCoinsDialog extends LuckyBaseDialog<FirstGetCoinsController>{
     children: [
       Container(
         width: double.infinity,
-        height: 109.h,
+        height: 178.h,
         margin: EdgeInsets.only(left: 12.w,right: 12.w),
         child: Stack(
           children: [
-            LuckyImageWidget(name: "win3",width: double.infinity,height: 109.h,),
+            LuckyImageWidget(
+              name: "win3",
+              width: double.infinity,
+              height: 120.h,
+            ).marginOnly(top: 58.h,left: 30.w,right: 30.w),
+            Align(
+              alignment: Alignment.topCenter,
+              child: LuckyLottieWidget(name: "you_win",height: 96.h,fit: BoxFit.fitHeight,),
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: LuckyGraTextWidget(
                 text: "\$$allReward",
-                size: 40.sp,
+                size: 45.sp,
                 colors: [
                   "#FFFFFF".toColor(),
                   "#FAFF21".toColor(),
@@ -47,14 +55,10 @@ class FirstGetCoinsDialog extends LuckyBaseDialog<FirstGetCoinsController>{
                 shadowsColor: "#170600",
               ).marginOnly(bottom: 6.h),
             ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: LuckyLottieWidget(name: "you_win",width: 214.w,height: 56.h,),
-            )
           ],
         ),
       ),
-      SizedBox(height: 12.h,),
+      SizedBox(height: 40.h,),
       BtnWidget(
         leftStr: "Claim",
         rightStr: "\$${mulTwoNums(allReward, 2)}",

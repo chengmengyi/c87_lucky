@@ -37,8 +37,8 @@ class CheckAfUtils{
       krueger: await FlutterTbaInfo.instance.getOperator(),
     );
     FlutterCheckAf.instance.init(
-      afKey: afKey.base64(),
-      afAppId: afAppId.base64(),
+      afKey: afKey,
+      afAppId: afAppId,
       afSwitch: FirebaseUtils.instance.afSwitch,
       distinctId: distinctId,
       clockUrl: cloakUrl,

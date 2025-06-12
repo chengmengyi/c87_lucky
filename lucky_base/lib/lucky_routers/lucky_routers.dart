@@ -34,7 +34,7 @@ class LuckyRouters{
     Get.dialog(
       child,
       // arguments: arguments,
-      // barrierColor: barrierColor,
+      barrierColor: Colors.black87,
       barrierDismissible: false,
     );
   }

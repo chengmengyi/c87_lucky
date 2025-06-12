@@ -135,7 +135,7 @@ class Play1Page extends LuckyBasePage2<Play1Controller>{
                                   ),
                                   Align(
                                     alignment: Alignment.bottomCenter,
-                                    child: LuckyTextWidget(text: "${yourBean.reward}", size: 13.sp, color: "#E35F00",fontWeight: FontWeight.bold,),
+                                    child: LuckyTextWidget(text: "\$${yourBean.reward}", size: 13.sp, color: "#E35F00",fontWeight: FontWeight.bold,),
                                   ),
                                 ],
                               ),

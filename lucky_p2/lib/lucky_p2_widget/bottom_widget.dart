@@ -98,6 +98,16 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
               child: FingerWidget(),
             ).marginOnly(left: 40.w),
           ),
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: ClickWidget(
+            onTap: (){
+              LuckyRouters.instance.back();
+              LuckyEvent(luckyCode: P2LuckyEventCode.showHomeTab,intValue: 2);
+            },
+            child: LuckyImageWidget(name: "bottom5",width: 55.w,height: 55.h,),
+          ).marginOnly(right: 20.w),
         )
       ],
     ),

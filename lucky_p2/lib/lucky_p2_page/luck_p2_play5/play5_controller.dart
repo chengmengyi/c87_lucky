@@ -125,7 +125,7 @@ class Play5Controller extends LuckyBaseController with GetTickerProviderStateMix
     if(list.indexWhere((value)=>value.isKey)>=0){
       return "+1";
     }
-    return "${list.fold(0.0, (previousValue, element) => addTwoNums(previousValue, element.reward))}";
+    return "\$${list.fold(0.0, (previousValue, element) => addTwoNums(previousValue, element.reward))}";
   }
 
   @override

@@ -12,8 +12,10 @@ import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
 import 'package:lucky_p2/lucky_p2_dialog/big_win/big_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/comment/comment_dialog.dart';
+import 'package:lucky_p2/lucky_p2_dialog/first_get_coins/first_get_coins_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/old_user/old_user_dialog.dart';
+import 'package:lucky_p2/lucky_p2_dialog/old_user/wheel_win/wheel_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/up_level/up_level_dialog.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_card_child/card_child.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_cash_child/cash_child.dart';
@@ -98,8 +100,10 @@ class HomeController extends LuckyBaseController{
     // print("kk====${list.length}");
     // UserInfoUtils.instance.updateUserCoins(10000000);
     // VoicePlayUtils.instance.playBg();
-    // UserInfoUtils.instance.updateUserCoins(1000);
+    UserInfoUtils.instance.updateUserCoins(1000.03);
 
-    CheckAfUtils.instance.initAf();
+    // CheckAfUtils.instance.initAf();
+
+    // LuckyRouters.instance.showDialog(child: WheelWinDialog(allReward: 10,  dismiss: (add){}));
   }
 }

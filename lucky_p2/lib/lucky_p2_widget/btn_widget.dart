@@ -22,11 +22,11 @@ class BtnWidget extends StatelessWidget{
       onTap.call();
     },
     child: SizedBox(
-      width: 172.w,
-      height: 44.h,
+      width: 230.w,
+      height: 54.h,
       child: Stack(
         children: [
-          LuckyImageWidget(name: "btn_bg",width: 172.w,height: 44.h,),
+          LuckyImageWidget(name: "btn_bg",width: double.infinity,height: double.infinity,),
           Align(
             alignment: Alignment.center,
             child: Row(

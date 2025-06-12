@@ -346,10 +346,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_check_af
-      sha256: bf06b50af1c2c6f6c5d8fd94f6a3ae4f2537f0addd3850cac905e9eb4970a999
+      sha256: "01f027a55b17039703ef9a016f7fc2141a7266f54bcaf0851394260797fde88b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.6"
   flutter_lints:
     dependency: "direct dev"
     description:

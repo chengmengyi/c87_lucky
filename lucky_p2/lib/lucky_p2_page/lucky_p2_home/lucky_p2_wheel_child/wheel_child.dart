@@ -43,17 +43,17 @@ class WheelChild extends LuckyBaseChild<WheelChildController>{
             luckyController.startAnimator();
           },
           child: SizedBox(
-            width: 172.w,
+            width: 210.w,
             height: 100.h,
             child: Stack(
               children: [
                 SizedBox(
-                  width: 172.w,
-                  height: 44.h,
+                  width: 210.w,
+                  height: 54.h,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      LuckyImageWidget(name: "btn_bg",width: 172.w,height: 44.h,),
+                      LuckyImageWidget(name: "btn_bg",width: 210.w,height: 54.h,),
                       LuckyTextWidget(text: "SPIN", size: 20.sp, color: "#FFFFFF",shadowsColor: "#0A5300",fontWeight: FontWeight.bold,),
                     ],
                   ),

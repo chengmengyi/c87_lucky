@@ -35,7 +35,6 @@ class WheelChildController extends LuckyBaseController with GetSingleTickerProvi
     if(!canClick){
       return;
     }
-    canClick=false;
     TTTTUtils.instance.pointEvent(customId: CustomId.wheel_page_c);
     if(p2KeyNum.getData()<=0){
       _checkHasKey();
@@ -59,6 +58,7 @@ class WheelChildController extends LuckyBaseController with GetSingleTickerProvi
         angle=[135,270].random();
         break;
     }
+    canClick=false;
     animation=Tween<double>(begin: 0,end: (720+angle)*pi/180).animate(_animationController);
     _animationController..reset()..forward();
   }

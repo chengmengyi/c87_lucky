@@ -48,11 +48,11 @@ class BoxDialog extends LuckyBaseDialog<BoxDialogController>{
         luckyController.clickBox(index);
       },
       child: SizedBox(
-        width: 105.w,
-        height: 92.h,
+        width: 120.w,
+        height: 100.h,
         child: Stack(
           children: [
-            LuckyLottieWidget(name: boxBean.open?"box2":"box1",width: 105.w,height: 92.h,),
+            LuckyLottieWidget(name: boxBean.open?"box2":"box1",width: 120.w,height: 100.h,),
             Align(
               alignment: Alignment.bottomRight,
               child: Visibility(

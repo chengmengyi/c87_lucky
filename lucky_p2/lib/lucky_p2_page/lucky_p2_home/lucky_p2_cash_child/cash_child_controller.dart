@@ -59,6 +59,7 @@ class CashChildController extends LuckyBaseController{
     var cashTaskBean = await CashUtils.instance.createCashTask(payIndex, cashMoney,account);
     UserInfoUtils.instance.updateUserCoins(-(cashMoney.toDouble()));
     _showCashTaskDialog(cashTaskBean);
+    clickPayType(payIndex);
   }
 
   _showCashTaskDialog(CashTaskBean? cashTaskBean){
