@@ -4,6 +4,7 @@ import 'package:lucky_base/lucky_base.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
+import 'package:lucky_base/lucky_utils/check_af_utils.dart';
 import 'package:lucky_base/lucky_utils/local_notification_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
@@ -97,7 +98,8 @@ class HomeController extends LuckyBaseController{
     // print("kk====${list.length}");
     // UserInfoUtils.instance.updateUserCoins(10000000);
     // VoicePlayUtils.instance.playBg();
-    UserInfoUtils.instance.updateUserCoins(1000);
+    // UserInfoUtils.instance.updateUserCoins(1000);
 
+    CheckAfUtils.instance.initAf();
   }
 }

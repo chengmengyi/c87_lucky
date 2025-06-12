@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:lucky_base/lucky_utils/app_lifecycle_utils.dart';
+import 'package:lucky_base/lucky_utils/check_af_utils.dart';
 import 'package:lucky_base/lucky_utils/firebase_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
@@ -42,6 +43,7 @@ _initP1()async{
 }
 
 _initP2()async{
+  CheckAfUtils.instance.initAf();
   TTTTUtils.instance.install();
   TTTTUtils.instance.session();
   p2ValueUtils.ValueUtils.instance.initValue();

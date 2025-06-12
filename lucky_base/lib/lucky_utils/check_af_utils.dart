@@ -76,7 +76,7 @@ class CheckAfUtils{
   _checkUserDelay(){
     if(p1HomeShowing.getData()&&FlutterCheckAf.instance.checkUser()){
       p1HomeShowing.saveData(false);
-      LuckyRouters.instance.openNextPage(routersName: "/luckyP2/home");
+      LuckyRouters.instance.openNextOffCurrentPage(routersName: "/luckyP2/home");
     }
   }
 }
