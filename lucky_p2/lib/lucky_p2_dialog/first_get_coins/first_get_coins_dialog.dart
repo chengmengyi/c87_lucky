@@ -8,10 +8,10 @@ import 'package:lucky_base/lucky_widget/lucky_gra_text_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_lottie_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
-import 'package:lucky_p2/lucky_p2_dialog/old_user/wheel_win/wheel_win_controller.dart';
+import 'package:lucky_p2/lucky_p2_dialog/first_get_coins/first_get_coins_controller.dart';
 import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 
-class FirstGetCoinsDialog extends LuckyBaseDialog<WheelWinController>{
+class FirstGetCoinsDialog extends LuckyBaseDialog<FirstGetCoinsController>{
   double allReward;
   Function(double addNum) dismiss;
   FirstGetCoinsDialog({
@@ -20,7 +20,7 @@ class FirstGetCoinsDialog extends LuckyBaseDialog<WheelWinController>{
 });
 
   @override
-  WheelWinController initController() => WheelWinController();
+  FirstGetCoinsController initController() => FirstGetCoinsController();
 
   @override
   Widget child() => Column(

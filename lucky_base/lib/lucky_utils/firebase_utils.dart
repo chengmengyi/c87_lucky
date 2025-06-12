@@ -45,6 +45,7 @@ class FirebaseUtils{
 
   _getValue(){
     var valueStr = _remoteConfig?.getString("playcard_number")??"";
+    print("kk===config value=-==${valueStr}");
     if(valueStr.isNotEmpty&&p2ValueFirebaseConfig.getData().isEmpty){
       p2ValueFirebaseConfig.saveData(valueStr);
       valueResultCall?.call();

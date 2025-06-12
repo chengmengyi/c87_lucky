@@ -210,7 +210,7 @@ class PlayUtils{
     key.currentState?.reset();
     canClick=true;
     await CashUtils.instance.updateCaskTask(UpdateType.card);
-    UserInfoUtils.instance.updateUserCoins(allReward.toDouble());
+    UserInfoUtils.instance.updateUserCoins(allReward);
     var hasPlayNum = await PlayInfoUtils.instance.checkHasPlayNum(playType);
     if(!hasPlayNum){
       LuckyRouters.instance.back();

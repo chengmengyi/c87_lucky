@@ -56,7 +56,7 @@ class CashChildController extends LuckyBaseController{
   }
 
   _createCashTask(int payIndex,String account, int cashMoney)async{
-    var cashTaskBean = await CashUtils.instance.createCashTask(chooseIndex, cashMoney,account);
+    var cashTaskBean = await CashUtils.instance.createCashTask(payIndex, cashMoney,account);
     UserInfoUtils.instance.updateUserCoins(-(cashMoney.toDouble()));
     _showCashTaskDialog(cashTaskBean);
   }
@@ -144,7 +144,7 @@ class CashChildController extends LuckyBaseController{
         _initCashList();
         break;
       case P2LuckyEventCode.updateUserCoins:
-        update(["coins"]);
+        update(["coins","pay_list"]);
         break;
       case P2LuckyEventCode.showAccountDialog:
         var first = ValueUtils.instance.getCashList().first;

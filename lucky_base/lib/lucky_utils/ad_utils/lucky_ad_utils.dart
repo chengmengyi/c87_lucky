@@ -6,6 +6,7 @@ import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
+import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/firebase_utils.dart';
@@ -76,7 +77,7 @@ class LuckyAdUtils{
       return;
     }
     TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_chance,params: {"ad_pos_id":adPosId.name});
-    var resultData = FlutterIosAdHep.instance.getCacheResultData(AdType.reward);
+    var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==resultData){
       TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_nocache,params: {"ad_pos_id":adPosId.name});
       if(isOpen){
@@ -91,9 +92,10 @@ class LuckyAdUtils{
       return;
     }
     FlutterIosAdHep.instance.showAd(
-      adType: AdType.reward,
+      adType: adType,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
+          FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adPosId.name);
           TTTTUtils.instance.adEvent(ad: ad, adPosId: adPosId, adInfoData: info);
           VoicePlayUtils.instance.pauseBg();
           p2LookAdNum.saveData(p2LookAdNum.getData()+1);

@@ -30,14 +30,14 @@ class MainController extends LuckyBaseController with GetSingleTickerProviderSta
 
   _checkAf(){
     var checkUser = FlutterCheckAf.instance.checkUser();
-    if(kDebugMode){
-      checkUser=true;
-    }
+    // if(kDebugMode){
+    //   checkUser=true;
+    // }
     if(checkUser){
       LuckyAdUtils.instance.showP2Ad(
         adType: AdType.interstitial,
         adPosId: AdPosId.skerk_launch,
-        showAd: !kDebugMode,
+        showAd: true,
         isOpen: true,
         closeAd: (){
           LuckyRouters.instance.openNextOffCurrentPage(routersName: LuckyP2RoutersName.home);
