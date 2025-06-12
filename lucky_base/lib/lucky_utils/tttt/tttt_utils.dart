@@ -19,7 +19,7 @@ class TTTTUtils extends BaseTTT{
     if(p2InstallEvent.getData()){
       return;
     }
-    pointEvent(customId: CustomId.install);
+    // pointEvent(customId: CustomId.install);
     var installBean = await getInstallBean();
     var headerBean = await getHeaderBean(installBean.baseBean?.theorem?.gondola, installBean.baseBean?.dietrich?.navel);
     var queryBean = await getQueryBean(installBean.baseBean?.theorem?.floc, installBean.baseBean?.monk?.silage);

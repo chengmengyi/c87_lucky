@@ -9,6 +9,8 @@ import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
 
 class CommentDialog extends LuckyBaseDialog<CommentController>{
+  Function(int) dismiss;
+  CommentDialog({required this.dismiss});
 
   @override
   CommentController initController() => CommentController();
@@ -43,7 +45,7 @@ class CommentDialog extends LuckyBaseDialog<CommentController>{
                     itemBuilder: (context,index){
                       return ClickWidget(
                         onTap: (){
-                          luckyController.clickStars(index);
+                          luckyController.clickStars(index,dismiss);
                         },
                         child: LuckyImageWidget(name: luckyController.chooseIndex>=index?"comment3":"comment4"),
                       );
@@ -93,7 +95,7 @@ class CommentDialog extends LuckyBaseDialog<CommentController>{
             visible: luckyController.chooseIndex==-1,
             child: ClickWidget(
               onTap: (){
-                luckyController.clickStars(4);
+                luckyController.clickStars(4,dismiss);
               },
               child: FingerWidget(),
             ),

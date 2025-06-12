@@ -1,18 +1,15 @@
-import 'package:in_app_review/in_app_review.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
-import 'package:lucky_p2/lucky_p2_dialog/comment/comment_result/comment_result_dialog.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
-import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class CommentController extends LuckyBaseController{
   var chooseIndex=-1,canClick=true;
 
-  clickStars(index)async{
+  clickStars(index, Function(int p1) dismiss)async{
     if(!canClick){
       return;
     }
@@ -21,17 +18,8 @@ class CommentController extends LuckyBaseController{
     update(["list","finger"]);
     p2ShowComment.saveData(false);
     await Future.delayed(Duration(milliseconds: 1000));
-    if(index<=2){
-      LuckyRouters.instance.back();
-      LuckyRouters.instance.showDialog(child: CommentResultDialog());
-    }else{
-      UserInfoUtils.instance.updateUserCoins(5);
-      var instance = InAppReview.instance;
-      if (await instance.isAvailable()) {
-        instance.requestReview();
-      }
-      LuckyRouters.instance.back();
-    }
+    LuckyRouters.instance.back();
+    dismiss.call(index);
   }
 
   clickClose(){

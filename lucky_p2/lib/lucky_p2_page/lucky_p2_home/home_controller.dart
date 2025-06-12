@@ -13,12 +13,15 @@ import 'package:lucky_p2/lucky_p2_dialog/big_win/big_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/comment/comment_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/old_user/old_user_dialog.dart';
+import 'package:lucky_p2/lucky_p2_dialog/up_level/up_level_dialog.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_card_child/card_child.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_cash_child/cash_child.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_wheel_child/wheel_child.dart';
 import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_steps.dart';
+import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
 
 class HomeController extends LuckyBaseController{
@@ -42,7 +45,7 @@ class HomeController extends LuckyBaseController{
   void onReady() {
     super.onReady();
     if(p2ShowComment.getData()&&!p2FirstGetCoins.getData()){
-      LuckyRouters.instance.showDialog(child: CommentDialog());
+      UserGuideUtils.instance.showCommentDialog();
     }
     LocationNotificationUtils.instance.init();
   }
@@ -94,6 +97,7 @@ class HomeController extends LuckyBaseController{
     // print("kk====${list.length}");
     // UserInfoUtils.instance.updateUserCoins(10000000);
     // VoicePlayUtils.instance.playBg();
+    UserInfoUtils.instance.updateUserCoins(1000);
 
   }
 }

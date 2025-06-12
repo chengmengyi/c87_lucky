@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_gra_text_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -13,11 +15,21 @@ import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 
 class UpLevelDialog extends LuckyBaseDialog<UpLevelController>{
   double addNum;
+  PlayType playType;
   Function() dismiss;
-  UpLevelDialog({required this.addNum,required this.dismiss});
+  UpLevelDialog({
+    required this.addNum,
+    required this.playType,
+    required this.dismiss,
+  });
 
   @override
   UpLevelController initController() => UpLevelController();
+
+  @override
+  initView() {
+    TTTTUtils.instance.pointEvent(customId: CustomId.level_pop,params: {"source_from":playType.name});
+  }
 
   @override
   Widget child() => Column(
@@ -49,13 +61,13 @@ class UpLevelDialog extends LuckyBaseDialog<UpLevelController>{
         leftStr: "Claim",
         rightStr: "\$${mulTwoNums(addNum, 2)}",
         onTap: (){
-          luckyController.clickDouble(addNum,dismiss);
+          luckyController.clickDouble(addNum,dismiss,playType);
         },
       ),
       SizedBox(height: 12.h,),
       ClickWidget(
         onTap: (){
-          luckyController.clickSingle(addNum,dismiss);
+          luckyController.clickSingle(addNum,dismiss,playType);
         },
         child: LuckyTextWidget(
           text: "\$$addNum",

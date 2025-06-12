@@ -164,6 +164,7 @@ class PlayUtils{
       LuckyRouters.instance.showDialog(
         child: UpLevelDialog(
           addNum: ValueUtils.instance.getBigNum(playType).toDouble(),
+          playType: playType,
           dismiss: (){
             _resetPlay(allReward.toDouble(),resetCallback);
           },

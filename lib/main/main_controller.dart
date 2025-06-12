@@ -37,7 +37,7 @@ class MainController extends LuckyBaseController with GetSingleTickerProviderSta
       LuckyAdUtils.instance.showP2Ad(
         adType: AdType.interstitial,
         adPosId: AdPosId.skerk_launch,
-        showAd: true,
+        showAd: !kDebugMode,
         isOpen: true,
         closeAd: (){
           LuckyRouters.instance.openNextOffCurrentPage(routersName: LuckyP2RoutersName.home);

@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
+import 'package:lucky_p2/lucky_p2_dialog/comment/comment_dialog.dart';
+import 'package:lucky_p2/lucky_p2_dialog/comment/comment_result/comment_result_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/old_user/old_user_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/old_user/wheel_dialog/wheel_dialog.dart';
 import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/first_play_guide_overlay.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_steps.dart';
+import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
 
 class UserGuideUtils{
   static final UserGuideUtils _instance = UserGuideUtils();
@@ -112,5 +116,23 @@ class UserGuideUtils{
   hideOverlay(){
     _overlayEntry?.remove();
     _overlayEntry=null;
+  }
+
+  showCommentDialog(){
+    LuckyRouters.instance.showDialog(
+      child: CommentDialog(
+        dismiss: (star)async{
+          UserInfoUtils.instance.updateUserCoins(5);
+          if(star<=2){
+            LuckyRouters.instance.showDialog(child: CommentResultDialog());
+          }else{
+            var instance = InAppReview.instance;
+            if (await instance.isAvailable()) {
+              instance.requestReview();
+            }
+          }
+        },
+      ),
+    );
   }
 }

@@ -147,11 +147,15 @@ class CashChildController extends LuckyBaseController{
         update(["coins"]);
         break;
       case P2LuckyEventCode.showAccountDialog:
+        var first = ValueUtils.instance.getCashList().first;
+        if(p2UserCoins.getData()<first){
+          return;
+        }
         LuckyRouters.instance.showDialog(
           child: AccountDialog(
             chooseIndex: chooseIndex,
             callback: (payIndex,acc){
-              _createCashTask(payIndex,acc,ValueUtils.instance.getCashList().first);
+              _createCashTask(payIndex,acc,first);
             },
           ),
         );

@@ -69,4 +69,7 @@ enum CustomId{
   youwin_pop,
   youwin_pop_c,
   youwin_pop_close,
+  wheel_reward_pop,
+  wheel_reward_pop_c,
+  wheel_reward_pop_c_single,
 }

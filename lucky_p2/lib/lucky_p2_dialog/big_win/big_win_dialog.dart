@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_gra_text_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_lottie_widget.dart';
@@ -26,6 +28,7 @@ class BigWinDialog extends LuckyBaseDialog<BigWinController>{
   @override
   initView() {
     luckyController.playType=playType;
+    TTTTUtils.instance.pointEvent(customId: CustomId.bigwin_pop,params: {"source_from":playType.name});
   }
 
   @override

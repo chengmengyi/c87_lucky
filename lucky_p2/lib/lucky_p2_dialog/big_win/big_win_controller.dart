@@ -14,12 +14,6 @@ import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 class BigWinController extends LuckyBaseController{
   PlayType playType=PlayType.card1;
 
-  @override
-  void onInit() {
-    super.onInit();
-    TTTTUtils.instance.pointEvent(customId: CustomId.bigwin_pop,params: {"source_from":playType.name});
-  }
-
   clickDouble(double allReward,Function(double addNum) dismiss){
     TTTTUtils.instance.pointEvent(customId: CustomId.bigwin_pop_c,params: {"source_from":playType.name});
     LuckyAdUtils.instance.showP2Ad(

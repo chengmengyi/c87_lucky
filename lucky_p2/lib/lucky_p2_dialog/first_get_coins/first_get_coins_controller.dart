@@ -18,26 +18,12 @@ class FirstGetCoinsController extends LuckyBaseController{
 
   clickDouble(double allReward,Function(double addNum) dismiss){
     TTTTUtils.instance.pointEvent(customId: CustomId.card_coin_guide_pop_c);
-    LuckyAdUtils.instance.showP2Ad(
-      adType: AdType.reward,
-      adPosId: AdPosId.skerk_wheel_rv,
-      showAd: ValueUtils.instance.showAd(AdType.reward),
-      closeAd: (){
-        LuckyRouters.instance.back();
-        dismiss.call(mulTwoNums(allReward, 2));
-      },
-    );
+    LuckyRouters.instance.back();
+    dismiss.call(mulTwoNums(allReward, 2));
   }
 
   clickSingle(double allReward,Function(double addNum) dismiss){
-    LuckyAdUtils.instance.showP2Ad(
-      adType: AdType.interstitial,
-      adPosId: AdPosId.skerk_wheel_int,
-      showAd: ValueUtils.instance.showAd(AdType.interstitial),
-      closeAd: (){
-        LuckyRouters.instance.back();
-        dismiss.call(allReward);
-      },
-    );
+    LuckyRouters.instance.back();
+    dismiss.call(allReward);
   }
 }

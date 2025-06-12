@@ -9,6 +9,7 @@ import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
 import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
+import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 
 class UserInfoUtils{
   static final UserInfoUtils _instance = UserInfoUtils();
@@ -21,14 +22,19 @@ class UserInfoUtils{
     p2UserCoins.saveData(addTwoNums(p2UserCoins.getData(),addCoins));
     if(addCoins>0){
       var moneyLevel = p2LastCoinsLevel.getData()+100;
+      //301   200  300
       if(p2UserCoins.getData()>=moneyLevel){
-        TTTTUtils.instance.pointEvent(customId: CustomId.cash_money_detail,params: {"money":moneyLevel});
-        p2LastCoinsLevel.saveData(moneyLevel);
+        var max = ((p2UserCoins.getData()-moneyLevel)~/100)+1;
+        for(var index=0; index<max; index++){
+          TTTTUtils.instance.pointEvent(customId: CustomId.cash_money_detail,params: {"money":moneyLevel});
+          p2LastCoinsLevel.saveData(moneyLevel);
+          moneyLevel+=100;
+        }
       }
       LuckyEvent(luckyCode: P2LuckyEventCode.startMoneyAnimator);
       if(p2FirstGetCoins.getData()){
         if(p2ShowComment.getData()){
-          LuckyRouters.instance.showDialog(child: CommentDialog());
+          UserGuideUtils.instance.showCommentDialog();
         }
         p2FirstGetCoins.saveData(false);
       }
@@ -36,6 +42,8 @@ class UserInfoUtils{
       if(showAccountDialog){
         LuckyEvent(luckyCode: P2LuckyEventCode.showAccountDialog);
       }
+    }else{
+      LuckyEvent(luckyCode: P2LuckyEventCode.updateUserCoins);
     }
   }
 

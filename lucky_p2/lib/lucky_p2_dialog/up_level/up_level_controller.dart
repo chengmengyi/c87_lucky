@@ -6,18 +6,14 @@ import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class UpLevelController extends LuckyBaseController{
-  @override
-  void onInit() {
-    super.onInit();
-    TTTTUtils.instance.pointEvent(customId: CustomId.level_pop);
-  }
 
-  clickDouble(double addNum, Function() dismiss){
-    TTTTUtils.instance.pointEvent(customId: CustomId.level_pop_c);
+  clickDouble(double addNum, Function() dismiss, PlayType playType){
+    TTTTUtils.instance.pointEvent(customId: CustomId.level_pop_c,params: {"source_from":playType.name});
     LuckyAdUtils.instance.showP2Ad(
       adType: AdType.reward,
       adPosId: AdPosId.skerk_winup_rv,
@@ -30,8 +26,8 @@ class UpLevelController extends LuckyBaseController{
     );
   }
 
-  clickSingle(double addNum, Function() dismiss){
-    TTTTUtils.instance.pointEvent(customId: CustomId.level_pop_close);
+  clickSingle(double addNum, Function() dismiss, PlayType playType){
+    TTTTUtils.instance.pointEvent(customId: CustomId.level_pop_close,params: {"source_from":playType.name});
     LuckyAdUtils.instance.showP2Ad(
       adType: AdType.interstitial,
       adPosId: AdPosId.skerk_winup_int,

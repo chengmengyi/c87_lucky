@@ -29,7 +29,7 @@ class RankController extends LuckyBaseController{
   }
 
   clickWatch(){
-    TTTTUtils.instance.pointEvent(customId: CustomId.cash_queue_po_c,params: {"ad_number":p2CashRankWatchAdNum.getData()});
+    TTTTUtils.instance.pointEvent(customId: CustomId.cash_queue_po_c,params: {"ad_number":p2CashRankWatchAdNum.getData()+1});
     LuckyAdUtils.instance.showP2Ad(
       adType: AdType.reward,
       adPosId: AdPosId.skerk_skipwait_rv,
