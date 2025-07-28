@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "851221347491",
+    "project_id": "android-c87-scratchitlucky",
+    "storage_bucket": "android-c87-scratchitlucky.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851221347491:android:b3e9906075ba0e09aa5316",
+        "android_client_info": {
+          "package_name": "com.scratch.luckycard.playfun"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRu9-vUS6gHNf7mPnBBzhKSBlXeveKhSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

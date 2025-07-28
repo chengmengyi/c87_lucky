@@ -1,12 +1,19 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
+import 'package:flutter_custom_facebook/flutter_custom_facebook.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
+import 'package:lucky_base/lucky_utils/local_config.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 
 StorageData<String> p2ValueFirebaseConfig=StorageData<String>(key: "p2ValueFirebaseConfig", defaultValue: "");
 StorageData<String> p2AdFirebaseConfig=StorageData<String>(key: "p2AdFirebaseConfig", defaultValue: "");
+StorageData<String> p2FacebookConfig=StorageData<String>(key: "p2FacebookConfig", defaultValue: "");
 
 
 class FirebaseUtils{
@@ -17,12 +24,14 @@ class FirebaseUtils{
 
   Function()? valueResultCall;
   var afSwitch="1";
+  StreamSubscription<List<ConnectivityResult>>? streamSubscription;
 
   checkConnectivity(){
-    Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
+    streamSubscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
       if(!result.contains(ConnectivityResult.none)){
         _initFirebase();
         LuckyAdUtils.instance.initAd();
+        streamSubscription?.cancel();
       }
     });
   }
@@ -39,7 +48,7 @@ class FirebaseUtils{
       _getValue();
     }catch(e){
       await Future.delayed(const Duration(milliseconds: 1000));
-      _initFirebase();
+      _initFacebook();
     }
   }
 
@@ -60,5 +69,19 @@ class FirebaseUtils{
       afSwitch=afOn;
       FlutterCheckAf.instance.updateAfSwitch(afSwitch);
     }
+    var facebookConfig = _remoteConfig?.getString("c87card_fb")??"";
+    if(facebookConfig.isNotEmpty){
+      p2FacebookConfig.saveData(facebookConfig);
+    }
+    _initFacebook();
+  }
+  
+  _initFacebook(){
+    // var conf = localFacebookBase64.base64();
+    // if(p2FacebookConfig.getData().isNotEmpty){
+    //   conf=p2FacebookConfig.getData();
+    // }
+    // var json = jsonDecode(conf);
+    // FlutterCustomFacebook.instance.initFaceBook(facebookId: json["app_id"], facebookToken: json["client_token"], facebookAppName: json["app_name"]);
   }
 }

@@ -28,6 +28,7 @@ abstract class BaseTTT{
       buffet: await FlutterTbaInfo.instance.getOsCountry(),
       janice: await FlutterTbaInfo.instance.getAppVersion(),
     ),
+    //BoomC38@123
     theorem: Theorem(
       qua: DateTime.now().millisecondsSinceEpoch,
       floc: await FlutterTbaInfo.instance.getIdfa(),

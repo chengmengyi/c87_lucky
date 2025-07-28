@@ -72,4 +72,5 @@ enum CustomId{
   wheel_reward_pop,
   wheel_reward_pop_c,
   wheel_reward_pop_c_single,
+  ad_request,
 }

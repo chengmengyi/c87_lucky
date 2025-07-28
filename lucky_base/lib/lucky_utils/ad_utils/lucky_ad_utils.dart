@@ -6,7 +6,9 @@ import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
+import 'package:flutter_ad_ios_plugins/hep/ios_load_ad_result_callback.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
+import 'package:flutter_custom_facebook/flutter_custom_facebook.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/firebase_utils.dart';
@@ -28,6 +30,14 @@ class LuckyAdUtils{
     FlutterIosAdHep.instance.initMax(
       maxKey: maxKey.base64(),
       data: _createAdData(),
+      iosLoadAdResultCallback: IosLoadAdResultCallback(
+        startLoadAdCallback: (info){
+          //ad_code_id/ad_format/ad_platform
+          TTTTUtils.instance.pointEvent(customId: CustomId.ad_request,params: {"ad_code_id":info?.adId,"ad_format":info?.adType.name,"ad_platform":info?.adPlat});
+        },
+        loadAdSuccessCallback: (maxAd,info){},
+        loadAdFailCallback: (info){},
+      ),
     );
   }
 
@@ -76,10 +86,10 @@ class LuckyAdUtils{
       closeAd.call();
       return;
     }
-    TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_chance,params: {"ad_pos_id":adPosId.name});
+    TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_chance,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name});
     var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==resultData){
-      TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_nocache,params: {"ad_pos_id":adPosId.name});
+      TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_nocache,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name});
       if(isOpen){
         closeAd.call();
       }else{
@@ -95,6 +105,7 @@ class LuckyAdUtils{
       adType: adType,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
+          // FlutterCustomFacebook.instance.logPurchase(amount: ad?.revenue??0, currency: "USD");
           FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adPosId.name);
           TTTTUtils.instance.adEvent(ad: ad, adPosId: adPosId, adInfoData: info);
           VoicePlayUtils.instance.pauseBg();
@@ -106,7 +117,7 @@ class LuckyAdUtils{
           }
         },
         showFail: (ad){
-          TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_impression_fail,params: {"ad_pos_id":adPosId.name});
+          TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_impression_fail,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name});
           if(isOpen){
             closeAd.call();
           }else{
@@ -137,10 +148,9 @@ class LuckyAdUtils{
     return ConfigAdData(
       maxShowNum: json["vmmybeqf"],
       maxClickNum: json["iopzmbve"],
-      oneRewardList: _getAdList(json["skerk_rv_one"]),
-      oneInterList: _getAdList(json["skerk_int_two"]),
-      twoRewardList: _getAdList(json["skerk_rv_two"]),
-      twoInterList: _getAdList(json["skerk_int_two"]),
+      priceSwitch: json["skerk_switch"]??false,
+      newInterList: _getAdList(json["skerk_int"]),
+      newRewardList: _getAdList(json["skerk_rv"]),
     );
   }
 
@@ -156,7 +166,6 @@ class LuckyAdUtils{
             adPlat: value["nhkxbpmq"],
             adType: value["axcxamgg"]=="reward"?AdType.reward:AdType.interstitial,
             expireTime: value["kjswqohp"],
-            sort: value["bgzglmzx"],
           )
       );
     }

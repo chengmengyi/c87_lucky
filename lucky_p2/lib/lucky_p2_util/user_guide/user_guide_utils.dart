@@ -119,20 +119,20 @@ class UserGuideUtils{
   }
 
   showCommentDialog(){
-    LuckyRouters.instance.showDialog(
-      child: CommentDialog(
-        dismiss: (star)async{
-          UserInfoUtils.instance.updateUserCoins(5);
-          if(star<=2){
-            LuckyRouters.instance.showDialog(child: CommentResultDialog());
-          }else{
-            var instance = InAppReview.instance;
-            if (await instance.isAvailable()) {
-              instance.requestReview();
-            }
-          }
-        },
-      ),
-    );
+    // LuckyRouters.instance.showDialog(
+    //   child: CommentDialog(
+    //     dismiss: (star)async{
+    //       UserInfoUtils.instance.updateUserCoins(5);
+    //       if(star<=2){
+    //         LuckyRouters.instance.showDialog(child: CommentResultDialog());
+    //       }else{
+    //         var instance = InAppReview.instance;
+    //         if (await instance.isAvailable()) {
+    //           instance.requestReview();
+    //         }
+    //       }
+    //     },
+    //   ),
+    // );
   }
 }
