@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base.dart';
 import 'package:lucky_base/lucky_base/lucky_base_page.dart';
+import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/local_config.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
@@ -8,6 +10,7 @@ import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_lottie_widget.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/home_controller.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_wheel_child/wheel_child_controller.dart';
+import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_widget/coins_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
@@ -61,7 +64,7 @@ class HomePage extends LuckyBasePage<HomeController>{
       const Spacer(),
       ClickWidget(
         onTap: (){
-          LuckyBase.instance.func4();
+          LuckyRouters.instance.openNextPage(routersName: LuckyP2RoutersName.web,arguments: {"url":h5Url});
         },
         child: LuckyImageWidget(name: "icon_h5",width: 37.w,height: 37.h,),
       ),

@@ -1,5 +1,7 @@
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
+import 'package:lucky_base/lucky_utils/fk/fk_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
@@ -10,6 +12,7 @@ import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class UserInfoUtils{
   static final UserInfoUtils _instance = UserInfoUtils();
@@ -21,6 +24,7 @@ class UserInfoUtils{
     }
     p2UserCoins.saveData(addTwoNums(p2UserCoins.getData(),addCoins));
     if(addCoins>0){
+      _handleHasMoneyAndRvLess3();
       var moneyLevel = p2LastCoinsLevel.getData()+100;
       //301   200  300
       if(p2UserCoins.getData()>=moneyLevel){
@@ -44,6 +48,15 @@ class UserInfoUtils{
       }
     }else{
       LuckyEvent(luckyCode: P2LuckyEventCode.updateUserCoins);
+    }
+  }
+
+  _handleHasMoneyAndRvLess3(){
+    if(p2UserCoins.getData()>=ValueUtils.instance.getCashList().first&&p2GetRvRewardCount.getData()<(FkUtils.instance.fkBean?.behavior?.wrongDeemAdLess??3)){
+      p2HasMoneyAndRvLess3Fk.saveData(true);
+    }
+    if(p2UserCoins.getData()<ValueUtils.instance.getCashList().first&&p2GetRvRewardCount.getData()>=(FkUtils.instance.fkBean?.behavior?.wrongDeemAdMore??90)){
+      p2RvMore90NoMoneyFk.saveData(true);
     }
   }
 

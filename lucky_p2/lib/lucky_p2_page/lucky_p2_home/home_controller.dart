@@ -2,12 +2,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
+import 'package:lucky_base/lucky_dialog/ad_limit_dialog/ad_limit_dialog.dart';
+import 'package:lucky_base/lucky_dialog/load_ad_fail_dialog/load_ad_fail_dialog.dart';
+import 'package:lucky_base/lucky_dialog/open_notification_dialog/open_notification_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/check_af_utils.dart';
+import 'package:lucky_base/lucky_utils/firebase_utils.dart';
+import 'package:lucky_base/lucky_utils/fk/fk_utils.dart';
 import 'package:lucky_base/lucky_utils/local_notification_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/network_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
 import 'package:lucky_p2/lucky_p2_dialog/big_win/big_win_dialog.dart';
@@ -40,8 +47,10 @@ class HomeController extends LuckyBaseController{
     super.onInit();
     VoicePlayUtils.instance.playBg();
     TTTTUtils.instance.pointEvent(customId: CustomId.home_page);
-    LuckyBase.instance.func2();
-    LuckyBase.instance.func3();
+    LuckyBase.instance.openAndroid();
+    LocationNotificationUtils.instance.init();
+    FkUtils.instance.initFk();
+    NetworkUtils.instance.initListener();
   }
 
   @override
@@ -50,7 +59,6 @@ class HomeController extends LuckyBaseController{
     if(p2ShowComment.getData()&&!p2FirstGetCoins.getData()){
       UserGuideUtils.instance.showCommentDialog();
     }
-    LocationNotificationUtils.instance.init();
   }
 
   clickTab(index){
@@ -100,10 +108,22 @@ class HomeController extends LuckyBaseController{
     // print("kk====${list.length}");
     // UserInfoUtils.instance.updateUserCoins(10000000);
     // VoicePlayUtils.instance.playBg();
-    UserInfoUtils.instance.updateUserCoins(1000.03);
+    // UserInfoUtils.instance.updateUserCoins(1000.03);
 
     // CheckAfUtils.instance.initAf();
 
     // LuckyRouters.instance.showDialog(child: WheelWinDialog(allReward: 10,  dismiss: (add){}));
+
+
+    // FirebaseUtils.instance.checkConnectivity();
+
+
+    // FkUtils.instance.checkIp();
+    LuckyRouters.instance.showDialog(child: AdLimitDialog());
+  }
+  @override
+  void onClose() {
+    NetworkUtils.instance.dispose();
+    super.onClose();
   }
 }

@@ -4,7 +4,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:lucky_base/lucky_utils/app_lifecycle_utils.dart';
 import 'package:lucky_base/lucky_utils/check_af_utils.dart';
 import 'package:lucky_base/lucky_utils/firebase_utils.dart';
+import 'package:lucky_base/lucky_utils/local_config.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_p1/lucky_p1_routers/lucky_p1_routers.dart';
 import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
@@ -12,6 +14,7 @@ import 'package:scratch_it_lucky/main/main_page.dart';
 import 'package:lucky_p1/lucky_p1_util/play_info_utils.dart' as p1PlayUtils;
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart' as p2ValueUtils;
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart' as p2PlayInfoUtils;
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   _initBase();
@@ -34,6 +37,8 @@ _initBase()async{
       )
   );
   await GetStorage.init();
+  await Firebase.initializeApp();
+  await Feng.instance.initNumberUnit(apiKey: encrypt(fengKongKey, 87));
   AppLifecycleUtils.instance.init();
 }
 

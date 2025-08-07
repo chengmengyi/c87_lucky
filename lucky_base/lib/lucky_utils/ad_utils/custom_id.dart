@@ -73,4 +73,11 @@ enum CustomId{
   wheel_reward_pop_c,
   wheel_reward_pop_c_single,
   ad_request,
+  try_again_pop,
+  try_again_pop_c,
+  no_network_pop,
+  inform_p,
+  session_custom,
+  risk_chance,
+  see_you_tommorow,
 }

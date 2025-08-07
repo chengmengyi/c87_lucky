@@ -2,18 +2,21 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:feng/feng.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
+import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
+import 'package:flutter_check_af/dio/dio_hep.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:flutter_custom_facebook/flutter_custom_facebook.dart';
+import 'package:flutter_tba_info/flutter_tba_info.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
-import 'package:lucky_base/lucky_utils/local_config.dart';
-import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+import 'package:lucky_base/lucky_utils/fk/fk_utils.dart';
 
 StorageData<String> p2ValueFirebaseConfig=StorageData<String>(key: "p2ValueFirebaseConfig", defaultValue: "");
 StorageData<String> p2AdFirebaseConfig=StorageData<String>(key: "p2AdFirebaseConfig", defaultValue: "");
 StorageData<String> p2FacebookConfig=StorageData<String>(key: "p2FacebookConfig", defaultValue: "");
+StorageData<String> p2FkConfig=StorageData<String>(key: "p2FkConfig", defaultValue: "");
 
 
 class FirebaseUtils{
@@ -24,16 +27,10 @@ class FirebaseUtils{
 
   Function()? valueResultCall;
   var afSwitch="1";
-  StreamSubscription<List<ConnectivityResult>>? streamSubscription;
 
   checkConnectivity(){
-    streamSubscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
-      if(!result.contains(ConnectivityResult.none)){
-        _initFirebase();
-        LuckyAdUtils.instance.initAd();
-        streamSubscription?.cancel();
-      }
-    });
+    _initFirebase();
+    LuckyAdUtils.instance.initAd();
   }
 
   _initFirebase()async{
@@ -49,12 +46,12 @@ class FirebaseUtils{
     }catch(e){
       await Future.delayed(const Duration(milliseconds: 1000));
       _initFacebook();
+      _initFirebase();
     }
   }
 
   _getValue(){
     var valueStr = _remoteConfig?.getString("playcard_number")??"";
-    print("kk===config value=-==${valueStr}");
     if(valueStr.isNotEmpty&&p2ValueFirebaseConfig.getData().isEmpty){
       p2ValueFirebaseConfig.saveData(valueStr);
       valueResultCall?.call();
@@ -72,6 +69,11 @@ class FirebaseUtils{
     var facebookConfig = _remoteConfig?.getString("c87card_fb")??"";
     if(facebookConfig.isNotEmpty){
       p2FacebookConfig.saveData(facebookConfig);
+    }
+    var risk_control = _remoteConfig?.getString("risk_control")??"";
+    if(risk_control.isNotEmpty){
+      p2FkConfig.saveData(risk_control);
+      FkUtils.instance.initFk();
     }
     _initFacebook();
   }

@@ -39,7 +39,7 @@ class CashTaskDialog extends LuckyBaseDialog<CashTaskController>{
     children: [
       Container(
         width: double.infinity,
-        height: 324.h,
+        height: 354.h,
         margin: EdgeInsets.only(left: 36.w,right: 36.w),
         child: Stack(
           alignment: Alignment.topCenter,

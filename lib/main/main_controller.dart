@@ -13,6 +13,8 @@ import 'package:flutter_check_af/flutter_check_af.dart';
 class MainController extends LuckyBaseController with GetSingleTickerProviderStateMixin{
   late AnimationController animationController;
 
+  StorageData<bool> p2FirstLaunchApp=StorageData<bool>(key: "p2FirstLaunchApp", defaultValue: true);
+
   @override
   void onInit() {
     super.onInit();
@@ -25,11 +27,18 @@ class MainController extends LuckyBaseController with GetSingleTickerProviderSta
           _checkAf();
         }
       });
+    LocationNotificationUtils.instance.checkClickByLaunchApp();
     LocationNotificationUtils.instance.checkOpenApp();
+    LocationNotificationUtils.instance.checkNotificationNum();
   }
 
   _checkAf(){
     var checkUser = FlutterCheckAf.instance.checkUser();
+    if(p2FirstLaunchApp.getData()){
+      p2FirstLaunchApp.saveData(false);
+      LuckyRouters.instance.openNextOffCurrentPage(routersName: LuckyP2RoutersName.home);
+      return;
+    }
     LuckyAdUtils.instance.showP2Ad(
       adType: AdType.interstitial,
       adPosId: AdPosId.skerk_launch,

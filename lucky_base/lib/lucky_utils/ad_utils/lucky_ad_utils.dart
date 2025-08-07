@@ -2,16 +2,20 @@ import 'dart:convert';
 
 import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
 import 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
-import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
+import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_load_ad_result_callback.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:flutter_custom_facebook/flutter_custom_facebook.dart';
+import 'package:lucky_base/lucky_dialog/ad_limit_dialog/ad_limit_dialog.dart';
+import 'package:lucky_base/lucky_dialog/load_ad_fail_dialog/load_ad_fail_dialog.dart';
+import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/firebase_utils.dart';
+import 'package:lucky_base/lucky_utils/fk/fk_utils.dart';
 import 'package:lucky_base/lucky_utils/local_config.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
@@ -22,6 +26,26 @@ StorageData<int> p2LookAdNum=StorageData<int>(key: "p2LookAdNum", defaultValue: 
 StorageData<int> p2LastAdLevel=StorageData<int>(key: "p2LastAdLevel", defaultValue: 0);
 
 
+
+//上次显示激励广告时间
+StorageData<int> p2LastShowRvAdTime=StorageData<int>(key: "p2LastShowRvAdTime", defaultValue: 0);
+//两次激励广告的时间很小的次数统计
+StorageData<int> p2TwoRvAdTimeSmallCount=StorageData<int>(key: "p2TwoRvAdTimeSmallCount", defaultValue: 0);
+
+//开始显示激励广告的时间
+StorageData<int> p2StartShowRvAdTime=StorageData<int>(key: "p2StartShowRvAdTime", defaultValue: 0);
+//播放到关闭激励广告的时间小的次数统计
+StorageData<int> p2StartCloseRvTimeSmallCount=StorageData<int>(key: "p2StartCloseRvTimeSmallCount", defaultValue: 0);
+
+//获取激励广告奖励次数
+StorageData<int> p2GetRvRewardCount=StorageData<int>(key: "p2GetRvRewardCount", defaultValue: 0);
+
+//达到提现门槛，视频次数小于3次，被风控
+StorageData<bool> p2HasMoneyAndRvLess3Fk=StorageData<bool>(key: "p2HasMoneyAndRvLess3Fk", defaultValue: false);
+//视频次数大于90次，没有达到提现门槛，被风控
+StorageData<bool> p2RvMore90NoMoneyFk=StorageData<bool>(key: "p2RvMore90NoMoneyFk", defaultValue: false);
+
+
 class LuckyAdUtils{
   static final LuckyAdUtils _instance = LuckyAdUtils();
   static LuckyAdUtils get instance => _instance;
@@ -30,6 +54,9 @@ class LuckyAdUtils{
     FlutterIosAdHep.instance.initMax(
       maxKey: maxKey.base64(),
       data: _createAdData(),
+      fengKongLogic: (){
+        return FkUtils.instance.checkFk();
+      },
       iosLoadAdResultCallback: IosLoadAdResultCallback(
         startLoadAdCallback: (info){
           //ad_code_id/ad_format/ad_platform
@@ -66,8 +93,8 @@ class LuckyAdUtils{
         closeAd: (){
           VoicePlayUtils.instance.playBg();
           closeAd.call();
-        }, 
-        onAdRevenuePaidCallback: (ad,info){
+        },
+        revenuePaid: (ad,info){
 
         },
       ),
@@ -86,25 +113,54 @@ class LuckyAdUtils{
       closeAd.call();
       return;
     }
+    if(AdNumHep.instance.notLoad()){
+      LuckyRouters.instance.showDialog(child: AdLimitDialog());
+      return;
+    }
+    if(FkUtils.instance.checkFk()){
+      print("flutter ios ad --->showP2Ad fengkong not show ad");
+      closeAd.call();
+      return;
+    }
+
     TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_chance,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name});
     var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==resultData){
+      FlutterIosAdHep.instance.loadAdWhenNoCache(adType);
       TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_nocache,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name});
       if(isOpen){
         closeAd.call();
       }else{
-        if(adType==AdType.reward){
-          showToast("Advertisement display failed, please try again later");
-        }else{
-          closeAd.call();
-        }
+        LuckyRouters.instance.showDialog(
+          child: LoadAdFailDialog(
+            clickTry: (){
+              var data = FlutterIosAdHep.instance.getCacheResultData(adType);
+              if(null==data){
+                closeAd.call();
+              }else{
+                _startShowAd(adType: adType, adPosId: adPosId, showAd: showAd, closeAd: closeAd);
+              }
+            },
+          ),
+        );
       }
       return;
     }
+    _startShowAd(adType: adType, adPosId: adPosId, showAd: showAd, closeAd: closeAd);
+  }
+
+  _startShowAd({
+    required AdType adType,
+    required AdPosId adPosId,
+    required bool showAd,
+    required Function() closeAd,
+    bool isOpen=false,
+}){
     FlutterIosAdHep.instance.showAd(
       adType: adType,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
+          _handleTwoShowAdTime(adType);
           // FlutterCustomFacebook.instance.logPurchase(amount: ad?.revenue??0, currency: "USD");
           FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adPosId.name);
           TTTTUtils.instance.adEvent(ad: ad, adPosId: adPosId, adInfoData: info);
@@ -129,14 +185,46 @@ class LuckyAdUtils{
           }
         },
         closeAd: (){
+          _handleCloseRvAd(adType);
           VoicePlayUtils.instance.playBg();
           closeAd.call();
         },
-        onAdRevenuePaidCallback: (ad,info){
-
+        revenuePaid: (ad,info){
+          _handleRvLookCount(adType);
         },
       ),
     );
+  }
+
+  _handleTwoShowAdTime(AdType adType){
+    if(adType==AdType.interstitial){
+      return;
+    }
+    p2StartShowRvAdTime.saveData(DateTime.now().millisecondsSinceEpoch);
+    var i = DateTime.now().millisecondsSinceEpoch-p2LastShowRvAdTime.getData();
+    var duration = (FkUtils.instance.fkBean?.behavior?.adShortShow?.duration??30)*1000;
+    if(i<duration){
+      p2TwoRvAdTimeSmallCount.saveData(p2TwoRvAdTimeSmallCount.getData()+1);
+    }
+    p2LastShowRvAdTime.saveData(DateTime.now().millisecondsSinceEpoch);
+  }
+
+  _handleCloseRvAd(AdType adType){
+    if(adType==AdType.interstitial){
+      return;
+    }
+    var i = DateTime.now().millisecondsSinceEpoch-p2StartShowRvAdTime.getData();
+    var duration = (FkUtils.instance.fkBean?.behavior?.adShortClose?.duration??20)*1000;
+    if(i<duration){
+      p2StartCloseRvTimeSmallCount.saveData(p2StartCloseRvTimeSmallCount.getData()+1);
+    }
+  }
+
+  _handleRvLookCount(AdType adType){
+    if(adType==AdType.interstitial){
+      return;
+    }
+    p2GetRvRewardCount.saveData(p2GetRvRewardCount.getData()+1);
   }
 
   ConfigAdData _createAdData(){

@@ -35,7 +35,7 @@ class SetController extends LuckyBaseController{
   }
 
   clickWeb(){
-    LuckyRouters.instance.openNextPage(routersName: LuckyP2RoutersName.web);
+    LuckyRouters.instance.openNextPage(routersName: LuckyP2RoutersName.web,arguments: {"url":privacy});
   }
 
   clickClose(){

@@ -34,7 +34,7 @@ class AccountDialog extends LuckyBaseDialog<AccountController>{
       children: [
         Container(
           width: double.infinity,
-          height: 300.h,
+          height: 320.h,
           margin: EdgeInsets.only(left: 36.w,right: 36.w),
           child: Stack(
             alignment: Alignment.topCenter,

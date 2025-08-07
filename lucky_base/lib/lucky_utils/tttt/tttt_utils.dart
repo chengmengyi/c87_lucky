@@ -1,6 +1,6 @@
 import 'package:applovin_max/applovin_max.dart';
 import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
-import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
+import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
 import 'package:flutter_check_af/dio/dio_hep.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';

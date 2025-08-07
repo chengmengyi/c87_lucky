@@ -1,112 +1,197 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:lucky_base/lucky_dialog/open_notification_dialog/open_notification_dialog.dart';
+import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class LocationNotificationUtils{
   static final LocationNotificationUtils _instance = LocationNotificationUtils();
   static LocationNotificationUtils get instance => _instance;
 
-  // var plugin=FlutterLocalNotificationsPlugin();
+  static const int dingshi1=1;
+  static const int dingshi2=2;
+  static const int dingshi3=3;
+  static const int dingshi4=4;
+  static const int dingshi5=5;
+  static const int dingshi6=6;
+  static const int lockScreen=7;
 
-  final int gudingId=10;
-  final int qiandaoId=11;
-  final int guakaId=12;
-  final int tixianId=13;
+  AndroidFlutterLocalNotificationsPlugin plugin=AndroidFlutterLocalNotificationsPlugin();
 
-  init()async{
-    // var success = await plugin.initialize(
-    //   InitializationSettings(
-    //     iOS: DarwinInitializationSettings(
-    //       requestAlertPermission: true,
-    //       requestBadgePermission: true,
-    //       requestSoundPermission: true,
-    //     ),
-    //   ),
-    //   onDidReceiveNotificationResponse: (
-    //       NotificationResponse notificationResponse) {
-    //     switch (notificationResponse.notificationResponseType) {
-    //       case NotificationResponseType.selectedNotification:
-    //         _click(notificationResponse.id);
-    //         break;
-    //       case NotificationResponseType.selectedNotificationAction:
-    //         _click(notificationResponse.id);
-    //         break;
-    //     }
-    //   },
-    // );
-    // if(success==true){
-    //   TTTTUtils.instance.pointEvent(customId: CustomId.push_status);
-    //   _show(
-    //     gudingId,
-    //     "Scratch to Earn",
-    //     ["💰Scratch. Win. Cash Out - Your Ticket to Instant Payouts","🎁Turn Virtual Cards Into Real Cash","🔥Uncover Instant Rewards with Scratch it Lucky"].random(),
-    //     Duration(minutes: 30),
-    //   );
-    //
-    //   _show(
-    //     qiandaoId,
-    //     "Cash in check daily",
-    //     "Scratch your way to real cash prizes with Scratch it Lucky!",
-    //     Duration(minutes: 60),
-    //   );
-    //
-    //   _show(
-    //     guakaId,
-    //     "Go Scratch , Big Win!",
-    //     ["💰Earn money on the go with Scratch it Lucky's instant payouts.","🎁Reveal hidden rewards and get paid out instantly."].random(),
-    //     Duration(minutes: 60),
-    //   );
-    //
-    //   _show(
-    //     tixianId,
-    //     "Pending withdraw amount",
-    //     "\$500 has arrived in your account",
-    //     Duration(minutes: 30),
-    //   );
-    // }
-    // checkClickByLaunchApp();
+  final List<NotificationInfo> _notificationList=[
+    NotificationInfo(title: "You’ve WON real cash!", body: "Your scratch card revealed \$72.50. Tap to withdraw now!"),
+    NotificationInfo(title: "Real payout unlocked 💵", body: "You’re eligible to cash out. Don’t miss your reward!"),
+    NotificationInfo(title: "You just hit a cash prize!", body: "Withdraw your winnings before they expire!"),
+    NotificationInfo(title: "Daily Cash Scratch is live!", body: "Scratch today’s card and win real rewards instantly."),
+    NotificationInfo(title: "It’s cash o’clock!", body: "Today’s scratch bonus is waiting for you—don’t miss it!"),
+    NotificationInfo(title: "Special Offer: First scratch = GUARANTEED prize!", body: "Start now and unlock instant cash."),
+  ];
+
+  init({bool showOpenNotificationDialog=true})async{
+    var status = await Permission.notification.request();
+    if(status.isGranted){
+      var success = await plugin.initialize(
+        AndroidInitializationSettings("logo"),
+        onDidReceiveNotificationResponse: (NotificationResponse response) {
+          switch (response.notificationResponseType) {
+            case NotificationResponseType.selectedNotification:
+              _clickNotification(response.id);
+              break;
+            case NotificationResponseType.selectedNotificationAction:
+              _clickNotification(response.id);
+              break;
+          }
+        },
+      );
+      if(success==true){
+        for(var index=0;index<_notificationList.length;index++){
+          var info = _notificationList[index];
+          _show(index+1, info.title, info.body, Duration(hours: 1));
+        }
+        _showLockScreenNotification();
+        _initFcm();
+      }
+    }else{
+      if(showOpenNotificationDialog){
+        LuckyRouters.instance.showDialog(child: OpenNotificationDialog());
+      }
+    }
   }
 
-  _show(id,title,body,repeatDurationInterval,){
-    // plugin.periodicallyShowWithDuration(
-    //   id,
-    //   title,
-    //   body,
-    //   repeatDurationInterval,
-    //   NotificationDetails(),
-    // );
+  _show(id,title,body,Duration duration)async{
+    AndroidNotificationDetails details = AndroidNotificationDetails(
+      'scratch_channel',
+      'scratch_channel_name',
+      styleInformation: BeautyStyleInformation(
+        title,
+        body,
+        'pic',
+        'Go Earn',
+        'logo',
+      ),
+      priority: Priority.high,
+      importance: Importance.high,
+      groupKey: "$id",
+    );
+    await plugin.periodicallyShowWithDuration(
+      id,
+      title,
+      body,
+      kDebugMode?Duration(minutes: 1):duration,
+      notificationDetails: details,
+      scheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      payload: "local"
+    );
   }
 
-  _click(int? id){
+  _showLockScreenNotification()async{
+    NotificationInfo random = _notificationList.random();
+    await plugin.showBroadcastNotification(
+      lockScreen,
+      random.title,
+      random.body,
+      //两次发送解锁通知的间隔，根据需求设置
+      Duration(seconds: 5),
+      'android.intent.action.USER_PRESENT',
+      AndroidNotificationDetails(
+        'scratch_channel',
+        'scratch_channel_name',
+        priority: Priority.high,
+        importance: Importance.high,
+        styleInformation: BeautyStyleInformation(
+          random.title,
+          random.body,
+          'pic',
+          'Go Earn',
+          'logo',
+        ),
+        groupKey: "$lockScreen",
+      ),
+      'unlock',
+    );
+  }
+
+  _initFcm()async{
+    await plugin.subscribeToTopic(
+      'c87fcm_card',
+      const AndroidNotificationDetails(
+        'scratch_channel',
+        'scratch_channel_name',
+        styleInformation: BeautyStyleInformation(
+          '',
+          '',
+          '',
+          'Go Earn',
+          'logo',
+        ),
+        priority: Priority.high,
+        importance: Importance.high,
+      ),
+    );
+  }
+
+  _clickNotification(int? id){
     var from="";
-    if(id==tixianId){
-      from="cash";
-      LuckyEvent(luckyCode: P2LuckyEventCode.showHomeTab,intValue: 2);
-    }
-    if(id==gudingId){
-      from="fix";
-    }
-    if(id==qiandaoId){
-      from="sign";
-    }
-    if(id==guakaId){
-      from="card";
+    switch(id){
+      case dingshi1:
+        from="dingshi1";
+        break;
+      case dingshi2:
+        from="dingshi2";
+        break;
+      case dingshi3:
+        from="dingshi3";
+        break;
+      case dingshi4:
+        from="dingshi4";
+        break;
+      case dingshi5:
+        from="dingshi5";
+        break;
+      case dingshi6:
+        from="dingshi6";
+        break;
+      case lockScreen:
+        from="lockScreen";
+        break;
     }
     TTTTUtils.instance.pointEvent(customId: CustomId.inform_c,params: {"infrom_from":from});
   }
   
   checkClickByLaunchApp()async{
-    // var launchDetails = await plugin.getNotificationAppLaunchDetails();
-    // if(launchDetails?.didNotificationLaunchApp==true){
-    //   var id = launchDetails?.notificationResponse?.id;
-    //   _click(id);
-    // }
+    var launchDetails = await plugin.getNotificationAppLaunchDetails();
+    if(launchDetails?.didNotificationLaunchApp==true){
+      var id = launchDetails?.notificationResponse?.id;
+      _clickNotification(id);
+    }
   }
   
   checkOpenApp()async{
-    // var launchDetails = await plugin.getNotificationAppLaunchDetails();
-    // TTTTUtils.instance.pointEvent(customId: CustomId.launch_page,params: {"source_from":launchDetails?.didNotificationLaunchApp==true?"push":"icon"});
+    var launchDetails = await plugin.getNotificationAppLaunchDetails();
+    TTTTUtils.instance.pointEvent(customId: CustomId.launch_page,params: {"source_from":launchDetails?.didNotificationLaunchApp==true?"push":"icon"});
   }
+
+  checkNotificationNum()async{
+    var localNum = await plugin.extractMessageReceivedNum("local");
+    TTTTUtils.instance.pointEvent(customId: CustomId.inform_p,params: {"type":"local","num":localNum});
+    var unlockNum = await plugin.extractMessageReceivedNum("unlock");
+    TTTTUtils.instance.pointEvent(customId: CustomId.inform_p,params: {"type":"local","num":unlockNum});
+    var fcmNum = await plugin.extractMessageReceivedNum("fcm");
+    TTTTUtils.instance.pointEvent(customId: CustomId.inform_p,params: {"type":"local","num":fcmNum});
+  }
+}
+
+
+class NotificationInfo{
+  String title;
+  String body;
+  NotificationInfo({
+    required this.title,
+    required this.body,
+});
 }

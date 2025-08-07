@@ -25,4 +25,9 @@ class MethodChannelLuckyBase extends LuckyBasePlatform {
   Future<void> func4() async {
     await methodChannel.invokeMethod<String>('func4');
   }
+
+  @override
+  Future<void> openAndroid() async{
+    await methodChannel.invokeMethod<String>('initttttt');
+  }
 }
