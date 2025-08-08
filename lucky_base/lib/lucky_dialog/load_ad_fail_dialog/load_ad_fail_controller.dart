@@ -7,7 +7,7 @@ class LoadAdFailController extends LuckyBaseController{
   @override
   void onInit() {
     super.onInit();
-    TTTTUtils.instance.pointEvent(customId: CustomId.no_network_pop);
+    TTTTUtils.instance.pointEvent(customId: CustomId.try_again_pop);
   }
 
   clickClose(){
@@ -15,6 +15,7 @@ class LoadAdFailController extends LuckyBaseController{
   }
 
   clickTry(){
+    TTTTUtils.instance.pointEvent(customId: CustomId.try_again_pop_c);
     clickClose();
   }
 }

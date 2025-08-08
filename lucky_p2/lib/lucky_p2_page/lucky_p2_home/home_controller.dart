@@ -118,8 +118,9 @@ class HomeController extends LuckyBaseController{
     // FirebaseUtils.instance.checkConnectivity();
 
 
-    // FkUtils.instance.checkIp();
-    LuckyRouters.instance.showDialog(child: AdLimitDialog());
+    // FkUtils.instance.test();
+
+    UserInfoUtils.instance.updateUserCoins(1865);
   }
   @override
   void onClose() {

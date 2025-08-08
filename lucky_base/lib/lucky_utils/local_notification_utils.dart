@@ -38,14 +38,7 @@ class LocationNotificationUtils{
       var success = await plugin.initialize(
         AndroidInitializationSettings("logo"),
         onDidReceiveNotificationResponse: (NotificationResponse response) {
-          switch (response.notificationResponseType) {
-            case NotificationResponseType.selectedNotification:
-              _clickNotification(response.id);
-              break;
-            case NotificationResponseType.selectedNotificationAction:
-              _clickNotification(response.id);
-              break;
-          }
+          _clickNotification(response.payload);
         },
       );
       if(success==true){
@@ -99,8 +92,8 @@ class LocationNotificationUtils{
       Duration(seconds: 5),
       'android.intent.action.USER_PRESENT',
       AndroidNotificationDetails(
-        'scratch_channel',
-        'scratch_channel_name',
+        'scratch_channel_lock',
+        'scratch_channel_name_lock',
         priority: Priority.high,
         importance: Importance.high,
         styleInformation: BeautyStyleInformation(
@@ -117,11 +110,11 @@ class LocationNotificationUtils{
   }
 
   _initFcm()async{
-    await plugin.subscribeToTopic(
+    var result = await plugin.subscribeToTopic(
       'c87fcm_card',
       const AndroidNotificationDetails(
-        'scratch_channel',
-        'scratch_channel_name',
+        'scratch_channel_fcm',
+        'scratch_channel_name_fcm',
         styleInformation: BeautyStyleInformation(
           '',
           '',
@@ -135,38 +128,14 @@ class LocationNotificationUtils{
     );
   }
 
-  _clickNotification(int? id){
-    var from="";
-    switch(id){
-      case dingshi1:
-        from="dingshi1";
-        break;
-      case dingshi2:
-        from="dingshi2";
-        break;
-      case dingshi3:
-        from="dingshi3";
-        break;
-      case dingshi4:
-        from="dingshi4";
-        break;
-      case dingshi5:
-        from="dingshi5";
-        break;
-      case dingshi6:
-        from="dingshi6";
-        break;
-      case lockScreen:
-        from="lockScreen";
-        break;
-    }
+  _clickNotification(String? from){
     TTTTUtils.instance.pointEvent(customId: CustomId.inform_c,params: {"infrom_from":from});
   }
   
   checkClickByLaunchApp()async{
     var launchDetails = await plugin.getNotificationAppLaunchDetails();
     if(launchDetails?.didNotificationLaunchApp==true){
-      var id = launchDetails?.notificationResponse?.id;
+      var id = launchDetails?.notificationResponse?.payload;
       _clickNotification(id);
     }
   }
@@ -178,11 +147,17 @@ class LocationNotificationUtils{
 
   checkNotificationNum()async{
     var localNum = await plugin.extractMessageReceivedNum("local");
-    TTTTUtils.instance.pointEvent(customId: CustomId.inform_p,params: {"type":"local","num":localNum});
+    if(localNum>0){
+      TTTTUtils.instance.pointEvent(customId: CustomId.inform_p,params: {"type":"local","num":localNum});
+    }
     var unlockNum = await plugin.extractMessageReceivedNum("unlock");
-    TTTTUtils.instance.pointEvent(customId: CustomId.inform_p,params: {"type":"local","num":unlockNum});
+    if(unlockNum>0){
+      TTTTUtils.instance.pointEvent(customId: CustomId.inform_p,params: {"type":"unlock","num":unlockNum});
+    }
     var fcmNum = await plugin.extractMessageReceivedNum("fcm");
-    TTTTUtils.instance.pointEvent(customId: CustomId.inform_p,params: {"type":"local","num":fcmNum});
+    if(fcmNum>0){
+      TTTTUtils.instance.pointEvent(customId: CustomId.inform_p,params: {"type":"fcm","num":fcmNum});
+    }
   }
 }
 

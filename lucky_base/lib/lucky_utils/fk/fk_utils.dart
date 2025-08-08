@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:feng/feng.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
 import 'package:flutter_check_af/dio/dio_hep.dart';
@@ -192,6 +193,10 @@ class FkUtils{
     return false;
   }
 
+  test(){
+    print("kk====${p2TwoRvAdTimeSmallCount.getData()}===${fkBean?.behavior?.adShortShow?.value}==${checkFk()}");
+  }
+
   FkBean getFkBean() {
     try {
       var str = fkValueStrBase64.base64();
@@ -201,9 +206,7 @@ class FkUtils{
       }
       return FkBean.fromJson(jsonDecode(str));
     } catch (e) {
-      {
-        return FkBean.fromJson(jsonDecode(fkValueStrBase64.base64()));
-      }
+      return FkBean.fromJson(jsonDecode(fkValueStrBase64.base64()));
     }
   }
 }

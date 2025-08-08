@@ -113,13 +113,8 @@ class LuckyAdUtils{
       closeAd.call();
       return;
     }
-    if(AdNumHep.instance.notLoad()){
+    if(AdNumHep.instance.notLoad()||FkUtils.instance.checkFk()){
       LuckyRouters.instance.showDialog(child: AdLimitDialog());
-      return;
-    }
-    if(FkUtils.instance.checkFk()){
-      print("flutter ios ad --->showP2Ad fengkong not show ad");
-      closeAd.call();
       return;
     }
 
