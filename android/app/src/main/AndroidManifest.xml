@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.RECEIVE_USER_PRES"/>
 
     <application
-        android:label="ScratchItLucky"
+        android:label="ScratchvilleAdventure"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

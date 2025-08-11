@@ -17,9 +17,9 @@ import java.util.Collections;
 import java.util.Enumeration;
 
 //TODO:修改类名、修改所有的函数名
-public class BoRiskUtils {
+public class ScratchUtils {
 
-    public static boolean isEmulator() {
+    public static boolean isEmuScratchlator() {
         String model = Build.MODEL;
         String product = Build.PRODUCT;
         String hardware = Build.HARDWARE;
@@ -89,12 +89,12 @@ public class BoRiskUtils {
         return risk >= 2;
     }
 
-    public static boolean isEmulator2() {
-        if (existFile(new String[]{"/dev/socket/genyd", "/dev/socket/baseband_genyd"}) ||
-                existFile(new String[]{"fstab.andy", "ueventd.andy.rc"}) ||
-                existFile(new String[]{"fstab.nox", "init.nox.rc", "ueventd.nox.rc"}) ||
-                existFile(new String[]{"/dev/socket/qemud", "/dev/qemu_pipe"}) ||
-                existFile(new String[]{"ueventd.android_x86.rc", "x86.prop", "ueventd.ttVM_x86.rc",
+    public static boolean isEmulatScratchor2() {
+        if (exiScratchstFile(new String[]{"/dev/socket/genyd", "/dev/socket/baseband_genyd"}) ||
+                exiScratchstFile(new String[]{"fstab.andy", "ueventd.andy.rc"}) ||
+                exiScratchstFile(new String[]{"fstab.nox", "init.nox.rc", "ueventd.nox.rc"}) ||
+                exiScratchstFile(new String[]{"/dev/socket/qemud", "/dev/qemu_pipe"}) ||
+                exiScratchstFile(new String[]{"ueventd.android_x86.rc", "x86.prop", "ueventd.ttVM_x86.rc",
                         "init.ttVM_x86.rc", "fstab.ttVM_x86", "fstab.vbox86", "init.vbox86.rc", "ueventd.vbox86.rc"}
                 )) {
             return true;
@@ -124,7 +124,7 @@ public class BoRiskUtils {
         return false;
     }
 
-    public static boolean isDevModel(Context context) {
+    public static boolean isDevScratchModel(Context context) {
         try {
             return Settings.Secure.getInt(context.getContentResolver(), Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0;
         } catch (Throwable ignore) {
@@ -132,7 +132,7 @@ public class BoRiskUtils {
         return false;
     }
 
-    public static boolean isDebug(Context context) {
+    public static boolean isDScratchebug(Context context) {
         try {
             return Settings.Secure.getInt(context.getContentResolver(), Settings.Global.ADB_ENABLED, 0) != 0;
         } catch (Throwable ignore) {
@@ -140,7 +140,7 @@ public class BoRiskUtils {
         return false;
     }
 
-    public static boolean isXposed() {
+    public static boolean isXpoScratchsed() {
         try {
             Field field0 = ClassLoader.getSystemClassLoader().loadClass("de.robv.android.xposed.XposedBridge").getDeclaredField("disableHooks");
             field0.setAccessible(true);
@@ -152,8 +152,8 @@ public class BoRiskUtils {
         return false;
     }
 
-    public static boolean isAbnormalEnv() {
-        if ("0".equals(getProperty("ro.secure", "1"))) {
+    public static boolean isAbnScratchormalEnv() {
+        if ("0".equals(getProScratchperty("ro.secure", "1"))) {
             return true;
         }
         for (String file : new String[]{"/su", "/su/bin/su", "/sbin/su", "/system/bin/su", "/system/xbin/su",
@@ -168,7 +168,7 @@ public class BoRiskUtils {
         return Build.TAGS != null && Build.TAGS.contains("test-keys");
     }
 
-    public static boolean isVpn() {
+    public static boolean isVScratchpn() {
         try {
             Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
             if (e != null) {
@@ -183,7 +183,7 @@ public class BoRiskUtils {
         return false;
     }
 
-    public static boolean isSim(Context context) {
+    public static boolean isSScratchim(Context context) {
         try {
             final int state = ((TelephonyManager) (context.getSystemService(Activity.TELEPHONY_SERVICE))).getSimState();
             return TelephonyManager.SIM_STATE_ABSENT != state && state != TelephonyManager.SIM_STATE_UNKNOWN;
@@ -193,7 +193,7 @@ public class BoRiskUtils {
         return true;
     }
 
-    public static String getInstaller(Context context) {
+    public static String getInstScratchaller(Context context) {
         String installer = "";
         try {
             final PackageManager packageManager = context.getPackageManager();
@@ -208,7 +208,7 @@ public class BoRiskUtils {
         return installer != null ? installer : "";
     }
 
-    private static boolean existFile(String[] files) {
+    private static boolean exiScratchstFile(String[] files) {
         for (String file : files) {
             if (new File(file).exists()) {
                 return true;
@@ -218,7 +218,7 @@ public class BoRiskUtils {
     }
 
     @SuppressLint("PrivateApi")
-    private static String getProperty(String key, String defaultValue) {
+    private static String getProScratchperty(String key, String defaultValue) {
         try {
             return (String) Class.forName("android.os.SystemProperties").getMethod("get", String.class).invoke(null, key);
         } catch (Throwable ignore) {

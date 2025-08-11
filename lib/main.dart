@@ -38,7 +38,7 @@ _initBase()async{
   );
   await GetStorage.init();
   await Firebase.initializeApp();
-  await Feng.instance.initNumberUnit(apiKey: encrypt(fengKongKey, 87));
+  await Feng.instance.initNumbScratcherUnit(apiKey: encrypt(fengKongKey, 87));
   AppLifecycleUtils.instance.init();
 }
 
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (c,child)=>GetMaterialApp(
-        title: 'ScratchItLucky',
+        title: 'ScratchvilleAdventure',
         enableLog: true,
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.system,

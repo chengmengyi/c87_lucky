@@ -34,32 +34,32 @@ public class FengPlugin implements FlutterPlugin, MethodCallHandler {
     final String method = call.method;
     //TODO:修改下面所有的方法名
     switch (method) {
-      case "root":
-        result.success(BoRiskUtils.isAbnormalEnv() || BoRiskUtils.isXposed());
+      case "roScratchot":
+        result.success(ScratchUtils.isAbnScratchormalEnv() || ScratchUtils.isXpoScratchsed());
         break;
-      case "vpn":
-        result.success(BoRiskUtils.isVpn());
+      case "vpScratchn":
+        result.success(ScratchUtils.isVScratchpn());
         break;
-      case "sim":
-        result.success(BoRiskUtils.isSim(context));
+      case "siScratchm":
+        result.success(ScratchUtils.isSScratchim(context));
         break;
-      case "simulator":
-        result.success(BoRiskUtils.isEmulator() || BoRiskUtils.isEmulator2());
+      case "simulScratchator":
+        result.success(ScratchUtils.isEmuScratchlator() || ScratchUtils.isEmulatScratchor2());
         break;
-      case "store":
-        result.success("com.android.vending".contentEquals(BoRiskUtils.getInstaller(context)));
+      case "stScratchore":
+        result.success("com.android.vending".contentEquals(ScratchUtils.getInstScratchaller(context)));
         break;
-      case "developer":
-        result.success(BoRiskUtils.isDevModel(context) || BoRiskUtils.isDebug(context));
+      case "develScratchoper":
+        result.success(ScratchUtils.isDevScratchModel(context) || ScratchUtils.isDScratchebug(context));
         break;
-      case "installer":
-        result.success(BoRiskUtils.getInstaller(context));
+      case "instaScratchller":
+        result.success(ScratchUtils.getInstScratchaller(context));
         break;
-      case "initNumberUnit":
+      case "initNumbScratcherUnit":
         Main.init(context, (String)call.arguments, false);
         result.success(true);
         break;
-      case "getNumberUnitID":
+      case "getNuScratchmberUnitID":
         final Map<String, String> arguments = (Map<String, String>)call.arguments;
         Main.getQueryID(context, arguments.get("channel"), arguments.get("message"), false, new Listener() {
           @Override

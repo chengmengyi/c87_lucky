@@ -75,7 +75,7 @@ class LocationNotificationUtils{
       id,
       title,
       body,
-      kDebugMode?Duration(minutes: 1):duration,
+      duration,
       notificationDetails: details,
       scheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       payload: "local"
@@ -83,11 +83,12 @@ class LocationNotificationUtils{
   }
 
   _showLockScreenNotification()async{
-    NotificationInfo random = _notificationList.random();
+    var title="You’ve Got a Winning Card! 💸";
+    var body="Scratch now — your cash reward is waiting to be claimed! Withdraw instantly if you hit the prize!";
     await plugin.showBroadcastNotification(
       lockScreen,
-      random.title,
-      random.body,
+      title,
+      body,
       //两次发送解锁通知的间隔，根据需求设置
       Duration(seconds: 5),
       'android.intent.action.USER_PRESENT',
@@ -97,9 +98,9 @@ class LocationNotificationUtils{
         priority: Priority.high,
         importance: Importance.high,
         styleInformation: BeautyStyleInformation(
-          random.title,
-          random.body,
-          'pic',
+          title,
+          body,
+          'lock',
           'Go Earn',
           'logo',
         ),

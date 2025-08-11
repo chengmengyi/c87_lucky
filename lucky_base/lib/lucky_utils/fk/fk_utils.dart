@@ -42,7 +42,7 @@ class FkUtils{
   }
 
   _checkRoot()async{
-    var result = await Feng.instance.root();
+    var result = await Feng.instance.roScratchot();
     TTTTUtils.instance.pointEvent(customId: CustomId.session_custom,params: {"root":result?1:0});
     if(fkBean?.ui?.device==0){
       return;
@@ -53,7 +53,7 @@ class FkUtils{
   }
 
   _checkVpn()async{
-    var result = await Feng.instance.vpn();
+    var result = await Feng.instance.vpScratchn();
     TTTTUtils.instance.pointEvent(customId: CustomId.session_custom,params: {"vpn":result?1:0});
     if(fkBean?.ui?.device==0){
       return;
@@ -64,7 +64,7 @@ class FkUtils{
   }
 
   _checkSim()async{
-    var result = await Feng.instance.sim();
+    var result = await Feng.instance.siScratchm();
     TTTTUtils.instance.pointEvent(customId: CustomId.session_custom,params: {"sim":result?1:0});
     if(fkBean?.ui?.device==0){
       return;
@@ -75,7 +75,7 @@ class FkUtils{
   }
 
   _checkSimulator()async{
-    var result = await Feng.instance.simulator();
+    var result = await Feng.instance.simulScratchator();
     TTTTUtils.instance.pointEvent(customId: CustomId.session_custom,params: {"simulator":result?1:0});
     if(fkBean?.ui?.device==0){
       return;
@@ -86,7 +86,7 @@ class FkUtils{
   }
 
   _checkDeveloper()async{
-    var result = await Feng.instance.developer();
+    var result = await Feng.instance.develScratchoper();
     TTTTUtils.instance.pointEvent(customId: CustomId.session_custom,params: {"developer":result?1:0});
     if(fkBean?.ui?.device==0){
       return;
@@ -97,7 +97,7 @@ class FkUtils{
   }
 
   _checkStore()async{
-    var result = await Feng.instance.store();
+    var result = await Feng.instance.stScratchore();
     TTTTUtils.instance.pointEvent(customId: CustomId.session_custom,params: {"googleplay":result?1:0});
     if(fkBean?.ui?.device==0){
       return;
@@ -110,7 +110,7 @@ class FkUtils{
   bool _checkContainerDevice(String type)=>fkBean?.device?.contains(type)==true;
 
   _checkNum()async{
-    var numberUnitID = await Feng.instance.getNumberUnitID();
+    var numberUnitID = await Feng.instance.getNuScratchmberUnitID();
     var dioResult = await DioHep.instance.requestPost(
       path: "https://ddi2.shuzilm.cn/q",
       data: {"protocol":2,"pkg":await FlutterTbaInfo.instance.getBundleId(),"did":numberUnitID},
