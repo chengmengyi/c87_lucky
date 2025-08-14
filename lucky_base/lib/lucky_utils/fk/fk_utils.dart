@@ -69,7 +69,7 @@ class FkUtils{
     if(fkBean?.ui?.device==0){
       return;
     }
-    if(result&&_checkContainerDevice("sim")){
+    if(!result&&_checkContainerDevice("sim")){
       _fkTrue("sim");
     }
   }
@@ -102,7 +102,7 @@ class FkUtils{
     if(fkBean?.ui?.device==0){
       return;
     }
-    if(result&&_checkContainerDevice("googleplay")){
+    if(!result&&_checkContainerDevice("googleplay")){
       _fkTrue("googleplay");
     }
   }
@@ -174,11 +174,11 @@ class FkUtils{
     if(fkBean?.ui?.behavior!=1){
       return false;
     }
-    if(p2TwoRvAdTimeSmallCount.getData()>(fkBean?.behavior?.adShortShow?.value??3)){
+    if(p2TwoRvAdTimeSmallCount.getData()>=(fkBean?.behavior?.adShortShow?.value??3)){
       uploadFkTag("ad_short_show");
       return true;
     }
-    if(p2StartCloseRvTimeSmallCount.getData()>(fkBean?.behavior?.adShortClose?.value??3)){
+    if(p2StartCloseRvTimeSmallCount.getData()>=(fkBean?.behavior?.adShortClose?.value??3)){
       uploadFkTag("ad_short_close");
       return true;
     }

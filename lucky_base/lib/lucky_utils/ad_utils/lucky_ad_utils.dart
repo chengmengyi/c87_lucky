@@ -114,6 +114,10 @@ class LuckyAdUtils{
       return;
     }
     if(AdNumHep.instance.notLoad()||FkUtils.instance.checkFk()){
+      if(isOpen){
+        closeAd.call();
+        return;
+      }
       LuckyRouters.instance.showDialog(child: AdLimitDialog());
       return;
     }
