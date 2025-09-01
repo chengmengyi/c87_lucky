@@ -121,12 +121,13 @@ class HomeController extends LuckyBaseController{
 
     // FkUtils.instance.test();
 
-    UserInfoUtils.instance.updateUserCoins(1865);
+    // UserInfoUtils.instance.updateUserCoins(1865);
 
 
     // TTTTUtils.instance.install();
 
     // LuckyRouters.instance.showDialog(child: BoxDialog());
+    UserInfoUtils.instance.updateKeyNum(1);
   }
   @override
   void onClose() {

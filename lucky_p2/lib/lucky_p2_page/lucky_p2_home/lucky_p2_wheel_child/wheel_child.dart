@@ -7,6 +7,7 @@ import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_wheel_child/wheel_child_controller.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
 
 class WheelChild extends LuckyBaseChild<WheelChildController>{
@@ -27,7 +28,7 @@ class WheelChild extends LuckyBaseChild<WheelChildController>{
                 animation: luckyController.animation,
                 builder: (context,child)=>Transform.rotate(
                   angle: luckyController.animation.value,
-                  child: LuckyImageWidget(name: "wheel3",width: double.infinity,height: double.infinity,),
+                  child: LuckyImageWidget(name: getWheelImages(),width: double.infinity,height: double.infinity,),
                 ),
               ),
               ClickWidget(
