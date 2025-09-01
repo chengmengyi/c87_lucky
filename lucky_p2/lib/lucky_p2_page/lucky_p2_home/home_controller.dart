@@ -18,6 +18,7 @@ import 'package:lucky_base/lucky_utils/network_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
 import 'package:lucky_p2/lucky_p2_dialog/big_win/big_win_dialog.dart';
+import 'package:lucky_p2/lucky_p2_dialog/box_dialog/box_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/comment/comment_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/first_get_coins/first_get_coins_dialog.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_dialog.dart';
@@ -121,6 +122,11 @@ class HomeController extends LuckyBaseController{
     // FkUtils.instance.test();
 
     UserInfoUtils.instance.updateUserCoins(1865);
+
+
+    // TTTTUtils.instance.install();
+
+    // LuckyRouters.instance.showDialog(child: BoxDialog());
   }
   @override
   void onClose() {

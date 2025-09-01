@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
@@ -10,6 +11,7 @@ import 'package:lucky_base/lucky_widget/lucky_lottie_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_dialog/normal_win/normal_win_controller.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 
 class NormalWinDialog extends LuckyBaseDialog<NormalWinController>{
@@ -52,7 +54,7 @@ class NormalWinDialog extends LuckyBaseDialog<NormalWinController>{
             Align(
               alignment: Alignment.bottomCenter,
               child: LuckyGraTextWidget(
-                text: "\$$allReward",
+                text: "${getMoneySymbol()}${getMoneyByCountry(allReward)}",
                 size: 45.sp,
                 colors: [
                   "#FFFFFF".toColor(),
@@ -68,8 +70,8 @@ class NormalWinDialog extends LuckyBaseDialog<NormalWinController>{
       ),
       SizedBox(height: 40.h,),
       BtnWidget(
-        leftStr: "Claim",
-        rightStr: "\$$allReward",
+        leftStr: LocalText.claim.tr,
+        rightStr: "${getMoneySymbol()}${getMoneyByCountry(allReward)}",
         showVideo: false,
         onTap: (){
           luckyController.clickSingle(allReward,dismiss);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -56,7 +57,7 @@ class CommentDialog extends LuckyBaseDialog<CommentController>{
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    LuckyTextWidget(text: "Complete reviews earn \$5", size: 14.sp, color: "#FFFFFF"),
+                    LuckyTextWidget(text: LocalText.completeReviewsEarn.tr, size: 14.sp, color: "#FFFFFF"),
                     LuckyImageWidget(name: "icon_money",width: 30.w,height: 30.h,),
                   ],
                 )
@@ -66,7 +67,7 @@ class CommentDialog extends LuckyBaseDialog<CommentController>{
               alignment: Alignment.bottomCenter,
               child: ClickWidget(
                 child: BtnWidget(
-                  leftStr: "Give 5 Stars",
+                  leftStr: LocalText.give5Stars,
                   rightStr: "",
                   showVideo: false,
                   onTap: (){},

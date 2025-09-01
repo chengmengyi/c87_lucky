@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -30,7 +31,7 @@ class NoWinDialog extends LuckyBaseDialog<NoWinController>{
           children: [
             LuckyImageWidget(name: "no3",width: 172.w,height: 44.h,),
             LuckyTextWidget(
-              text: " Play Again",
+              text: LocalText.playAgain.tr,
               size: 20.sp,
               color: "#FFFFFF",
               fontWeight: FontWeight.bold,

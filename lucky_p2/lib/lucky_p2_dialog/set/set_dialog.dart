@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
@@ -54,7 +55,7 @@ class SetDialog extends LuckyBaseDialog<SetController>{
   _backgroundWidget()=>Row(
     children: [
       LuckyTextWidget(
-        text: "Background Music",
+        text: LocalText.backgroundMusic.tr,
         size: 14.sp,
         color: "#DAE1FD",
         shadowsColor: "#182273",
@@ -76,7 +77,7 @@ class SetDialog extends LuckyBaseDialog<SetController>{
   _soundWidget()=>Row(
     children: [
       LuckyTextWidget(
-        text: "Sound Effects",
+        text: LocalText.soundEffects.tr,
         size: 14.sp,
         color: "#DAE1FD",
         shadowsColor: "#182273",
@@ -98,7 +99,7 @@ class SetDialog extends LuckyBaseDialog<SetController>{
   _contactWidget()=>Row(
     children: [
       LuckyTextWidget(
-        text: "Contact Us",
+        text: LocalText.contactUs.tr,
         size: 14.sp,
         color: "#DAE1FD",
         shadowsColor: "#182273",
@@ -121,7 +122,7 @@ class SetDialog extends LuckyBaseDialog<SetController>{
         luckyController.clickWeb();
       },
       child: LuckyTextWidget(
-        text: "Privacy policy",
+        text: LocalText.privacyPolicy.tr,
         size: 14.sp,
         color: "#FFFFFF",
         fontWeight: FontWeight.bold,

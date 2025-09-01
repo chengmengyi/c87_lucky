@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_stateful.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
@@ -25,9 +26,9 @@ class UpLevelWidgetState extends LuckyBaseState<UpLevelWidget>{
       Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          LuckyTextWidget(text: "Scratch ", size: 13.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,),
+          LuckyTextWidget(text: "${LocalText.scratch.tr} ", size: 13.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,),
           LuckyTextWidget(text: "${getNum()}", size: 16.sp, color: "#00FF15"),
-          LuckyTextWidget(text: " cards left to level up", size: 13.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,),
+          LuckyTextWidget(text: " ${LocalText.cardsLeftToLevelUp.tr}", size: 13.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,),
         ],
       )
     ],

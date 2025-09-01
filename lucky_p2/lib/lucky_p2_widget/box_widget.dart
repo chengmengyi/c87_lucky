@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_stateful.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
@@ -122,7 +123,7 @@ class BoxWidgetState extends LuckyBaseState<BoxWidget>{
       setState(() {});
       LuckyRouters.instance.showDialog(child: BoxDialog());
     }else{
-      showToast("Continue to eliminate ${5-p2BoxPro.getData()} times to open the treasure box");
+      showToast(LocalText.continueToEliminate.tr.replaceFirst("tihuan", "${5-p2BoxPro.getData()}"));
     }
   }
 

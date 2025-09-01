@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
@@ -8,6 +9,7 @@ import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_bean/cash_task_bean.dart';
 import 'package:lucky_p2/lucky_p2_dialog/cash_task/rank/rank_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 
@@ -37,7 +39,7 @@ class RankDialog extends LuckyBaseDialog<RankController>{
             Column(
               children: [
                 SizedBox(height: 50.h,),
-                LuckyTextWidget(text: "Congratulations, You are in the withdrawal approval queue.", size: 14.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,textAlign: TextAlign.center,),
+                LuckyTextWidget(text: LocalText.congratulationsYouAreInThe.tr, size: 14.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,textAlign: TextAlign.center,),
                 SizedBox(height: 6.h,),
                 _cashTypeWidget(),
                 SizedBox(height: 6.h,),
@@ -46,7 +48,7 @@ class RankDialog extends LuckyBaseDialog<RankController>{
                 _rankListWidget(),
                 SizedBox(height: 6.h,),
                 BtnWidget(
-                  leftStr: "Skip Wait ",
+                  leftStr: LocalText.skipWait.tr,
                   rightStr: "",
                   onTap: (){
                     luckyController.clickWatch();
@@ -120,19 +122,19 @@ class RankDialog extends LuckyBaseDialog<RankController>{
                   Expanded(
                     child: Container(
                       alignment: Alignment.center,
-                      child: LuckyTextWidget(text: "Rank", size: 12.sp, color: "#000000",fontWeight: FontWeight.bold,),
+                      child: LuckyTextWidget(text: LocalText.rank.tr, size: 12.sp, color: "#000000",fontWeight: FontWeight.bold,),
                     ),
                   ),
                   Expanded(
                     child: Container(
                       alignment: Alignment.center,
-                      child: LuckyTextWidget(text: "Account", size: 12.sp, color: "#000000",fontWeight: FontWeight.bold,),
+                      child: LuckyTextWidget(text: LocalText.account.tr, size: 12.sp, color: "#000000",fontWeight: FontWeight.bold,),
                     ),
                   ),
                   Expanded(
                     child: Container(
                       alignment: Alignment.center,
-                      child: LuckyTextWidget(text: "Amount", size: 12.sp, color: "#000000",fontWeight: FontWeight.bold,),
+                      child: LuckyTextWidget(text: LocalText.amount.tr, size: 12.sp, color: "#000000",fontWeight: FontWeight.bold,),
                     ),
                   ),
                 ],
@@ -172,7 +174,7 @@ class RankDialog extends LuckyBaseDialog<RankController>{
                           Expanded(
                             child: Container(
                               alignment: Alignment.center,
-                              child: LuckyTextWidget(text: "\$${ValueUtils.instance.getCashList().random()}", size: 12.sp, color: isMe?"B71C1C":"#000000",fontWeight: FontWeight.bold,),
+                              child: LuckyTextWidget(text: "${getMoneySymbol()}${getMoneyByCountry(ValueUtils.instance.getCashList().random())}", size: 12.sp, color: isMe?"B71C1C":"#000000",fontWeight: FontWeight.bold,),
                             ),
                           ),
                         ],
@@ -204,7 +206,7 @@ class RankDialog extends LuckyBaseDialog<RankController>{
         LuckyImageWidget(name: "pay_type${(luckyController.cashTaskBean?.payTypeIndex??0)+1}",height: 18.h,fit: BoxFit.fitHeight,),
         Align(
           alignment: Alignment.bottomCenter,
-          child: LuckyTextWidget(text: "\$${luckyController.cashTaskBean?.payMoney??0}", size: 24.sp, color: "#00730D",fontWeight: FontWeight.bold,).marginOnly(bottom: 10.h),
+          child: LuckyTextWidget(text: "${getMoneySymbol()}${getMoneyByCountry(luckyController.cashTaskBean?.payMoney??0)}", size: 24.sp, color: "#00730D",fontWeight: FontWeight.bold,).marginOnly(bottom: 10.h),
         )
       ],
     ),

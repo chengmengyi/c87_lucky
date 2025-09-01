@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
@@ -10,6 +11,7 @@ import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_bean/cash_task_bean.dart';
 import 'package:lucky_p2/lucky_p2_dialog/cash_task/cash_task/cash_task_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 
@@ -51,12 +53,13 @@ class CashTaskDialog extends LuckyBaseDialog<CashTaskController>{
                 SizedBox(height: 50.h,),
                 _cashTypeWidget(),
                 SizedBox(height: 10.h,),
-                LuckyTextWidget(text: "Complete the task，Cash out\nimmediately", size: 14.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,textAlign: TextAlign.center,),
+                LuckyTextWidget(text: LocalText.completeTheTask.tr, size: 14.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,textAlign: TextAlign.center,),
+                LuckyTextWidget(text: LocalText.immediately.tr, size: 14.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,textAlign: TextAlign.center,),
                 SizedBox(height: 10.h,),
                 _progressWidget(),
                 SizedBox(height: 10.h,),
                 BtnWidget(
-                  leftStr: "Cash Out",
+                  leftStr: LocalText.cashOut.tr,
                   rightStr: "",
                   showVideo: false,
                   onTap: (){
@@ -149,7 +152,7 @@ class CashTaskDialog extends LuckyBaseDialog<CashTaskController>{
         LuckyImageWidget(name: "pay_type${(cashTaskBean?.payTypeIndex??0)+1}",height: 18.h,fit: BoxFit.fitHeight,),
         Align(
           alignment: Alignment.bottomCenter,
-          child: LuckyTextWidget(text: "\$${cashTaskBean?.payMoney??0}", size: 24.sp, color: "#00730D",fontWeight: FontWeight.bold,).marginOnly(bottom: 10.h),
+          child: LuckyTextWidget(text: "${getMoneySymbol()}${getMoneyByCountry(cashTaskBean?.payMoney??0)}", size: 24.sp, color: "#00730D",fontWeight: FontWeight.bold,).marginOnly(bottom: 10.h),
         )
       ],
     ),

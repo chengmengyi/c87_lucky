@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -28,14 +29,14 @@ class CommentResultDialog extends LuckyBaseDialog<CommentResultController>{
               children: [
                 LuckyImageWidget(name: "comment6",width: 72.w,height: 72.w,),
                 SizedBox(height: 12.h,),
-                LuckyTextWidget(text: "thanks for your feedback", size: 14.sp, color: "#FFFFFF"),
+                LuckyTextWidget(text: LocalText.thanksForYourFeedback.tr, size: 14.sp, color: "#FFFFFF"),
               ],
             ).marginOnly(left: 42.w,right: 42.w),
             Align(
               alignment: Alignment.bottomCenter,
               child: ClickWidget(
                 child: BtnWidget(
-                  leftStr: "OK",
+                  leftStr: LocalText.ok.tr,
                   rightStr: "",
                   showVideo: false,
                   onTap: (){

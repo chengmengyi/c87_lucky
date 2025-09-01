@@ -1,5 +1,6 @@
 import 'package:applovin_max/applovin_max.dart';
 import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
+import 'package:flutter_ad_ios_plugins/data/ad_money_info_bean.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
 import 'package:flutter_check_af/dio/dio_hep.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
@@ -63,7 +64,7 @@ class TTTTUtils extends BaseTTT{
     }
   }
 
-  adEvent({required MaxAd? ad,required AdPosId adPosId,required AdInfoData? adInfoData,int tryNum=5})async{
+  adEvent({required AdMoneyInfoBean? ad,required AdPosId adPosId,required AdInfoData? adInfoData,int tryNum=5})async{
     var ttttAdBean = await getAdBean(ad, adPosId, adInfoData);
     var headerBean = await getHeaderBean(ttttAdBean.baseBean?.theorem?.gondola, ttttAdBean.baseBean?.dietrich?.navel);
     var queryBean = await getQueryBean(ttttAdBean.baseBean?.theorem?.floc, ttttAdBean.baseBean?.monk?.silage);
@@ -106,4 +107,5 @@ class TTTTUtils extends BaseTTT{
       }
     }
   }
+
 }

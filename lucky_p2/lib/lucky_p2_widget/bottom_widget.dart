@@ -12,6 +12,7 @@ import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_steps.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
 
 class BottomWidget extends LuckyBaseStateful{
@@ -67,7 +68,7 @@ class BottomWidgetState extends LuckyBaseState<BottomWidget>{
         Align(
           alignment: Alignment.topCenter,
           child: LuckyGraTextWidget(
-            text: "$reward",
+            text: "${getMoneyByCountry(reward)}",
             size: 23.sp,
             fontWeight: FontWeight.bold,
             colors: ["#FFFFFF".toColor(),"#E8FAFF".toColor(),],

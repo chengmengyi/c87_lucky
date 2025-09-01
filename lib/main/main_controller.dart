@@ -6,9 +6,11 @@ import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/local_notification_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p1/lucky_p1_routers/lucky_p1_routers.dart';
 import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/ad_pv_util.dart';
 
 class MainController extends LuckyBaseController with GetSingleTickerProviderStateMixin{
   late AnimationController animationController;
@@ -18,6 +20,9 @@ class MainController extends LuckyBaseController with GetSingleTickerProviderSta
   @override
   void onInit() {
     super.onInit();
+    if(firstLaunchAppTimer.getData().isEmpty){
+      firstLaunchAppTimer.saveData(getTodayTime());
+    }
     animationController=AnimationController(duration: const Duration(seconds: 13),vsync: this)
       ..addListener(() {
         update(["progress","progress_text"]);

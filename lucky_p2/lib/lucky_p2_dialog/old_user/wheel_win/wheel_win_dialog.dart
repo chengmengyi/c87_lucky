@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
@@ -9,6 +10,7 @@ import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_lottie_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_dialog/old_user/wheel_win/wheel_win_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 
 class WheelWinDialog extends LuckyBaseDialog<WheelWinController>{
@@ -44,7 +46,7 @@ class WheelWinDialog extends LuckyBaseDialog<WheelWinController>{
             Align(
               alignment: Alignment.bottomCenter,
               child: LuckyGraTextWidget(
-                text: "\$$allReward",
+                text: "${getMoneySymbol()}${getMoneyByCountry(allReward)}",
                 size: 45.sp,
                 colors: [
                   "#FFFFFF".toColor(),
@@ -60,8 +62,8 @@ class WheelWinDialog extends LuckyBaseDialog<WheelWinController>{
       ),
       SizedBox(height: 40.h,),
       BtnWidget(
-        leftStr: "Claim",
-        rightStr: "\$${mulTwoNums(allReward, 2)}",
+        leftStr: LocalText.claim.tr,
+        rightStr: "${getMoneySymbol()}${getMoneyByCountry(mulTwoNums(allReward, 2))}",
         onTap: (){
           luckyController.clickDouble(allReward,dismiss);
         },
@@ -72,7 +74,7 @@ class WheelWinDialog extends LuckyBaseDialog<WheelWinController>{
           luckyController.clickSingle(allReward,dismiss);
         },
         child: LuckyTextWidget(
-          text: "\$$allReward",
+          text: "${getMoneySymbol()}${getMoneyByCountry(allReward)}",
           size: 14.sp,
           color: "#FFFFFF",
           withOpacity: 0.8,

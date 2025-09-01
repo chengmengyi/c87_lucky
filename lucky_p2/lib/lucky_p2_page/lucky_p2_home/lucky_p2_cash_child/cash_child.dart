@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_child.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
@@ -9,6 +10,7 @@ import 'package:lucky_p2/lucky_p2_bean/cash_list_bean.dart';
 import 'package:lucky_p2/lucky_p2_page/lucky_p2_home/lucky_p2_cash_child/cash_child_controller.dart';
 import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 
 class CashChild extends LuckyBaseChild<CashChildController>{
   @override
@@ -40,10 +42,10 @@ class CashChild extends LuckyBaseChild<CashChildController>{
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              LuckyTextWidget(text: "\$", size: 28.sp, color: "#0D7300",fontWeight: FontWeight.bold,),
+              LuckyTextWidget(text: getMoneySymbol(), size: 28.sp, color: "#0D7300",fontWeight: FontWeight.bold,),
               GetBuilder<CashChildController>(
                 id: "coins",
-                builder: (_)=>LuckyTextWidget(text: "${p2UserCoins.getData()}", size: 30.sp, color: "#0D7300",fontWeight: FontWeight.bold,),
+                builder: (_)=>LuckyTextWidget(text: "${getMoneyByCountry(p2UserCoins.getData())}", size: 30.sp, color: "#0D7300",fontWeight: FontWeight.bold,),
               ),
             ],
           ).marginOnly(right: 6.w),
@@ -78,7 +80,7 @@ class CashChild extends LuckyBaseChild<CashChildController>{
               borderRadius: BorderRadius.circular(5.w),
               color: "#FF8383".toColor().withOpacity(0.1),
             ),
-            child: LuckyTextWidget(text: "Tips：Cash will arrive in your account within 24 hours as soon as possible", size: 11.sp, color: "#8F0000"),
+            child: LuckyTextWidget(text: LocalText.tipsCashWillArrive.tr, size: 11.sp, color: "#8F0000"),
           )
         ],
       ),
@@ -96,7 +98,7 @@ class CashChild extends LuckyBaseChild<CashChildController>{
         height: 40.h,
         margin: EdgeInsets.only(left: 118.w),
         child: ListView.builder(
-          itemCount: 7,
+          itemCount: luckyController.cashTypeList.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context,index)=>ClickWidget(
             onTap: (){
@@ -114,7 +116,7 @@ class CashChild extends LuckyBaseChild<CashChildController>{
                   color: "#98B4FF".toColor(),
                 )
               ),
-              child: LuckyImageWidget(name: "pay_type${index+1}"),
+              child: LuckyImageWidget(name: luckyController.cashTypeList[index].icon),
             ),
           ),
         ),
@@ -139,7 +141,7 @@ class CashChild extends LuckyBaseChild<CashChildController>{
       children: [
         Row(
           children: [
-            LuckyTextWidget(text: "\$${bean.cashMoney}", size: 34.sp, color: "#000000",fontWeight: FontWeight.bold,),
+            LuckyTextWidget(text: "${getMoneySymbol()}${getMoneyByCountry(bean.cashMoney)}", size: 34.sp, color: "#000000",fontWeight: FontWeight.bold,),
             Spacer(),
             ClickWidget(
               onTap: (){
@@ -149,7 +151,7 @@ class CashChild extends LuckyBaseChild<CashChildController>{
                 alignment: Alignment.center,
                 children: [
                   LuckyImageWidget(name: "btn_bg",width: 76.w,height: 24.h,),
-                  LuckyTextWidget(text: "CASH OUT", size: 11.sp, color: "#FFFFFF",shadowsColor: "#0A5300",fontWeight: FontWeight.bold,),
+                  LuckyTextWidget(text: LocalText.cashOut.tr, size: 11.sp, color: "#FFFFFF",shadowsColor: "#0A5300",fontWeight: FontWeight.bold,),
                 ],
               ),
             ),
@@ -212,7 +214,7 @@ class CashChild extends LuckyBaseChild<CashChildController>{
       children: [
         Row(
           children: [
-            LuckyTextWidget(text: "\$${cashBean.cashMoney}", size: 34.sp, color: "#000000",fontWeight: FontWeight.bold,),
+            LuckyTextWidget(text: "${getMoneySymbol()}${getMoneyByCountry(cashBean.cashMoney)}", size: 34.sp, color: "#000000",fontWeight: FontWeight.bold,),
             Spacer(),
             ClickWidget(
               onTap: (){

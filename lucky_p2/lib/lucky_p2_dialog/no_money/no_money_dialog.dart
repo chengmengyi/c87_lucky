@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
@@ -7,6 +8,7 @@ import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_dialog/no_money/no_money_controller.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 
 class NoMoneyDialog extends LuckyBaseDialog<NoMoneyController>{
   int chooseMoney;
@@ -29,13 +31,13 @@ class NoMoneyDialog extends LuckyBaseDialog<NoMoneyController>{
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            LuckyTextWidget(text: "Cash Out", size: 18.sp, color: "#000000",fontWeight: FontWeight.bold,),
+            LuckyTextWidget(text: LocalText.cashOut.tr, size: 18.sp, color: "#000000",fontWeight: FontWeight.bold,),
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
                   children: [
                     TextSpan(
-                        text: "Your current balance is ",
+                        text: "${LocalText.yourCurrentBalance.tr} ",
                         style: TextStyle(
                           fontSize: 16.sp,
                           color: "#2E2E2E".toColor(),
@@ -43,7 +45,7 @@ class NoMoneyDialog extends LuckyBaseDialog<NoMoneyController>{
                         )
                     ),
                     TextSpan(
-                        text: "\$${p2UserCoins.getData()}",
+                        text: "${getMoneySymbol()}${getMoneyByCountry(p2UserCoins.getData())}",
                         style: TextStyle(
                           fontSize: 16.sp,
                           color: "#009D1A".toColor(),
@@ -51,7 +53,7 @@ class NoMoneyDialog extends LuckyBaseDialog<NoMoneyController>{
                         )
                     ),
                     TextSpan(
-                        text: ", Collect ",
+                        text: ", ${LocalText.collect.tr} ",
                         style: TextStyle(
                           fontSize: 16.sp,
                           color: "#2E2E2E".toColor(),
@@ -59,7 +61,7 @@ class NoMoneyDialog extends LuckyBaseDialog<NoMoneyController>{
                         )
                     ),
                     TextSpan(
-                        text: "\$$chooseMoney",
+                        text: "${getMoneySymbol()}${getMoneyByCountry(chooseMoney)}",
                         style: TextStyle(
                           fontSize: 16.sp,
                           color: "#009D1A".toColor(),
@@ -67,7 +69,7 @@ class NoMoneyDialog extends LuckyBaseDialog<NoMoneyController>{
                         )
                     ),
                     TextSpan(
-                        text: " and you can withdraw cash！Go and Get more Cash！",
+                        text: " ${LocalText.andYouCanWithdraw.tr}",
                         style: TextStyle(
                           fontSize: 16.sp,
                           color: "#2E2E2E".toColor(),
@@ -90,7 +92,7 @@ class NoMoneyDialog extends LuckyBaseDialog<NoMoneyController>{
                   color: "#5828CA".toColor(),
                   borderRadius: BorderRadius.circular(48.w),
                 ),
-                child: LuckyTextWidget(text: "Get More Cash", size: 15.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,),
+                child: LuckyTextWidget(text: LocalText.getMoreCash.tr, size: 15.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,),
               ),
             )
           ],

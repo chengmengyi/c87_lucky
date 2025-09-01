@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:lucky_base/lucky_dialog/open_notification_dialog/open_notification_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
@@ -24,12 +26,12 @@ class LocationNotificationUtils{
   AndroidFlutterLocalNotificationsPlugin plugin=AndroidFlutterLocalNotificationsPlugin();
 
   final List<NotificationInfo> _notificationList=[
-    NotificationInfo(title: "You’ve WON real cash!", body: "Your scratch card revealed \$72.50. Tap to withdraw now!"),
-    NotificationInfo(title: "Real payout unlocked 💵", body: "You’re eligible to cash out. Don’t miss your reward!"),
-    NotificationInfo(title: "You just hit a cash prize!", body: "Withdraw your winnings before they expire!"),
-    NotificationInfo(title: "Daily Cash Scratch is live!", body: "Scratch today’s card and win real rewards instantly."),
-    NotificationInfo(title: "It’s cash o’clock!", body: "Today’s scratch bonus is waiting for you—don’t miss it!"),
-    NotificationInfo(title: "Special Offer: First scratch = GUARANTEED prize!", body: "Start now and unlock instant cash."),
+    NotificationInfo(title: LocalText.youAreWonReal.tr, body: LocalText.youScratchCard.tr),
+    NotificationInfo(title: LocalText.realPayoutUnlocked.tr, body: LocalText.youAreEligibleToCash.tr),
+    NotificationInfo(title: LocalText.youJustHit.tr, body: LocalText.withdrawYourWinnings.tr),
+    NotificationInfo(title: LocalText.dailyCashScratch.tr, body: LocalText.scratchTodayCard.tr),
+    NotificationInfo(title: LocalText.itCashClock.tr, body: LocalText.todayScratchBonus.tr),
+    NotificationInfo(title: LocalText.specialOfferFirst.tr, body: LocalText.startNowAndUnlock.tr),
   ];
 
   init({bool showOpenNotificationDialog=true})async{
@@ -83,12 +85,11 @@ class LocationNotificationUtils{
   }
 
   _showLockScreenNotification()async{
-    var title="You’ve Got a Winning Card! 💸";
-    var body="Scratch now — your cash reward is waiting to be claimed! Withdraw instantly if you hit the prize!";
+    NotificationInfo info = _notificationList.random();
     await plugin.showBroadcastNotification(
       lockScreen,
-      title,
-      body,
+      info.title,
+      info.body,
       //两次发送解锁通知的间隔，根据需求设置
       Duration(seconds: 5),
       'android.intent.action.USER_PRESENT',
@@ -98,8 +99,8 @@ class LocationNotificationUtils{
         priority: Priority.high,
         importance: Importance.high,
         styleInformation: BeautyStyleInformation(
-          title,
-          body,
+          info.title,
+          info.body,
           'lock',
           'Go Earn',
           'logo',
@@ -111,8 +112,23 @@ class LocationNotificationUtils{
   }
 
   _initFcm()async{
+    var fcmStr="";
+    var code = Get.deviceLocale?.countryCode??"US";
+    switch(code){
+      case "BR":
+        fcmStr="c87card_fcm_br";
+        break;
+    // case "VN": return "₫";
+    // case "ID": return "Rp";
+    // case "TH": return "฿";
+    // case "RU": return "₽";
+    // case "PH": return "₱";
+      default:
+        fcmStr="c87fcm_card";
+        break;
+    }
     var result = await plugin.subscribeToTopic(
-      'c87fcm_card',
+      fcmStr,
       const AndroidNotificationDetails(
         'scratch_channel_fcm',
         'scratch_channel_name_fcm',

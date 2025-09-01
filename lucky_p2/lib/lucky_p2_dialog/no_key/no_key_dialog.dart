@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -30,19 +31,26 @@ class NoKeyDialog extends LuckyBaseDialog<NoKeyController>{
                   SizedBox(height: 50.h,),
                   LuckyImageWidget(name: "no_key2",width: 54.w,height: 70.h,),
                   LuckyTextWidget(
-                    text: "Not Enough Keys to\nUnlock Spin",
+                    text: LocalText.notEnoughKeys.tr,
                     size: 18.sp,
                     color: "#FFFFFF",
                     fontWeight: FontWeight.bold,
                     textAlign: TextAlign.center,
-                  )
+                  ),
+                  LuckyTextWidget(
+                    text: LocalText.unlockSpin.tr,
+                    size: 18.sp,
+                    color: "#FFFFFF",
+                    fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: BtnWidget(
-                leftStr: "Find  it",
+                leftStr: LocalText.findIt.tr,
                 rightStr: "",
                 showVideo: false,
                 onTap: (){

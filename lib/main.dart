@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:lucky_base/lucky_utils/app_lifecycle_utils.dart';
 import 'package:lucky_base/lucky_utils/check_af_utils.dart';
 import 'package:lucky_base/lucky_utils/firebase_utils.dart';
+import 'package:lucky_base/lucky_utils/language/language_translation.dart';
 import 'package:lucky_base/lucky_utils/local_config.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
@@ -16,8 +17,8 @@ import 'package:lucky_p2/lucky_p2_util/value_utils.dart' as p2ValueUtils;
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart' as p2PlayInfoUtils;
 import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  _initBase();
+void main() async{
+  await _initBase();
   _initP1();
   _initP2();
   runApp(const MyApp());
@@ -81,6 +82,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         getPages: list,
         defaultTransition: Transition.rightToLeft,
+        translations: LanguageTranslation(),
+        locale: Get.deviceLocale,
+        fallbackLocale: const Locale("en", "US"),
         builder: (context,widget){
           return  MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

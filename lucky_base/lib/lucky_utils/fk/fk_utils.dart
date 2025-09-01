@@ -167,6 +167,9 @@ class FkUtils{
   }
 
   bool checkFk(){
+    if(kDebugMode){
+      return false;
+    }
     if(p2FkAd.getData().isNotEmpty){
       uploadFkTag(p2FkAd.getData());
       return true;

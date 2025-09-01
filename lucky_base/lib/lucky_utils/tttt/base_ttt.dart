@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:applovin_max/applovin_max.dart';
 import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
+import 'package:flutter_ad_ios_plugins/data/ad_money_info_bean.dart';
 import 'package:flutter_tba_info/flutter_tba_info.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
 import 'package:lucky_base/lucky_utils/tttt/base_bean.dart';
@@ -69,7 +70,7 @@ abstract class BaseTTT{
     );
   }
 
-  Future<TtttAdBean> getAdBean(MaxAd? ad,AdPosId pointId,AdInfoData? adBean,)async => TtttAdBean(
+  Future<TtttAdBean> getAdBean(AdMoneyInfoBean? ad,AdPosId pointId,AdInfoData? adBean,)async => TtttAdBean(
     attain: (ad?.revenue??0)*1000000,
     cometary: "USD",
     mention: ad?.networkName??"",

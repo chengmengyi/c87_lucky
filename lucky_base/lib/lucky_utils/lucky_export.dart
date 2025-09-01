@@ -6,3 +6,4 @@ export 'package:flutter_tba_info/flutter_tba_info.dart';
 export 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 export 'package:feng/feng.dart';
 export 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
+export 'package:decimal/decimal.dart';

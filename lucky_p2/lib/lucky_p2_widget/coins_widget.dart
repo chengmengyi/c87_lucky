@@ -11,6 +11,7 @@ import 'package:lucky_base/lucky_widget/lucky_gra_text_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 
 class CoinsWidget extends LuckyBaseStateful{
   bool fromDetail;
@@ -44,7 +45,7 @@ class CoinsWidgetState extends LuckyBaseState<CoinsWidget>{
             children: [
               LuckyImageWidget(name: "coins2",width: 140.w,height: 26.h,),
               LuckyGraTextWidget(
-                text: "\$${p2UserCoins.getData()}",
+                text: "${getMoneySymbol()}${getMoneyByCountry(p2UserCoins.getData())}",
                 size: 14.sp,
                 colors: [
                   "#FFF7C2".toColor(),

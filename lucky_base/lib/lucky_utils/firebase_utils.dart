@@ -18,6 +18,7 @@ StorageData<String> p2ValueFirebaseConfig=StorageData<String>(key: "p2ValueFireb
 StorageData<String> p2AdFirebaseConfig=StorageData<String>(key: "p2AdFirebaseConfig", defaultValue: "");
 StorageData<String> p2FacebookConfig=StorageData<String>(key: "p2FacebookConfig", defaultValue: "");
 StorageData<String> p2FkConfig=StorageData<String>(key: "p2FkConfig", defaultValue: "");
+StorageData<String> adPvConfig=StorageData<String>(key: "adPvConfig", defaultValue: "");
 
 
 class FirebaseUtils{
@@ -75,6 +76,10 @@ class FirebaseUtils{
     if(risk_control.isNotEmpty){
       p2FkConfig.saveData(risk_control);
       FkUtils.instance.initFk();
+    }
+    var sa_event = _remoteConfig?.getString("sa_event")??"";
+    if(sa_event.isNotEmpty){
+      adPvConfig.saveData(sa_event);
     }
     _initFacebook();
   }

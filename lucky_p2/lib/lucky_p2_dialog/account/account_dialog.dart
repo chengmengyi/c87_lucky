@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
+import 'package:lucky_p2/lucky_p2_bean/cash_type_bean.dart';
 import 'package:lucky_p2/lucky_p2_dialog/account/account_controller.dart';
 import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 
 class AccountDialog extends LuckyBaseDialog<AccountController>{
-  int chooseIndex;
+  CashTypeBean cashTypeBean;
   Function(int payTypeIndex,String account) callback;
   AccountDialog({
-    required this.chooseIndex,
+    required this.cashTypeBean,
     required this.callback,
   });
 
@@ -21,7 +23,7 @@ class AccountDialog extends LuckyBaseDialog<AccountController>{
 
   @override
   initView() {
-    luckyController.chooseIndex=chooseIndex;
+    luckyController.cashTypeBean=cashTypeBean;
   }
 
   @override
@@ -48,28 +50,31 @@ class AccountDialog extends LuckyBaseDialog<AccountController>{
                     id: "list",
                     builder: (_)=>MasonryGridView.count(
                       padding: const EdgeInsets.all(0),
-                      itemCount: 7,
+                      itemCount: luckyController.cashTypeList.length,
                       shrinkWrap: true,
                       crossAxisCount: 3,
                       mainAxisSpacing: 8.w,
                       crossAxisSpacing: 8.w,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context,index) => ClickWidget(
-                        onTap: (){
-                          luckyController.clickPayType(index);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: "#EAEAFF".toColor(),
-                              borderRadius: BorderRadius.circular(5.w),
-                              border: Border.all(
-                                width: 1.w,
-                                color: luckyController.chooseIndex==index?"#150070".toColor():"#EAEAFF".toColor(),
-                              )
+                      itemBuilder: (context,index) {
+                        var bean = luckyController.cashTypeList[index];
+                        return ClickWidget(
+                          onTap: (){
+                            luckyController.clickPayType(index);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: "#EAEAFF".toColor(),
+                                borderRadius: BorderRadius.circular(5.w),
+                                border: Border.all(
+                                  width: 1.w,
+                                  color: luckyController.cashTypeBean.cashType==bean.cashType?"#150070".toColor():"#EAEAFF".toColor(),
+                                )
+                            ),
+                            child: LuckyImageWidget(name: bean.icon,width: double.infinity,height: 30.h,),
                           ),
-                          child: LuckyImageWidget(name: "pay_type${index+1}",width: double.infinity,height: 30.h,),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ),
                   SizedBox(height: 16.h,),
@@ -96,7 +101,7 @@ class AccountDialog extends LuckyBaseDialog<AccountController>{
                       decoration: InputDecoration(
                         counterText: '',
                         isCollapsed: true,
-                        hintText: ' Please input your account ID',
+                        hintText: LocalText.pleaseInputYourAccountID.tr,
                         hintStyle: TextStyle(
                           fontSize: 14.sp,
                           color: "#B1B1B1".toColor(),
@@ -110,7 +115,7 @@ class AccountDialog extends LuckyBaseDialog<AccountController>{
                   ),
                   SizedBox(height: 12.h,),
                   BtnWidget(
-                    leftStr: "Submit",
+                    leftStr: LocalText.submit.tr,
                     rightStr: "",
                     showVideo: false,
                     onTap: (){

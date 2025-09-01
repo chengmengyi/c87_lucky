@@ -7,6 +7,7 @@ import 'package:lucky_p2/lucky_p2_bean/win_reward_bean.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/play_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class Play5Controller extends LuckyBaseController with GetTickerProviderStateMixin{
@@ -125,7 +126,8 @@ class Play5Controller extends LuckyBaseController with GetTickerProviderStateMix
     if(list.indexWhere((value)=>value.isKey)>=0){
       return "+1";
     }
-    return "\$${list.fold(0.0, (previousValue, element) => addTwoNums(previousValue, element.reward))}";
+    var reward = list.fold(0.0, (previousValue, element) => addTwoNums(previousValue, element.reward));
+    return "${getMoneySymbol()}${getMoneyByCountry(reward)}";
   }
 
   @override

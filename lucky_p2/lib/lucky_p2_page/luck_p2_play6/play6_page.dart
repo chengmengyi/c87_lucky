@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_page.dart';
 import 'package:lucky_base/lucky_base/lucky_base_page2.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
@@ -9,6 +10,7 @@ import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_bean/your_bean.dart';
 import 'package:lucky_p2/lucky_p2_page/luck_p2_play6/play6_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/bottom_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/box_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/bubble_widget.dart';
@@ -123,7 +125,7 @@ class Play6Page extends LuckyBasePage2<Play6Controller>{
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                LuckyTextWidget(text: "WIN UP TO", size: 11.sp, color: "#FFFFFF",shadowsColor: "#000000",fontWeight: FontWeight.bold,),
+                LuckyTextWidget(text: LocalText.winUpTo.tr, size: 11.sp, color: "#FFFFFF",shadowsColor: "#000000",fontWeight: FontWeight.bold,),
                 SizedBox(width: 2.w,),
                 MaxNumWidget(playType: luckyController.playUtils.playType, fontSize: 30.sp),
               ],
@@ -168,7 +170,7 @@ class Play6Page extends LuckyBasePage2<Play6Controller>{
         Visibility(
           visible: yourBean.win,
           child: LuckyGraTextWidget(
-            text: "\$${yourBean.reward}",
+            text: "${getMoneySymbol()}${getMoneyByCountry(yourBean.reward)}",
             size: 13.sp,
             colors: ["#FFFFFF".toColor(),"#FAFF21".toColor(),"#FF8B02".toColor()],
             fontWeight: FontWeight.bold,

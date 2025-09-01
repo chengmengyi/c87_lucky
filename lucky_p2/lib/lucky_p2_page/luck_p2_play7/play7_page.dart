@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_page.dart';
 import 'package:lucky_base/lucky_base/lucky_base_page2.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -130,7 +131,7 @@ class Play7Page extends LuckyBasePage2<Play7Controller>{
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                LuckyTextWidget(text: "WIN UP TO", size: 11.sp, color: "#FFFFFF",shadowsColor: "#000000",fontWeight: FontWeight.bold,),
+                LuckyTextWidget(text: LocalText.winUpTo.tr, size: 11.sp, color: "#FFFFFF",shadowsColor: "#000000",fontWeight: FontWeight.bold,),
                 SizedBox(width: 2.w,),
                 MaxNumWidget(playType: luckyController.playUtils.playType, fontSize: 30.sp),
               ],

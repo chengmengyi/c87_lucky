@@ -102,3 +102,4 @@ String decrypt(String data, int code) {
   return utf8.decode(xorList);
 }
 
+

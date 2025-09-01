@@ -17,6 +17,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0"
+  anythink_sdk:
+    dependency: transitive
+    description:
+      path: "../flutter_ad_ios_plugins/plugins/anythink_sdk"
+      relative: true
+    source: path
+    version: "1.0.5"
   app_settings:
     dependency: transitive
     description:
@@ -347,7 +354,7 @@ packages:
       path: "/Users/c38/StudioProjects/flutter_ad_ios_plugins"
       relative: false
     source: path
-    version: "0.1.4"
+    version: "0.1.5"
   flutter_app_lifecycle:
     dependency: transitive
     description:
@@ -360,10 +367,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_check_af
-      sha256: ac46d3dbb7e23bdd8c70d2f664e5e542f25d9c09dbdb7cd54164732cd47b9b56
+      sha256: "0d283769ad224d8ca80fa1d83b04efd0029b931d9b642966301234fdc7a6e3b0"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.7"
+    version: "0.0.9"
   flutter_custom_facebook:
     dependency: transitive
     description:

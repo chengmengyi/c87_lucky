@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_dialog/old_user/wheel_sign_reward/wheel_sign_reward_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 
 class WheelSignRewardDialog extends LuckyBaseDialog<WheelSignRewardController>{
@@ -32,7 +34,8 @@ class WheelSignRewardDialog extends LuckyBaseDialog<WheelSignRewardController>{
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(height: 63.h,),
-                  LuckyTextWidget(text: "Come back tomorrow to claim\nthe 5x reward", size: 14.sp, color: "#FFFFFF",textAlign: TextAlign.center,),
+                  LuckyTextWidget(text: LocalText.comeBackTomorrow.tr, size: 14.sp, color: "#FFFFFF",textAlign: TextAlign.center,),
+                  LuckyTextWidget(text: LocalText.the5xReward.tr, size: 14.sp, color: "#FFFFFF",textAlign: TextAlign.center,),
                   SizedBox(height: 16.h,),
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -54,7 +57,7 @@ class WheelSignRewardDialog extends LuckyBaseDialog<WheelSignRewardController>{
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: LuckyTextWidget(
-                                    text: "+\$$wheelAddNum",
+                                    text: "+${getMoneySymbol()}${getMoneyByCountry(wheelAddNum)}",
                                     size: 17.sp,
                                     color: "#FFFFFF",
                                     shadowsColor: "#000000",
@@ -84,7 +87,7 @@ class WheelSignRewardDialog extends LuckyBaseDialog<WheelSignRewardController>{
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: LuckyTextWidget(
-                                    text: "+\$${luckyController.signAddNum}",
+                                    text: "+${getMoneySymbol()}${getMoneyByCountry(luckyController.signAddNum)}",
                                     size: 17.sp,
                                     color: "#FFFFFF",
                                     shadowsColor: "#000000",
@@ -107,7 +110,7 @@ class WheelSignRewardDialog extends LuckyBaseDialog<WheelSignRewardController>{
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   BtnWidget(
-                    leftStr: "Double Claim",
+                    leftStr: LocalText.doubleClaim.tr,
                     rightStr: "",
                     onTap: (){
                       luckyController.clickDouble(wheelAddNum);
@@ -119,7 +122,7 @@ class WheelSignRewardDialog extends LuckyBaseDialog<WheelSignRewardController>{
                       luckyController.clickSingle(wheelAddNum);
                     },
                     child: LuckyTextWidget(
-                      text: "Claim",
+                      text: LocalText.claim.tr,
                       size: 14.sp,
                       color: "#FFFFFF",
                       withOpacity: 0.8,

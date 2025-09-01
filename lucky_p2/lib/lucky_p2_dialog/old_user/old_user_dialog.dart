@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -31,7 +32,7 @@ class OldUserDialog extends LuckyBaseDialog<OldUserController>{
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                LuckyTextWidget(text: "Spin the wheel daily for prize！", size: 14.sp, color: "#FFFFFF"),
+                LuckyTextWidget(text: LocalText.spinTheWheelDaily.tr, size: 14.sp, color: "#FFFFFF"),
                 SizedBox(height: 16.h,),
                 LuckyImageWidget(name: "old1",width: 90.w,height: 90.w,),
               ],
@@ -46,7 +47,7 @@ class OldUserDialog extends LuckyBaseDialog<OldUserController>{
                   alignment: Alignment.center,
                   children: [
                     LuckyImageWidget(name: "btn_bg",width: 160.w,height: 40.h,),
-                    LuckyTextWidget(text: "Spin", size: 20.sp, color: "#FFFFFF",shadowsColor: "#0A5300",fontWeight: FontWeight.bold,)
+                    LuckyTextWidget(text: LocalText.spin.tr, size: 20.sp, color: "#FFFFFF",shadowsColor: "#0A5300",fontWeight: FontWeight.bold,)
                   ],
                 ),
               ).marginOnly(bottom: 20.h),

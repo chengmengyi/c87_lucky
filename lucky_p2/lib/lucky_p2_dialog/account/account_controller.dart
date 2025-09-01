@@ -4,26 +4,29 @@ import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
+import 'package:lucky_p2/lucky_p2_bean/cash_type_bean.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class AccountController extends LuckyBaseController{
-  var chooseIndex=0;
+  // var chooseIndex=0;
+  late CashTypeBean cashTypeBean;
+  List<CashTypeBean> cashTypeList=[];
   TextEditingController editingController=TextEditingController();
 
   @override
   void onInit() {
     super.onInit();
+    _initCashTypeList();
     TTTTUtils.instance.pointEvent(customId: CustomId.cash_confirm_pop);
   }
 
   clickPayType(index){
-    if(chooseIndex==index){
-      return;
-    }
-    chooseIndex=index;
+    cashTypeBean=cashTypeList[index];
     update(["list"]);
   }
 
@@ -34,11 +37,11 @@ class AccountController extends LuckyBaseController{
       return;
     }
     if(!_isNumeric(content)&&!_isEmail(content)){
-      showToast("Please enter the correct withdrawal account number");
+      showToast(LocalText.pleaseInputYourAccountID.tr);
       return;
     }
     LuckyRouters.instance.back();
-    callback.call(chooseIndex,content);
+    callback.call(cashTypeBean.cashType,content);
   }
 
   bool _isNumeric(String input) {
@@ -69,6 +72,12 @@ class AccountController extends LuckyBaseController{
         LuckyRouters.instance.back();
       },
     );
+  }
+
+  _initCashTypeList(){
+    cashTypeList.clear();
+    cashTypeList.addAll(getCashTypeList());
+    cashTypeBean=cashTypeList.first;
   }
 
   @override

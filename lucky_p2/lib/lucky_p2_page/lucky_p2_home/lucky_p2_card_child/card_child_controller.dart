@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_controller.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
+import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p2/lucky_p2_bean/play_info_bean.dart';
 import 'package:lucky_p2/lucky_p2_util/play_info_utils.dart';
@@ -29,7 +31,7 @@ class CardChildController extends LuckyBaseController{
       update(["list"]);
     }
     if((playInfoBean.hasNum??0)<=0){
-      showToast("The Next Card 80 Seconds");
+      showToast(LocalText.theNextCard80Seconds.tr);
       return;
     }
     UserInfoUtils.instance.openPlayPageByType(playInfoBean.type??"");

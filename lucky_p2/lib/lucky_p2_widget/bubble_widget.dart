@@ -15,6 +15,7 @@ import 'package:lucky_p2/lucky_p2_util/cash_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/storage.dart';
 import 'package:lucky_p2/lucky_p2_util/user_guide/user_guide_utils.dart';
 import 'package:lucky_p2/lucky_p2_util/user_info_utils.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class BubbleWidget extends LuckyBaseStateful{
@@ -61,7 +62,7 @@ class BubbleWidgetState extends LuckyBaseState<BubbleWidget>{
                   alignment: Alignment.bottomCenter,
                   children: [
                     LuckyImageWidget(name: "bubble",width: 68.w,height: 68.w,),
-                    LuckyTextWidget(text: "\$$addNum", size: 18.sp, color: "#1AFF16",shadowsColor: "#000000",)
+                    LuckyTextWidget(text: "${getMoneySymbol()}${getMoneyByCountry(addNum)}", size: 18.sp, color: "#1AFF16",shadowsColor: "#000000",)
                   ],
                 ),
               ),

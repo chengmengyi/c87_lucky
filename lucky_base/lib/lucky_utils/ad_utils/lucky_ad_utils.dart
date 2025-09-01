@@ -9,13 +9,16 @@ import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_load_ad_result_callback.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:flutter_custom_facebook/flutter_custom_facebook.dart';
+import 'package:get/get.dart';
 import 'package:lucky_base/lucky_dialog/ad_limit_dialog/ad_limit_dialog.dart';
 import 'package:lucky_base/lucky_dialog/load_ad_fail_dialog/load_ad_fail_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
+import 'package:lucky_base/lucky_utils/ad_utils/ad_pv_util.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/firebase_utils.dart';
 import 'package:lucky_base/lucky_utils/fk/fk_utils.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/local_config.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
@@ -54,6 +57,8 @@ class LuckyAdUtils{
     FlutterIosAdHep.instance.initMax(
       maxKey: maxKey.base64(),
       data: _createAdData(),
+      topOnAppId: topOpIdBase64.base64(),
+      topOnAppKey: topOpKeyBase64.base64(),
       fengKongLogic: (){
         return FkUtils.instance.checkFk();
       },
@@ -62,7 +67,10 @@ class LuckyAdUtils{
           //ad_code_id/ad_format/ad_platform
           TTTTUtils.instance.pointEvent(customId: CustomId.ad_request,params: {"ad_code_id":info?.adId,"ad_format":info?.adType.name,"ad_platform":info?.adPlat});
         },
-        loadAdSuccessCallback: (maxAd,info){},
+        loadAdSuccessCallback: (maxAd,info){
+          //ad_code_id/ad_format/ad_platform
+          TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_return,params: {"ad_code_id":info?.adId,"ad_format":info?.adType.name,"ad_platform":info?.adPlat});
+        },
         loadAdFailCallback: (info){},
       ),
     );
@@ -87,7 +95,7 @@ class LuckyAdUtils{
         showSuccess: (ad,info){
           VoicePlayUtils.instance.pauseBg();
         },
-        showFail: (ad){
+        showFail: (){
           showToast("Advertisement display failed, please try again later");
         }, 
         closeAd: (){
@@ -126,7 +134,7 @@ class LuckyAdUtils{
     var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==resultData){
       FlutterIosAdHep.instance.loadAdWhenNoCache(adType);
-      TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_nocache,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name});
+      TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_impression_fail,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name,"reason":"ad_nocache",});
       if(isOpen){
         closeAd.call();
       }else{
@@ -160,6 +168,7 @@ class LuckyAdUtils{
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
           _handleTwoShowAdTime(adType);
+          AdPvUtil.instance.uploadPv(ad, info);
           // FlutterCustomFacebook.instance.logPurchase(amount: ad?.revenue??0, currency: "USD");
           FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adPosId.name);
           TTTTUtils.instance.adEvent(ad: ad, adPosId: adPosId, adInfoData: info);
@@ -171,13 +180,13 @@ class LuckyAdUtils{
             p2LastAdLevel.saveData(adLevel);
           }
         },
-        showFail: (ad){
-          TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_impression_fail,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name});
+        showFail: (){
+          TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_impression_fail,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name,"reason":"impfail",});
           if(isOpen){
             closeAd.call();
           }else{
             if(adType==AdType.reward){
-              showToast("Advertisement display failed, please try again later");
+              showToast(LocalText.advertisementDisplayFailed.tr);
             }else{
               closeAd.call();
             }

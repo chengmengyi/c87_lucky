@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_lottie_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_dialog/box_dialog/box_dialog_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/btn_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/finger_widget.dart';
 
@@ -18,7 +20,8 @@ class BoxDialog extends LuckyBaseDialog<BoxDialogController>{
     mainAxisSize: MainAxisSize.min,
     children: [
       LuckyImageWidget(name: "box2",width: double.infinity,),
-      LuckyTextWidget(text: "Open the treasure chest\nWin big prizes", size: 16.sp, color: "#FFFFFF",textAlign: TextAlign.center,),
+      LuckyTextWidget(text: LocalText.openTheTreasure.tr, size: 16.sp, color: "#FFFFFF",textAlign: TextAlign.center,),
+      LuckyTextWidget(text: LocalText.winBigPrizes.tr, size: 16.sp, color: "#FFFFFF",textAlign: TextAlign.center,),
       GetBuilder<BoxDialogController>(
         id: "box",
         builder: (_)=>Column(
@@ -64,7 +67,7 @@ class BoxDialog extends LuckyBaseDialog<BoxDialogController>{
               alignment: Alignment.bottomCenter,
               child: Visibility(
                 visible: boxBean.open,
-                child: LuckyTextWidget(text: "+\$${boxBean.reward}", size: 18.sp, color: "#1AFF16",shadowsColor: "#000000",fontWeight: FontWeight.bold,),
+                child: LuckyTextWidget(text: "+${getMoneySymbol()}${getMoneyByCountry(boxBean.reward)}", size: 18.sp, color: "#1AFF16",shadowsColor: "#000000",fontWeight: FontWeight.bold,),
               ),
             )
           ],
@@ -85,7 +88,7 @@ class BoxDialog extends LuckyBaseDialog<BoxDialogController>{
         children: [
           SizedBox(height: 30.h,),
           BtnWidget(
-            leftStr: "CLAIM ALL",
+            leftStr: LocalText.claimAll.tr,
             rightStr: "",
             onTap: (){
               luckyController.clickAll();
@@ -96,7 +99,7 @@ class BoxDialog extends LuckyBaseDialog<BoxDialogController>{
             onTap: (){
               luckyController.clickGiveUp();
             },
-            child: LuckyTextWidget(text: "Give Up", size: 14.sp, color: "#FFFFFF",withOpacity: 0.8,),
+            child: LuckyTextWidget(text: LocalText.giveUp.tr, size: 14.sp, color: "#FFFFFF",withOpacity: 0.8,),
           )
         ],
       ),

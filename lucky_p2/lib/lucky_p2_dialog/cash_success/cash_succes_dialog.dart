@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
@@ -7,6 +8,7 @@ import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_bean/cash_task_bean.dart';
 import 'package:lucky_p2/lucky_p2_dialog/cash_success/cash_success_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 
 class CashSuccessDialog extends LuckyBaseDialog<CashSuccessController>{
   CashTaskBean? cashTaskBean;
@@ -29,9 +31,9 @@ class CashSuccessDialog extends LuckyBaseDialog<CashSuccessController>{
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            LuckyTextWidget(text: "Withdrawal Successful", size: 18.sp, color: "#000000",fontWeight: FontWeight.bold,),
+            LuckyTextWidget(text: LocalText.withdrawalSuccessful.tr, size: 18.sp, color: "#000000",fontWeight: FontWeight.bold,),
             SizedBox(height: 20.h,),
-            LuckyTextWidget(text: "\$${cashTaskBean?.payMoney??0}", size: 40.sp, color: "#000000",fontWeight: FontWeight.bold,),
+            LuckyTextWidget(text: "${getMoneySymbol()}${getMoneyByCountry(cashTaskBean?.payMoney??0)}", size: 40.sp, color: "#000000",fontWeight: FontWeight.bold,),
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
@@ -76,7 +78,7 @@ class CashSuccessDialog extends LuckyBaseDialog<CashSuccessController>{
                   color: "#5828CA".toColor(),
                   borderRadius: BorderRadius.circular(48.w),
                 ),
-                child: LuckyTextWidget(text: "I Know", size: 15.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,),
+                child: LuckyTextWidget(text: LocalText.iKnow.tr, size: 15.sp, color: "#FFFFFF",fontWeight: FontWeight.bold,),
               ),
             )
           ],

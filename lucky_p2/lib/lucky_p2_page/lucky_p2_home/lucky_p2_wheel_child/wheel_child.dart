@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_child.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -54,7 +55,7 @@ class WheelChild extends LuckyBaseChild<WheelChildController>{
                     alignment: Alignment.center,
                     children: [
                       LuckyImageWidget(name: "btn_bg",width: 210.w,height: 54.h,),
-                      LuckyTextWidget(text: "SPIN", size: 20.sp, color: "#FFFFFF",shadowsColor: "#0A5300",fontWeight: FontWeight.bold,),
+                      LuckyTextWidget(text: LocalText.spin.tr, size: 20.sp, color: "#FFFFFF",shadowsColor: "#0A5300",fontWeight: FontWeight.bold,),
                     ],
                   ),
                 ).marginOnly(top: 24.h),

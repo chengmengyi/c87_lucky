@@ -3,6 +3,7 @@ import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
@@ -27,14 +28,17 @@ class CashTaskController extends LuckyBaseController{
 
   String getTaskLeftStr(CashTaskBean? cashTaskBean){
     if(cashTaskBean?.taskType==TaskType.task1Card){
-      return "Scratch ";
+      return "${LocalText.scratch.tr} ";
     }
     if(cashTaskBean?.taskType==TaskType.task3Task9){
       var wtdTask = ValueUtils.instance.getWtdTaskByIndex(cashTaskBean);
       switch(wtdTask?.type){
-        case "card": return "Scratch ";
-        case "wheel": return "Play ";
-        case "bubble": return "Collect ";
+        // case "card": return "Scratch ";
+        // case "wheel": return "Play ";
+        // case "bubble": return "Collect ";
+        case "card": return "${LocalText.scratch.tr} ";
+        case "wheel": return "${LocalText.play.tr} ";
+        case "bubble": return "${LocalText.collect.tr} ";
       }
     }
     return "";
@@ -42,14 +46,14 @@ class CashTaskController extends LuckyBaseController{
 
   String getTaskRightStr(CashTaskBean? cashTaskBean){
     if(cashTaskBean?.taskType==TaskType.task1Card){
-      return " cards";
+      return " ${LocalText.cards.tr}";
     }
     if(cashTaskBean?.taskType==TaskType.task3Task9){
       var wtdTask = ValueUtils.instance.getWtdTaskByIndex(cashTaskBean);
       switch(wtdTask?.type){
-        case "card": return " cards";
-        case "wheel": return " Spins";
-        case "bubble": return " Cash Pops";
+        case "card": return " ${LocalText.cards.tr}";
+        case "wheel": return " ${LocalText.spins.tr}";
+        case "bubble": return " ${LocalText.cashPops.tr}";
       }
     }
     return "";

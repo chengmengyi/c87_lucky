@@ -6,6 +6,7 @@ import 'package:lucky_base/lucky_utils/voice_play_utils.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_text_widget.dart';
 import 'package:lucky_p2/lucky_p2_page/luck_p2_play3/play3_controller.dart';
+import 'package:lucky_p2/lucky_p2_util/utils.dart';
 import 'package:lucky_p2/lucky_p2_widget/bottom_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/box_widget.dart';
 import 'package:lucky_p2/lucky_p2_widget/bubble_widget.dart';
@@ -131,7 +132,7 @@ class Play3Page extends LuckyBasePage2<Play3Controller>{
                                   ),
                                   Align(
                                     alignment: Alignment.bottomCenter,
-                                    child: LuckyTextWidget(text: "\$${yourBean.reward}", size: 13.sp, color: "#E35F00",fontWeight: FontWeight.bold,),
+                                    child: LuckyTextWidget(text: "${getMoneySymbol()}${getMoneyByCountry(yourBean.reward)}", size: 13.sp, color: "#E35F00",fontWeight: FontWeight.bold,),
                                   ),
                                 ],
                               ),

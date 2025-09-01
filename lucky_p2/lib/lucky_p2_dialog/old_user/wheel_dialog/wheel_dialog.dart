@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucky_base/lucky_base/lucky_base_dialog.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
+import 'package:lucky_base/lucky_utils/language/local_text.dart';
 import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_widget/click_widget.dart';
 import 'package:lucky_base/lucky_widget/lucky_image_widget.dart';
@@ -38,7 +39,7 @@ class WheelDialog extends LuckyBaseDialog<WheelDialogController>{
         ),
       ),
       BtnWidget(
-        leftStr: "SPIN",
+        leftStr: LocalText.spin.tr,
         rightStr: "",
         showVideo: false,
         onTap: (){
