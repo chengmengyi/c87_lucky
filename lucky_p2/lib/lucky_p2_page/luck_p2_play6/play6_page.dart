@@ -171,7 +171,7 @@ class Play6Page extends LuckyBasePage2<Play6Controller>{
           visible: yourBean.win,
           child: LuckyGraTextWidget(
             text: "${getMoneySymbol()}${getMoneyByCountry(yourBean.reward)}",
-            size: 13.sp,
+            size: 10.sp,
             colors: ["#FFFFFF".toColor(),"#FAFF21".toColor(),"#FF8B02".toColor()],
             fontWeight: FontWeight.bold,
             shadowsColor: "#350400",
