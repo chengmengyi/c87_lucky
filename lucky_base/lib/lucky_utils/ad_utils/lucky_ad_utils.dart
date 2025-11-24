@@ -241,6 +241,9 @@ class LuckyAdUtils{
     if(data.isEmpty){
       data=adLocalStr.base64();
     }
+    // if(kDebugMode){
+    //   data=adLocalStr.base64();
+    // }
     var json = jsonDecode(data);
     return ConfigAdData(
       maxShowNum: json["vmmybeqf"],
