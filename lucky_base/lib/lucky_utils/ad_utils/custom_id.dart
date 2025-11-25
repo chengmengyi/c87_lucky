@@ -85,4 +85,5 @@ enum CustomId{
   sa_ltv0,
   sa_ltv0_other,
   skerk_ad_return,
+  skerk_ad_return_fail,
 }

@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:decimal/decimal.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
-import 'package:flutter_ad_ios_plugins/data/ad_money_info_bean.dart';
-import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
+import 'package:flutter_android_ad_plugins/data/ad_info_data.dart';
+import 'package:flutter_android_ad_plugins/data/ad_money_info_bean.dart';
+import 'package:flutter_android_ad_plugins/hep/ad_num_hep.dart';
 import 'package:applovin_max/applovin_max.dart';
-import 'package:flutter_check_af/flutter_check_af.dart';
+import 'package:flutter_check_adjust/flutter_check_adjust.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/firebase_utils.dart';
 import 'package:lucky_base/lucky_utils/local_config.dart';
@@ -78,7 +78,8 @@ class AdPvUtil{
     required CustomId event,
     Map<String,dynamic>? values,
 }){
-    FlutterCheckAf.instance.logEvent(eventName: event.name,eventValues: values);
+    // FlutterCheckAf.instance.logEvent(eventName: event.name,eventValues: values);
+    FlutterCheckAdjust.instance.logEvent(eventName: event.name);
     TTTTUtils.instance.pointEvent(customId: event,params: values);
   }
 

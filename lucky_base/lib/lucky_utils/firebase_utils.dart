@@ -6,13 +6,15 @@ import 'package:feng/feng.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
-import 'package:flutter_check_af/dio/dio_hep.dart';
-import 'package:flutter_check_af/flutter_check_af.dart';
+import 'package:flutter_android_ad_plugins/flutter_android_ad_plugins.dart';
+import 'package:flutter_android_ad_plugins/hep/ad_num_hep.dart';
 import 'package:flutter_custom_facebook/flutter_custom_facebook.dart';
 import 'package:flutter_tba_info/flutter_tba_info.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
 import 'package:lucky_base/lucky_utils/fk/fk_utils.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
+
+import 'local_config.dart';
 
 StorageData<String> p2ValueFirebaseConfig=StorageData<String>(key: "p2ValueFirebaseConfig", defaultValue: "");
 StorageData<String> p2AdFirebaseConfig=StorageData<String>(key: "p2AdFirebaseConfig", defaultValue: "");
@@ -66,9 +68,9 @@ class FirebaseUtils{
     var afOn = _remoteConfig?.getString("c87card_af_on")??"";
     if(afOn.isNotEmpty){
       afSwitch=afOn;
-      FlutterCheckAf.instance.updateAfSwitch(afSwitch);
+      // FlutterAndroidAdPlugins.instance.updateAfSwitch(afSwitch);
     }
-    var facebookConfig = _remoteConfig?.getString("c87card_fb")??"";
+    var facebookConfig = _remoteConfig?.getString("c87card_pro_fb")??"";
     if(facebookConfig.isNotEmpty){
       p2FacebookConfig.saveData(facebookConfig);
     }
@@ -85,11 +87,11 @@ class FirebaseUtils{
   }
   
   _initFacebook(){
-    // var conf = localFacebookBase64.base64();
-    // if(p2FacebookConfig.getData().isNotEmpty){
-    //   conf=p2FacebookConfig.getData();
-    // }
-    // var json = jsonDecode(conf);
-    // FlutterCustomFacebook.instance.initFaceBook(facebookId: json["app_id"], facebookToken: json["client_token"], facebookAppName: json["app_name"]);
+    var conf = facebookAppkeyBase64.base64();
+    if(p2FacebookConfig.getData().isNotEmpty){
+      conf=p2FacebookConfig.getData();
+    }
+    var json = jsonDecode(conf);
+    FlutterCustomFacebook.instance.initFaceBook(facebookId: json["app_id"], facebookToken: json["client_token"], facebookAppName: json["app_name"]);
   }
 }

@@ -19,7 +19,7 @@ class MainPage extends LuckyBasePage<MainController>{
       LuckyImageWidget(name: "main2",width: double.infinity,height: 480.h,),
       Align(
         alignment: Alignment.topCenter,
-        child: LuckyImageWidget(name: "main3",width: 240.w,height: 192.h,).marginOnly(top: 168.h),
+        child: LuckyImageWidget(name: "main3",width: 165.w,height: 165.w,).marginOnly(top: 168.h),
       ),
       Align(
         alignment: Alignment.bottomCenter,

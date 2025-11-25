@@ -1,4 +1,4 @@
-package com.scratch.luckycard.lucky_base;
+package com.lucky.dash.lucky_dash_pro_h;
 
 
 import androidx.annotation.Keep;
@@ -8,7 +8,7 @@ import android.webkit.WebViewClient;
 import android.util.Log;
 
 @Keep
-public class LuckyW extends WebViewClient {
+public class Wjidwjdow extends WebViewClient {
 
     @Keep
     @Override

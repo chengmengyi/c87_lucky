@@ -13,6 +13,7 @@ import 'package:lucky_base/lucky_utils/fk/fk_utils.dart';
 import 'package:lucky_base/lucky_utils/local_notification_utils.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event.dart';
 import 'package:lucky_base/lucky_utils/lucky_event/lucky_event_code.dart';
+import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/network_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
@@ -48,7 +49,8 @@ class HomeController extends LuckyBaseController{
     super.onInit();
     VoicePlayUtils.instance.playBg();
     TTTTUtils.instance.pointEvent(customId: CustomId.home_page);
-    LuckyBase.instance.openAndroid();
+    // LuckyBase.instance.openAndroid();
+    LuckyDashPro_h.instance.openAndroid();
     LocationNotificationUtils.instance.init();
     FkUtils.instance.initFk();
     NetworkUtils.instance.initListener();

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
-import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
+import 'package:flutter_android_ad_plugins/flutter_android_ad_plugins.dart';
+import 'package:flutter_android_ad_plugins/hep/ad_type.dart';
 import 'package:flutter_app_lifecycle/app_state_observer.dart';
 import 'package:flutter_app_lifecycle/flutter_app_lifecycle.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
@@ -45,7 +45,7 @@ class AppLifecycleUtils{
       if(isToOpenNotification){
         LocationNotificationUtils.instance.init(showOpenNotificationDialog: false);
       }else{
-        if(_isBack&&!FlutterIosAdHep.instance.adShowing()){
+        if(_isBack&&!FlutterAndroidAdPlugins.instance.adShowing()){
           LuckyAdUtils.instance.showP2Ad(
             adType: AdType.interstitial,
             adPosId: AdPosId.skerk_launch,

@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:feng/feng.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
-import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
-import 'package:flutter_check_af/dio/dio_hep.dart';
+import 'package:flutter_android_ad_plugins/flutter_android_ad_plugins.dart';
+import 'package:flutter_android_ad_plugins/hep/ad_num_hep.dart';
+import 'package:flutter_check_adjust/dio/dio_hep.dart';
 import 'package:flutter_tba_info/flutter_tba_info.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/lucky_ad_utils.dart';
@@ -30,7 +30,7 @@ class FkUtils{
       return;
     }
     fkBean=getFkBean();
-    FlutterIosAdHep.instance.setEverydayWatchAdNum(fkBean?.behavior?.adDailyShow??60);
+    FlutterAndroidAdPlugins.instance.setEverydayWatchAdNum(fkBean?.behavior?.adDailyShow??60);
     _checkRoot();
     _checkVpn();
     _checkSim();

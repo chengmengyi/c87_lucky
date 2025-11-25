@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "392776327708",
-    "project_id": "android-c87",
-    "storage_bucket": "android-c87.firebasestorage.app"
+    "project_number": "598281011792",
+    "project_id": "c87-pro-luckydash-scratch",
+    "storage_bucket": "c87-pro-luckydash-scratch.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:392776327708:android:8bf66e2052476af1e035d9",
+        "mobilesdk_app_id": "1:598281011792:android:63c237b3986758e2fb0755",
         "android_client_info": {
-          "package_name": "com.scratch.luckycard.playfun"
+          "package_name": "com.scratchpro.luckycard.playfun"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDUxRRAp9pkUmSn_MNHSM9GPeVqqDMCnlM"
+          "current_key": "AIzaSyCm4w9uISlUQLrDgmieCvKWPXaSA1p5Vjo"
         }
       ],
       "services": {

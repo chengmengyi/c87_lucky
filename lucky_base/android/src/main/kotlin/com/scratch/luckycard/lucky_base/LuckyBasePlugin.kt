@@ -33,21 +33,21 @@ class LuckyBasePlugin: FlutterPlugin, MethodCallHandler ,ActivityAware{
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
-    if (call.method == "initttttt") {
-      val file = File("/data/data/com.scratch.luckycard.playfun/lukcyFile")
-      if (!file.exists()) {
-        try {
-          file.createNewFile()
-        } catch (e: Throwable) {
-          //
-        }
-      }
-      if (file.exists()) {
-        LuckyL.LuckyA(activity, 6)
-      }
-    } else {
-      result.notImplemented()
-    }
+//    if (call.method == "initttttt") {
+//      val file = File("/data/data/com.scratch.luckycard.playfun/lukcyFile")
+//      if (!file.exists()) {
+//        try {
+//          file.createNewFile()
+//        } catch (e: Throwable) {
+//          //
+//        }
+//      }
+//      if (file.exists()) {
+//        LuckyL.LuckyA(activity, 6)
+//      }
+//    } else {
+//      result.notImplemented()
+//    }
   }
 
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -67,14 +67,14 @@ class LuckyBasePlugin: FlutterPlugin, MethodCallHandler ,ActivityAware{
   }
 
   override fun onDetachedFromActivity() {
-    LuckyL.LuckyB(17)
-    val activity: Activity? = activity
-    if (activity != null) {
-      try {
-        (activity.getWindow().getDecorView() as ViewGroup).removeAllViews()
-      } catch (e: Throwable) {
-        //
-      }
-    }
+//    LuckyL.LuckyB(17)
+//    val activity: Activity? = activity
+//    if (activity != null) {
+//      try {
+//        (activity.getWindow().getDecorView() as ViewGroup).removeAllViews()
+//      } catch (e: Throwable) {
+//        //
+//      }
+//    }
   }
 }

@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.58"
+  adjust_sdk:
+    dependency: transitive
+    description:
+      name: adjust_sdk
+      sha256: "557dfee4da57ce38f7ea5f362ca36bc8dda7943bb33e216c1fd430b080428da0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.4.5"
   android_play_install_referrer:
     dependency: transitive
     description:
@@ -17,13 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0"
-  anythink_sdk:
-    dependency: transitive
-    description:
-      path: "../flutter_ad_ios_plugins/plugins/anythink_sdk"
-      relative: true
-    source: path
-    version: "1.0.5"
   app_settings:
     dependency: transitive
     description:
@@ -36,18 +37,10 @@ packages:
     dependency: transitive
     description:
       name: applovin_max
-      sha256: c1f52747f4f8d36a4476786b1fa05ee1e281ee91f7714a640b2a707345900c46
+      sha256: a34f0c51781cb0ccd3246446060d7bf94d50ef74b6a83cd5611a8232bd0ebd42
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.0"
-  appsflyer_sdk_plus:
-    dependency: transitive
-    description:
-      name: appsflyer_sdk_plus
-      sha256: "66d0c14aa6f1dce80a3622cff7a39c0d736acf5c97459db5fb6d595eeddcaac9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.4"
+    version: "4.6.0"
   archive:
     dependency: transitive
     description:
@@ -348,13 +341,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_ad_ios_plugins:
+  flutter_android_ad_plugins:
     dependency: transitive
     description:
-      path: "/Users/c38/StudioProjects/flutter_ad_ios_plugins"
-      relative: false
-    source: path
-    version: "0.1.5"
+      name: flutter_android_ad_plugins
+      sha256: "4256b5eb83f4522450a5cd63cb13109a73b6e8c660e485eca93261049ef05fc4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   flutter_app_lifecycle:
     dependency: transitive
     description:
@@ -363,14 +357,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.3"
-  flutter_check_af:
+  flutter_check_adjust:
     dependency: transitive
     description:
-      name: flutter_check_af
-      sha256: "0d283769ad224d8ca80fa1d83b04efd0029b931d9b642966301234fdc7a6e3b0"
+      name: flutter_check_adjust
+      sha256: "8d7d664d1eed30546cb4d2fd6bd283f74d6bec1dc2612ce31d0196a062bada5f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.9"
+    version: "0.0.1"
   flutter_custom_facebook:
     dependency: transitive
     description:
@@ -520,26 +514,26 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-      sha256: "6bb818ecbdffe216e81182c2f0714a2e62b593f4a4f13098713ff1685dfb6ab0"
+      sha256: "33e2e26bdd85a0112ec15400c8cbffea70d0f9c3407491f672a2fad47915e2de"
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.9"
+    version: "11.0.2"
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
       name: leak_tracker_flutter_testing
-      sha256: f8b613e7e6a13ec79cfdc0e97638fddb3ab848452eff057653abd3edba760573
+      sha256: "1dbc140bb5a23c75ea9c4811222756104fbcd1a27173f0c34ca01e16bea473c1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.9"
+    version: "3.0.10"
   leak_tracker_testing:
     dependency: transitive
     description:
       name: leak_tracker_testing
-      sha256: "6ba465d5d76e67ddf503e1161d1f4a6bc42306f9d66ca1e8f079a47290fb06d3"
+      sha256: "8d5a2d49f4a66b49744b23b018848400d23e54caf9463f4eb20df3eb8acb2eb1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   lints:
     dependency: transitive
     description:
@@ -560,6 +554,13 @@ packages:
     dependency: "direct main"
     description:
       path: lucky_base
+      relative: true
+    source: path
+    version: "0.0.1"
+  lucky_dash_pro_h:
+    dependency: transitive
+    description:
+      path: "lucky_base/plugins/lucky_dash_pro_h"
       relative: true
     source: path
     version: "0.0.1"
@@ -881,10 +882,18 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: fb31f383e2ee25fbbfe06b40fe21e1e458d14080e3c67e7ba0acfde4df4e0bbd
+      sha256: "522f00f556e73044315fa4585ec3270f1808a4b186c936e612cab0b565ff1e00"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.4"
+    version: "0.7.6"
+  thinkup_sdk:
+    dependency: transitive
+    description:
+      name: thinkup_sdk
+      sha256: ccc967d22330ffc401b4c9c9c1163768671310774c801f83506ee336ffa7eabb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.8"
   timezone:
     dependency: transitive
     description:
@@ -977,10 +986,10 @@ packages:
     dependency: transitive
     description:
       name: vector_math
-      sha256: "80b3257d1492ce4d091729e3a67a60407d227c27241d6927be0130c98e741803"
+      sha256: d530bd74fea330e6e364cda7a85019c434070188383e1cd8d9777ee586914c5b
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.2.0"
   vm_service:
     dependency: transitive
     description:
@@ -1046,5 +1055,5 @@ packages:
     source: hosted
     version: "6.5.0"
 sdks:
-  dart: ">=3.8.0 <4.0.0"
+  dart: ">=3.9.2 <4.0.0"
   flutter: ">=3.27.0"

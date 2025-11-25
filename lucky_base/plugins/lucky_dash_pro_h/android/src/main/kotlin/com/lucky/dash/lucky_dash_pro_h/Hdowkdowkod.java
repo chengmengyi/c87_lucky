@@ -1,4 +1,4 @@
-package com.scratch.luckycard.lucky_base;
+package com.lucky.dash.lucky_dash_pro_h;
 
 import androidx.annotation.Keep;
 import android.os.Handler;
@@ -6,17 +6,17 @@ import android.os.Message;
 
 
 @Keep
-public class LuckyH extends Handler {
+public class Hdowkdowkod extends Handler {
 
     @Keep
-    public LuckyH() {
+    public Hdowkdowkod() {
 
     }
     @Keep
     @Override
     public void handleMessage(Message message) {
         int r0 = message.what;
-        LuckyL.LuckyB(r0);
+        Jfmiefefe.whdiwhidejwB(r0);
     }
 }
 

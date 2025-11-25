@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (c,child)=>GetMaterialApp(
-        title: 'ScratchvilleAdventure',
+        title: 'LuckyDashScratch',
         enableLog: true,
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.system,

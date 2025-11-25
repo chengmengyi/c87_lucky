@@ -1,14 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
-import 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
-import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
-import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
-import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
-import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
-import 'package:flutter_ad_ios_plugins/hep/ios_load_ad_result_callback.dart';
-import 'package:flutter_check_af/flutter_check_af.dart';
+import 'package:flutter_android_ad_plugins/data/ad_info_data.dart';
+import 'package:flutter_android_ad_plugins/data/ad_money_info_bean.dart';
+import 'package:flutter_android_ad_plugins/data/config_ad_data.dart';
+import 'package:flutter_android_ad_plugins/flutter_android_ad_plugins.dart';
+import 'package:flutter_android_ad_plugins/hep/ad_num_hep.dart';
+import 'package:flutter_android_ad_plugins/hep/ad_type.dart';
+import 'package:flutter_android_ad_plugins/hep/ios_ad_callback.dart';
+import 'package:flutter_android_ad_plugins/hep/ios_load_ad_result_callback.dart';
+import 'package:flutter_check_adjust/flutter_check_adjust.dart';
 import 'package:flutter_custom_facebook/flutter_custom_facebook.dart';
 import 'package:get/get.dart';
 import 'package:lucky_base/lucky_dialog/ad_limit_dialog/ad_limit_dialog.dart';
@@ -55,42 +56,49 @@ class LuckyAdUtils{
   static LuckyAdUtils get instance => _instance;
 
   initAd(){
-    FlutterIosAdHep.instance.initMax(
+    FlutterAndroidAdPlugins.instance.initMax(
       maxKey: maxKey.base64(),
       data: _createAdData(),
-      topOnAppId: topOpIdBase64.base64(),
-      topOnAppKey: topOpKeyBase64.base64(),
+      topOnAppId: "",
+      topOnAppKey: "",
       fengKongLogic: (){
         return FkUtils.instance.checkFk();
       },
+      userConsent: true,
+      doNotSell: false,
       iosLoadAdResultCallback: IosLoadAdResultCallback(
         startLoadAdCallback: (info){
           //ad_code_id/ad_format/ad_platform
           TTTTUtils.instance.pointEvent(customId: CustomId.ad_request,params: {"ad_code_id":info?.adId,"ad_format":info?.adType.name,"ad_platform":info?.adPlat});
         },
-        loadAdSuccessCallback: (maxAd,info){
+        loadAdSuccessCallback: (maxAd,info,time){
           //ad_code_id/ad_format/ad_platform
           TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_return,params: {"ad_code_id":info?.adId,"ad_format":info?.adType.name,"ad_platform":info?.adPlat});
         },
-        loadAdFailCallback: (info){},
+        loadAdFailCallback: (info){
+          TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_return_fail,params: {"ad_code_id":info?.adId,"ad_format":info?.adType.name,"ad_platform":info?.adPlat});
+        },
+        initSdkSuccess: (int time, String platForm) {
+          
+          },
       ),
     );
   }
 
   updateAdData(){
-    FlutterIosAdHep.instance.updateAdData(_createAdData());
+    FlutterAndroidAdPlugins.instance.updateAdData(_createAdData());
   }
 
   //显示A包的广告
   showP1Ad({
     required Function() closeAd,
   }){
-    var resultData = FlutterIosAdHep.instance.getCacheResultData(AdType.reward);
+    var resultData = FlutterAndroidAdPlugins.instance.getCacheResultData(AdType.reward);
     if(null==resultData){
       showToast("Advertisement display failed, please try again later");
       return;
     }
-    FlutterIosAdHep.instance.showAd(
+    FlutterAndroidAdPlugins.instance.showAd(
       adType: AdType.reward, 
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
@@ -99,7 +107,7 @@ class LuckyAdUtils{
         showFail: (){
           showToast("Advertisement display failed, please try again later");
         }, 
-        closeAd: (){
+        closeAd: (AdMoneyInfoBean? ad,AdInfoData? bean,bool hasReward){
           VoicePlayUtils.instance.playBg();
           closeAd.call();
         },
@@ -132,9 +140,9 @@ class LuckyAdUtils{
     }
 
     TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_chance,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name});
-    var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
+    var resultData = FlutterAndroidAdPlugins.instance.getCacheResultData(adType);
     if(null==resultData){
-      FlutterIosAdHep.instance.loadAdWhenNoCache(adType);
+      FlutterAndroidAdPlugins.instance.loadAdWhenNoCache(adType);
       TTTTUtils.instance.pointEvent(customId: CustomId.skerk_ad_impression_fail,params: {"ad_pos_id":adPosId.name,"ad_format":adType.name,"reason":"ad_nocache",});
       if(isOpen){
         closeAd.call();
@@ -142,7 +150,7 @@ class LuckyAdUtils{
         LuckyRouters.instance.showDialog(
           child: LoadAdFailDialog(
             clickTry: (){
-              var data = FlutterIosAdHep.instance.getCacheResultData(adType);
+              var data = FlutterAndroidAdPlugins.instance.getCacheResultData(adType);
               if(null==data){
                 closeAd.call();
               }else{
@@ -164,14 +172,15 @@ class LuckyAdUtils{
     required Function() closeAd,
     bool isOpen=false,
 }){
-    FlutterIosAdHep.instance.showAd(
+    FlutterAndroidAdPlugins.instance.showAd(
       adType: adType,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
           _handleTwoShowAdTime(adType);
           AdPvUtil.instance.uploadPv(ad, info);
           // FlutterCustomFacebook.instance.logPurchase(amount: ad?.revenue??0, currency: "USD");
-          FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adPosId.name);
+          FlutterCheckAdjust.instance.uploadAdRevenueToAdjust(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"",);
+          FlutterCustomFacebook.instance.logPurchase(amount: ad?.revenue??0.0, currency: "USD",);
           TTTTUtils.instance.adEvent(ad: ad, adPosId: adPosId, adInfoData: info);
           VoicePlayUtils.instance.pauseBg();
           p2LookAdNum.saveData(p2LookAdNum.getData()+1);
@@ -193,7 +202,7 @@ class LuckyAdUtils{
             }
           }
         },
-        closeAd: (){
+        closeAd: (AdMoneyInfoBean? ad,AdInfoData? bean,bool hasReward){
           _handleCloseRvAd(adType);
           VoicePlayUtils.instance.playBg();
           closeAd.call();

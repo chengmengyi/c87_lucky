@@ -1,13 +1,14 @@
 import 'dart:io';
-import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
-import 'package:flutter_check_af/flutter_check_af.dart';
-import 'package:flutter_check_af/request_af/request_af_callback.dart';
-import 'package:flutter_check_af/request_cloak/request_cloak_callback.dart';
+import 'package:flutter_android_ad_plugins/hep/ad_num_hep.dart';
+import 'package:flutter_check_adjust/flutter_check_adjust.dart';
+import 'package:flutter_check_adjust/request_adjust/request_adjust_callback.dart';
+import 'package:flutter_check_adjust/request_cloak/request_cloak_callback.dart';
 import 'package:flutter_tba_info/flutter_tba_info.dart';
 import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
 import 'package:lucky_base/lucky_utils/firebase_utils.dart';
 import 'package:lucky_base/lucky_utils/local_config.dart';
+import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_base/lucky_utils/tttt/tttt_utils.dart';
 
 StorageData<bool> p1HomeShowing=StorageData<bool>(key: "p1HomeShowing", defaultValue: false);
@@ -35,28 +36,22 @@ class CheckAfUtils{
       floc: await FlutterTbaInfo.instance.getIdfa(),
       krueger: await FlutterTbaInfo.instance.getOperator(),
     );
-    FlutterCheckAf.instance.init(
-      afKey: afKey,
-      afAppId: afAppId,
-      afSwitch: FirebaseUtils.instance.afSwitch,
+    FlutterCheckAdjust.instance.init(
+      adjustAppToken: adjustKeyBase64.base64(),
+      referrerConfList: ["fb4a","gclid","not%20set","youtubeads","%7B%22","bytedance","adjust"],
       distinctId: distinctId,
       clockUrl: cloakUrl,
       cloakWhiteKey: "bedevil",
       cloakData: cloakData.toJson(),
-      requestAfCallback: RequestAfCallback(
-        startRequestAf: (){
+      requestAdjustCallback: RequestAdjustCallback(
+        startRequestAdjust: (){
           TTTTUtils.instance.pointEvent(customId: CustomId.af_req);
         },
         requestSuccess: (bool isB){
-          //adj_user:[0] [1]   【0】为A包用户、【1】为B包用户
           TTTTUtils.instance.pointEvent(customId: CustomId.af_suc,params: {"adj_user":isB?1:0});
-          _checkUserDelay();
         },
-        firstRequestAfB: (){
-          TTTTUtils.instance.pointEvent(customId: CustomId.organic_to_buy);
+        firstRequestAdjustB: (){
         },
-        startAfSuccess: (){},
-        startAfFail: (int code,String msg){},
       ),
       requestCloakCallback: RequestCloakCallback(
         startRequestCloak: (){
@@ -66,18 +61,18 @@ class CheckAfUtils{
           this.isWhite=isWhite;
           //cloak_user：【0】【1】，对应【黑名单用户】【自然量用户】
           TTTTUtils.instance.pointEvent(customId: CustomId.cloak_suc,params: {"cloak_user":isWhite?1:0});
-          _checkUserDelay();
+          // _checkUserDelay();
         },
       ),
     );
   }
 
-  _checkUserDelay(){
-    if(p1HomeShowing.getData()&&FlutterCheckAf.instance.checkUser()){
-      p1HomeShowing.saveData(false);
-      LuckyRouters.instance.openNextOffCurrentPage(routersName: "/luckyP2/home");
-    }
-  }
+  // _checkUserDelay(){
+  //   if(p1HomeShowing.getData()&&FlutterCheckAf.instance.checkUser()){
+  //     p1HomeShowing.saveData(false);
+  //     LuckyRouters.instance.openNextOffCurrentPage(routersName: "/luckyP2/home");
+  //   }
+  // }
 }
 
 class CloakBean{

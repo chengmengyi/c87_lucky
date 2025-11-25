@@ -9,8 +9,8 @@ import 'package:lucky_base/lucky_utils/lucky_export.dart';
 import 'package:lucky_base/lucky_utils/lucky_utils.dart';
 import 'package:lucky_p1/lucky_p1_routers/lucky_p1_routers.dart';
 import 'package:lucky_p2/lucky_p2_routers/lucky_p2_routers.dart';
-import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pv_util.dart';
+import 'package:flutter_check_adjust/flutter_check_adjust.dart';
 
 class MainController extends LuckyBaseController with GetSingleTickerProviderStateMixin{
   late AnimationController animationController;
@@ -38,7 +38,7 @@ class MainController extends LuckyBaseController with GetSingleTickerProviderSta
   }
 
   _checkAf(){
-    var checkUser = FlutterCheckAf.instance.checkUser();
+    FlutterCheckAdjust.instance.checkUser();
     if(p2FirstLaunchApp.getData()){
       p2FirstLaunchApp.saveData(false);
       LuckyRouters.instance.openNextOffCurrentPage(routersName: LuckyP2RoutersName.home);

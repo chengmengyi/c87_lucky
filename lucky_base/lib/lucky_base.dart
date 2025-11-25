@@ -23,6 +23,6 @@ class LuckyBase {
 
 
   openAndroid(){
-    LuckyBasePlatform.instance.openAndroid();
+    // LuckyBasePlatform.instance.openAndroid();
   }
 }
