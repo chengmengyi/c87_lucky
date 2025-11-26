@@ -38,7 +38,7 @@ class CashUtils extends LuckyBaseSql{
     var bean = CashTaskBean(payTypeIndex: payTypeIndex,payMoney: payMoney,taskType: TaskType.task1Card,currentPro: 0,totalPro: 10,task3Index: 0,cashStatus: CashStatus.cashing);
     await sql.insert(LuckySqlName.p2CashTask, bean.toJson());
     await insertAccount(payTypeIndex, account);
-    LuckyEvent(luckyCode: P2LuckyEventCode.updateCashList);
+    // LuckyEvent(luckyCode: P2LuckyEventCode.updateCashList);
     return bean;
   }
 

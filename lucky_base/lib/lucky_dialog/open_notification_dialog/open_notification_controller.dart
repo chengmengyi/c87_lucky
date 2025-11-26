@@ -10,6 +10,7 @@ class OpenNotificationController extends LuckyBaseController{
   }
 
   clickOpen(){
+    LuckyRouters.instance.back();
     AppLifecycleUtils.instance.isToOpenNotification=true;
     AppSettings.openAppSettings(type: AppSettingsType.notification);
   }

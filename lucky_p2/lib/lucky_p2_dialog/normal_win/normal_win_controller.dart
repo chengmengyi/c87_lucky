@@ -10,6 +10,7 @@ import 'package:lucky_p2/lucky_p2_util/value_utils.dart';
 
 class NormalWinController extends LuckyBaseController{
   PlayType playType=PlayType.card1;
+  NormalWinController(this.playType);
 
   @override
   void onInit() {

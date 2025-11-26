@@ -129,7 +129,9 @@ class HomeController extends LuckyBaseController{
     // TTTTUtils.instance.install();
 
     // LuckyRouters.instance.showDialog(child: BoxDialog());
-    UserInfoUtils.instance.updateKeyNum(1);
+    // UserInfoUtils.instance.updateKeyNum(1);
+
+    FirebaseUtils.instance.test();
   }
   @override
   void onClose() {

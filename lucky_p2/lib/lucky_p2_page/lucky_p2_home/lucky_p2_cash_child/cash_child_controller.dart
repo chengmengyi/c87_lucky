@@ -108,6 +108,7 @@ class CashChildController extends LuckyBaseController{
   String getPayType()=>chooseCashType.icon;
 
   _initCashList()async{
+
     cashList.clear();
     for(var value in ValueUtils.instance.getCashList()){
       var taskBean = await CashUtils.instance.queryCashTaskInfoByPayTypeAndPayMoney(chooseCashType.cashType, value);

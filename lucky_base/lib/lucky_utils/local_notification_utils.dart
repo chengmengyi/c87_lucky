@@ -37,6 +37,7 @@ class LocationNotificationUtils{
   init({bool showOpenNotificationDialog=true})async{
     var status = await Permission.notification.request();
     if(status.isGranted){
+      TTTTUtils.instance.pointEvent(customId: CustomId.push_status);
       var success = await plugin.initialize(
         AndroidInitializationSettings("logo"),
         onDidReceiveNotificationResponse: (NotificationResponse response) {

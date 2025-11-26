@@ -25,6 +25,9 @@ String getTodayTime(){
 }
 
 double getPro(currentPro,totalPro){
+  if(totalPro<=0){
+    return 0.0;
+  }
   try{
     var d = currentPro/totalPro;
     if(d>=1.0){

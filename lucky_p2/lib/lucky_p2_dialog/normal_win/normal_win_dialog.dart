@@ -25,12 +25,7 @@ class NormalWinDialog extends LuckyBaseDialog<NormalWinController>{
 });
 
   @override
-  NormalWinController initController() => NormalWinController();
-
-  @override
-  initView() {
-    luckyController.playType=playType;
-  }
+  NormalWinController initController() => NormalWinController(playType);
 
   @override
   Widget child() => Column(

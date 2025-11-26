@@ -85,6 +85,11 @@ class FirebaseUtils{
     }
     _initFacebook();
   }
+
+  test(){
+    var valueStr = _remoteConfig?.getString("playcard_number")??"";
+    print("kkk====$valueStr");
+  }
   
   _initFacebook(){
     var conf = facebookAppkeyBase64.base64();
