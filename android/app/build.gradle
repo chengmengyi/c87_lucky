@@ -61,10 +61,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'lucky'
-            keyPassword 'lucky123'
-            storeFile file('key/lucky.jks')
-            storePassword 'lucky123'
+            keyAlias 'luckyPro'
+            keyPassword 'pro123'
+            storeFile file('key/luckyPro.jks')
+            storePassword 'pro123'
             v1SigningEnabled true
             v2SigningEnabled true
         }

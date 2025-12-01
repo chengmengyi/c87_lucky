@@ -18,6 +18,7 @@ import 'package:lucky_base/lucky_routers/lucky_routers.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pos_id.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/ad_pv_util.dart';
 import 'package:lucky_base/lucky_utils/ad_utils/custom_id.dart';
+import 'package:lucky_base/lucky_utils/check_af_utils.dart';
 import 'package:lucky_base/lucky_utils/firebase_utils.dart';
 import 'package:lucky_base/lucky_utils/fk/fk_utils.dart';
 import 'package:lucky_base/lucky_utils/language/local_text.dart';
@@ -93,6 +94,10 @@ class LuckyAdUtils{
   showP1Ad({
     required Function() closeAd,
   }){
+    if(!CheckAfUtils.instance.isWhite){
+      closeAd.call();
+      return;
+    }
     var resultData = FlutterAndroidAdPlugins.instance.getCacheResultData(AdType.reward);
     if(null==resultData){
       showToast("Advertisement display failed, please try again later");
@@ -126,6 +131,10 @@ class LuckyAdUtils{
     required Function() closeAd,
     bool isOpen=false,
   }){
+    if(!CheckAfUtils.instance.isWhite){
+      closeAd.call();
+      return;
+    }
     if(!showAd){
       closeAd.call();
       return;
